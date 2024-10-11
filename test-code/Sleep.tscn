@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmlqfpw0lx7yp"]
+
+[ext_resource type="Script" path="res://sleep.gd" id="1_kf6xu"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kf6xu")
+
+[node name="BG" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.282293, 0.161158, 0.445664, 1)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 521.0
+offset_top = 121.0
+offset_right = 888.0
+offset_bottom = 221.0
+
+[node name="Label" type="Label" parent="PanelContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Sleepy Time"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 613.0
+offset_top = 383.0
+offset_right = 806.0
+offset_bottom = 437.0
+text = "back to dusk
+"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
