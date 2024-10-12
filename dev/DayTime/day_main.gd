@@ -7,6 +7,7 @@ const customer_class = preload("res://dev/DayTime/customer.gd")
 @onready var item1_button = $GameUI/HBoxContainer/Item1
 @onready var item2_button = $GameUI/HBoxContainer/Item2
 @onready var server_button = $GameUI/HBoxContainer/Server
+@onready var advertisement_button = $GameUI/HBoxContainer/Advertisement
 @onready var money_display = $GameUI/Money
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX
@@ -14,20 +15,29 @@ const customer_class = preload("res://dev/DayTime/customer.gd")
 @onready var item1_label = $GameWorld/Item1Label
 @onready var item2_label = $GameWorld/Item2Label
 @onready var customer_label = $GameWorld/CustomerLabel
+@onready var hire_button = $GameWorld/Hire
+@onready var auto_serve_display = $GameWorld/AutoServeDisplay
+@onready var auto_serve_progress_bar = $GameWorld/AutoServeDisplay/AutoServe
 
 var item1_upgrade
 var item2_upgrade
 var server_upgrade
+var advertisement_upgrade
 
 var money: int = 100
 var item1: int = 0
 var item2: int = 0
+
+var server: bool = false
 
 var state: String = "None"
 var progress: float = 0.0
 var customers: Array = []
 
 var timer: float = 0.0
+
+var auto_serve_progress: float = 0.0
+var server_payment_progress: float = 0.0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -37,16 +47,37 @@ func _ready() -> void:
 	item2_upgrade = _create_purchaseable("Item2")
 	item2_button.set_purchaseable(item2_upgrade)
 	item2_button.purchaseable_pressed.connect(attempt_purchase)
-	server_upgrade = _create_purchaseable("Server")
+	server_upgrade = _create_purchaseable("Serving")
 	server_button.set_purchaseable(server_upgrade)
 	server_button.purchaseable_pressed.connect(attempt_purchase)
+	advertisement_upgrade = _create_purchaseable("Post Ad")
+	advertisement_button.set_purchaseable(advertisement_upgrade)
+	advertisement_button.purchaseable_pressed.connect(attempt_purchase)
 	update_money_display()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	timer -= delta
+	if server:
+		if _customer_servable():
+			auto_serve_progress += delta
+			var duration = 10.0 / (5.0 + server_upgrade.count)
+			if auto_serve_progress >= duration:
+				auto_serve_progress = 0.0
+				_serve_customer()
+			auto_serve_progress_bar.value = auto_serve_progress / duration
+		else:
+			auto_serve_progress = 0.0
+			auto_serve_progress_bar.value = 0.0
+		server_payment_progress += delta
+		if server_payment_progress >= 1.0:
+			server_payment_progress -= 1.0
+			if money >= 1:
+				spend_money(1)
+			else:
+				_server_quit()
 	if timer <= 0.0:
-		timer += 5.0
+		timer += 5.0 / (1.0 + 0.1 * advertisement_upgrade.count)
 		customers.append(customer_class.new())
 	if state != "None":
 		var duration = 1.0
@@ -60,18 +91,7 @@ func _process(delta: float) -> void:
 				"Item2":
 					item2 += item2_upgrade.count
 				"Serving":
-					for i in range(len(customers[0].order)):
-						match customers[0].order[i]:
-							"Item1":
-								if item1 > 0:
-									item1 -= 1
-									customers[0].order.remove_at(i)
-									break
-							"Item2":
-								if item2 > 0:
-									item2 -= 1
-									customers[0].order.remove_at(i)
-									break
+					_serve_customer()
 			_clear_state()	
 		progress_bar.value = progress / duration
 	for i in range(len(customers)):
@@ -144,9 +164,23 @@ func _make_item2() -> void:
 	if state == "None":
 		state = "Item2"
 
-func _serve_customer() -> void:
+func _start_serving_customer() -> void:
 	if state == "None" and _customer_servable():
 		state = "Serving"
+
+func _serve_customer() -> void:
+	for i in range(len(customers[0].order)):
+		match customers[0].order[i]:
+			"Item1":
+				if item1 > 0:
+					item1 -= 1
+					customers[0].order.remove_at(i)
+					break
+			"Item2":
+				if item2 > 0:
+					item2 -= 1
+					customers[0].order.remove_at(i)
+					break
 
 func _customer_servable() -> bool:
 	if len(customers) > 0:
@@ -160,3 +194,15 @@ func _customer_servable() -> bool:
 						if item2 > 0:
 							return true
 	return false
+
+func _server_quit() -> void:
+	server = false
+	hire_button.visible = true
+	auto_serve_display.visible = false
+
+func _hire_server() -> void:
+	if money > 50:
+		spend_money(50)
+		server = true
+		hire_button.visible = false
+		auto_serve_display.visible = true
