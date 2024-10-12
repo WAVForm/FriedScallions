@@ -104,7 +104,6 @@ func _process(delta: float) -> void:
 		queue_redraw()
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
-			earn_money(10 + int(floor(customers[0].patience / 10.0)))
 			customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
@@ -175,11 +174,13 @@ func _serve_customer() -> void:
 				if item1 > 0:
 					item1 -= 1
 					customers[0].order.remove_at(i)
+					earn_money(5 + int(floor(customers[0].patience / 10.0)))
 					break
 			"Item2":
 				if item2 > 0:
 					item2 -= 1
 					customers[0].order.remove_at(i)
+					earn_money(5 + int(floor(customers[0].patience / 10.0)))
 					break
 
 func _customer_servable() -> bool:

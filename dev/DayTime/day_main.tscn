@@ -86,6 +86,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Label3" type="Label" parent="GameWorld/AutoServeDisplay"]
+layout_mode = 0
 offset_left = 711.0
 offset_top = 290.0
 offset_right = 795.0
@@ -93,6 +94,7 @@ offset_bottom = 313.0
 text = "AutoServe:"
 
 [node name="AutoServe" type="ProgressBar" parent="GameWorld/AutoServeDisplay"]
+layout_mode = 0
 offset_left = 709.0
 offset_top = 319.0
 offset_right = 946.0
