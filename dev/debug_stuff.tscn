@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://ned2bem2t45x"]
+
+[ext_resource type="Script" path="res://dev/debug_stuff.gd" id="1_yssbq"]
+
+[node name="DebugStuff" type="Node2D"]
+script = ExtResource("1_yssbq")
+
+[node name="DayTime" type="Button" parent="."]
+offset_left = 210.0
+offset_top = 240.0
+offset_right = 421.0
+offset_bottom = 347.0
+text = "Day Time"
+
+[node name="NightTime" type="Button" parent="."]
+offset_left = 649.0
+offset_top = 227.0
+offset_right = 860.0
+offset_bottom = 334.0
+text = "Night Time"
+
+[connection signal="pressed" from="DayTime" to="." method="_on_day_time_pressed"]
+[connection signal="pressed" from="NightTime" to="." method="_on_night_time_pressed"]

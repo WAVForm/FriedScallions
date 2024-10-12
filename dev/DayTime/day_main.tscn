@@ -103,6 +103,27 @@ max_value = 1.0
 step = 0.0
 show_percentage = false
 
+[node name="Label3" type="Label" parent="GameWorld"]
+offset_left = 743.0
+offset_top = 570.0
+offset_right = 815.0
+offset_bottom = 593.0
+text = "Day Progress:"
+
+[node name="ProgressBar2" type="ProgressBar" parent="GameWorld"]
+offset_left = 738.0
+offset_top = 600.0
+offset_right = 1109.0
+offset_bottom = 630.0
+step = 0.0
+
+[node name="Button4" type="Button" parent="GameWorld"]
+offset_left = 15.0
+offset_top = 601.0
+offset_right = 113.0
+offset_bottom = 639.0
+text = "quit"
+
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 
@@ -141,3 +162,4 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameWorld/Button2" to="." method="_make_item2"]
 [connection signal="pressed" from="GameWorld/Button3" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameWorld/Hire" to="." method="_hire_server"]
+[connection signal="pressed" from="GameWorld/Button4" to="." method="_on_quit_pressed"]

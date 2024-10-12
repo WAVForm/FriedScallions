@@ -18,6 +18,7 @@ const customer_class = preload("res://dev/DayTime/customer.gd")
 @onready var hire_button = $GameWorld/Hire
 @onready var auto_serve_display = $GameWorld/AutoServeDisplay
 @onready var auto_serve_progress_bar = $GameWorld/AutoServeDisplay/AutoServe
+@onready var day_cycle_progress_bar = $GameWorld/ProgressBar2
 
 var item1_upgrade
 var item2_upgrade
@@ -34,30 +35,40 @@ var state: String = "None"
 var progress: float = 0.0
 var customers: Array = []
 
-var timer: float = 0.0
+var customer_timer: float = 5.0
 
 var auto_serve_progress: float = 0.0
 var server_payment_progress: float = 0.0
 
+var day_cycle_progress: float = 0.0
+var day_cycle_length: int = 60
+
+signal day_exit()
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	item1_upgrade = _create_purchaseable("Item1")
+	item1_upgrade = _create_purchaseable("Item1", 25, 25)
 	item1_button.set_purchaseable(item1_upgrade)
 	item1_button.purchaseable_pressed.connect(attempt_purchase)
-	item2_upgrade = _create_purchaseable("Item2")
+	item2_upgrade = _create_purchaseable("Item2", 25, 25)
 	item2_button.set_purchaseable(item2_upgrade)
 	item2_button.purchaseable_pressed.connect(attempt_purchase)
-	server_upgrade = _create_purchaseable("Serving")
+	server_upgrade = _create_purchaseable("Serving", 0, 20)
 	server_button.set_purchaseable(server_upgrade)
 	server_button.purchaseable_pressed.connect(attempt_purchase)
-	advertisement_upgrade = _create_purchaseable("Post Ad")
+	advertisement_upgrade = _create_purchaseable("Post Ad", 10)
 	advertisement_button.set_purchaseable(advertisement_upgrade)
 	advertisement_button.purchaseable_pressed.connect(attempt_purchase)
 	update_money_display()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	timer -= delta
+	day_cycle_progress += delta
+	day_cycle_progress_bar.value = day_cycle_progress
+	day_cycle_progress_bar.max_value = day_cycle_length
+	if day_cycle_progress > day_cycle_length:
+		day_exit.emit()
+	customer_timer -= delta
 	if server:
 		if _customer_servable():
 			auto_serve_progress += delta
@@ -76,8 +87,8 @@ func _process(delta: float) -> void:
 				spend_money(1)
 			else:
 				_server_quit()
-	if timer <= 0.0:
-		timer += 5.0 / (1.0 + 0.1 * advertisement_upgrade.count)
+	if customer_timer <= 0.0:
+		customer_timer += 5.0 / (1.0 + 0.1 * advertisement_upgrade.count)
 		customers.append(customer_class.new())
 	if state != "None":
 		var duration = 1.0
@@ -148,9 +159,8 @@ func spend_money(amount):
 func attempt_purchase(purchaseable):
 	purchaseable.attempt_purchase(money)
 
-func _create_purchaseable(purchaseable_name: String = "") -> purchaseable_class:
-	var new_purchaseable = purchaseable_class.new()
-	new_purchaseable.name = purchaseable_name
+func _create_purchaseable(purchaseable_name: String = "", initial_cost: int = 0, cost_per_count: int = 10) -> purchaseable_class:
+	var new_purchaseable = purchaseable_class.new(purchaseable_name, initial_cost, cost_per_count)
 	new_purchaseable.spent.connect(spend_money)
 	return new_purchaseable
 
@@ -207,3 +217,7 @@ func _hire_server() -> void:
 		server = true
 		hire_button.visible = false
 		auto_serve_display.visible = true
+
+
+func _on_quit_pressed() -> void:
+	day_exit.emit()
