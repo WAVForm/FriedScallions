@@ -1,3 +1,79 @@
-[gd_scene format=3 uid="uid://gygjlrnpohqq"]
+[gd_scene load_steps=7 format=3 uid="uid://bd17t2pusywu3"]
 
-[node name="NightMenu" type="Node2D"]
+[ext_resource type="Script" path="res://dev/NightTime/night_menu.gd" id="1_5fwbm"]
+[ext_resource type="Texture2D" uid="uid://c42ktbalhuaqj" path="res://dev/img/Rounded Rectangle.png" id="2_7a8yo"]
+[ext_resource type="Script" path="res://dev/NightTime/menu_button.gd" id="3_h0smc"]
+[ext_resource type="Script" path="res://dev/NightTime/button.gd" id="4_bpuub"]
+
+[sub_resource type="Theme" id="Theme_7mlmx"]
+
+[sub_resource type="Theme" id="Theme_pmqne"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.000505622
+theme = SubResource("Theme_7mlmx")
+script = ExtResource("1_5fwbm")
+
+[node name="MenuButton" type="MenuButton" parent="."]
+layout_mode = 0
+offset_left = 702.915
+offset_top = 168.355
+offset_right = 976.915
+offset_bottom = 406.355
+icon = ExtResource("2_7a8yo")
+script = ExtResource("3_h0smc")
+
+[node name="Label" type="Label" parent="MenuButton"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.023
+offset_left = 76.0
+offset_top = 88.0
+offset_right = 111.698
+offset_bottom = 111.0
+scale = Vector2(3, 3)
+text = "SKIP"
+horizontal_alignment = 1
+
+[node name="MenuButton2" type="MenuButton" parent="."]
+layout_mode = 0
+offset_left = 177.915
+offset_top = 168.09
+offset_right = 451.915
+offset_bottom = 406.09
+icon = ExtResource("2_7a8yo")
+
+[node name="Label" type="Label" parent="MenuButton2"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.023
+offset_left = 22.0
+offset_top = 74.0
+offset_right = 132.698
+offset_bottom = 123.0
+scale = Vector2(2, 2)
+text = "NIGHTTIME
+ACTIVITIES"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 426.945
+offset_top = 109.216
+offset_right = 537.945
+offset_bottom = 179.216
+scale = Vector2(5.37, 5.37)
+theme = SubResource("Theme_pmqne")
+toggle_mode = true
+action_mode = 0
+script = ExtResource("4_bpuub")
