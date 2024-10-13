@@ -1,0 +1,113 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmu4hkq5uw8eo"]
+
+[ext_resource type="Script" path="res://dev/NightTime/action_node.gd" id="1_762hj"]
+[ext_resource type="Script" path="res://dev/NightTime/action_button.gd" id="2_uvyrk"]
+
+[node name="Panel" type="Panel"]
+offset_right = 320.0
+offset_bottom = 192.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+script = ExtResource("1_762hj")
+
+[node name="action_title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 8.0
+offset_right = -9.0
+offset_bottom = 32.0
+grow_horizontal = 2
+text = "Action Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="action_description" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.182
+anchor_right = 1.0
+anchor_bottom = 0.665
+offset_left = 0.0079999
+offset_top = -0.0320015
+offset_right = -8.0
+offset_bottom = -0.0400009
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 12
+text = "Here would be some description of what the action is: what would be done, how, what would be rewarded, and risks"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="chance_background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027
+anchor_top = 0.708
+anchor_right = 0.175
+anchor_bottom = 0.958
+offset_left = -0.64
+offset_top = 0.0639954
+offset_bottom = 0.0639954
+color = Color(1, 0, 0, 1)
+
+[node name="chance_percentage" type="Label" parent="chance_background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.167
+anchor_top = 0.5
+anchor_right = 0.833
+anchor_bottom = 1.0
+offset_left = -0.0160007
+offset_right = 1.016
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "25%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="chance_reward_icon" type="TextureRect" parent="chance_background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0623333
+anchor_top = 0.0625
+anchor_right = 0.4375
+anchor_bottom = 0.4375
+offset_left = 0.00799942
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="chance_risk_icon" type="TextureRect" parent="chance_background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5765
+anchor_top = 0.0625
+anchor_right = 0.9375
+anchor_bottom = 0.4375
+offset_left = -0.672
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="action_button" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.225
+anchor_top = 0.708
+anchor_right = 0.975
+anchor_bottom = 0.958
+offset_top = 0.0639954
+offset_bottom = 0.0639954
+tooltip_text = "Confirm?"
+ignore_texture_size = true
+stretch_mode = 0
+script = ExtResource("2_uvyrk")
+
+[node name="Label" type="Label" parent="action_button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+text = "Confirm"
+horizontal_alignment = 1
+vertical_alignment = 1
