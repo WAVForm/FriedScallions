@@ -20,20 +20,6 @@ func _ready():
 	var rand_index = randi() % premade_actions.size()
 	action = premade_actions[rand_index]
 	set_nodes()
-	
-#testing
-var time = 0
-var i = 0.01
-var testing_flag = true
-func _process(_delta):
-	if(testing_flag):
-		if time >= 250:
-			if action.chance >= 1.0 or action.chance <= 0.0:
-				i *= -1
-			action.chance += i
-			set_nodes()
-			time = 0
-		time += 1
 
 func set_nodes():
 	title_node.text = action.title

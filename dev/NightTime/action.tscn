@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmu4hkq5uw8eo"]
 
 [ext_resource type="Script" path="res://dev/NightTime/action_node.gd" id="1_762hj"]
-[ext_resource type="Script" path="res://dev/NightTime/action_button.gd" id="2_uvyrk"]
+[ext_resource type="Script" path="res://confirm_button.gd" id="2_1t1ih"]
 
 [node name="Panel" type="Panel"]
 offset_right = 320.0
@@ -89,7 +89,7 @@ offset_left = -0.672
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="action_button" type="TextureButton" parent="."]
+[node name="confirm_button" type="TextureButton" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.225
@@ -101,13 +101,25 @@ offset_bottom = 0.0639954
 tooltip_text = "Confirm?"
 ignore_texture_size = true
 stretch_mode = 0
-script = ExtResource("2_uvyrk")
+script = ExtResource("2_1t1ih")
 
-[node name="Label" type="Label" parent="action_button"]
+[node name="Label" type="Label" parent="confirm_button"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Confirm"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="confirm_progress" type="ProgressBar" parent="confirm_button"]
+modulate = Color(0.835368, 0, 0.20152, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 1
+value = 50.0
+show_percentage = false
