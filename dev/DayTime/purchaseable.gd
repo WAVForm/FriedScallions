@@ -1,12 +1,13 @@
+class_name Purchaseable
 var name: String
 
 var count: int = 1
-var price: int = 10
-
-signal spent(amount: int)
+var price: int
 
 var base_cost: int
 var mult_cost: int
+
+signal spent(amount: int)
 
 func _init(purchaseable_name: String, initial_cost: int = 0, cost_per_count: int = 10) -> void:
 	name = purchaseable_name

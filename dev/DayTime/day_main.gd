@@ -1,8 +1,5 @@
 extends Node2D
 
-const purchaseable_class = preload("res://dev/DayTime/purchaseable.gd")
-const customer_class = preload("res://dev/DayTime/customer.gd")
-
 # TODO FIX THIS CLEAN IT UP
 @onready var item1_button = $GameUI/HBoxContainer/Item1
 @onready var item2_button = $GameUI/HBoxContainer/Item2
@@ -89,7 +86,7 @@ func _process(delta: float) -> void:
 				_server_quit()
 	if customer_timer <= 0.0:
 		customer_timer += 5.0 / (1.0 + 0.1 * advertisement_upgrade.count)
-		customers.append(customer_class.new())
+		customers.append(Customer.new())
 	if state != "None":
 		var duration = 1.0
 		if state == "Serving":
@@ -159,8 +156,8 @@ func spend_money(amount):
 func attempt_purchase(purchaseable):
 	purchaseable.attempt_purchase(money)
 
-func _create_purchaseable(purchaseable_name: String = "", initial_cost: int = 0, cost_per_count: int = 10) -> purchaseable_class:
-	var new_purchaseable = purchaseable_class.new(purchaseable_name, initial_cost, cost_per_count)
+func _create_purchaseable(purchaseable_name: String = "", initial_cost: int = 0, cost_per_count: int = 10) -> Purchaseable:
+	var new_purchaseable = Purchaseable.new(purchaseable_name, initial_cost, cost_per_count)
 	new_purchaseable.spent.connect(spend_money)
 	return new_purchaseable
 
