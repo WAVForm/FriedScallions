@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://hxr6lxb18kr3"]
+
+[ext_resource type="Script" path="res://dev/NightTime/yunis/confirm_button.gd" id="1_87k40"]
+
+[node name="confirm_button" type="Button"]
+anchors_preset = -1
+anchor_right = 0.167
+anchor_bottom = 0.099
+offset_right = -0.384018
+offset_bottom = -0.152008
+text = "Confirm"
+script = ExtResource("1_87k40")
+
+[node name="confirm_progress" type="ProgressBar" parent="."]
+modulate = Color(0.835368, 0, 0.20152, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+show_percentage = false
