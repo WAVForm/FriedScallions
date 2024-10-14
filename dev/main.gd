@@ -3,7 +3,7 @@ extends Node2D
 const debug_scene = preload("res://dev/debug_stuff.tscn")
 
 const day_main_scene = preload("res://dev/DayTime/day_main.tscn")
-const night_main_scene = preload("res://dev/NightTime/action.tscn")
+const night_main_scene = preload("res://dev/NightTime/peter/Dusk.tscn")
 
 var current_child = null
 
