@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch8iqbsyjotwr"]
+[gd_scene load_steps=5 format=3 uid="uid://ch8iqbsyjotwr"]
 
 [ext_resource type="Script" path="res://dev/NightTime/peter/buttons.gd" id="1_ok5fe"]
 [ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://confirm_button.tscn" id="2_q4o8i"]
@@ -7,11 +7,7 @@
 
 [sub_resource type="SystemFont" id="SystemFont_dst3l"]
 
-[sub_resource type="SystemFont" id="SystemFont_bakn2"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lej23"]
-
-[node name="Dusk" type="Control"]
+[node name="dusk_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,7 +17,7 @@ grow_vertical = 2
 theme = SubResource("Theme_h6huq")
 metadata/_edit_lock_ = true
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="bg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -31,74 +27,58 @@ grow_vertical = 2
 color = Color(0.688982, 0.505812, 0.41758, 1)
 metadata/_edit_lock_ = true
 
-[node name="Time" type="RichTextLabel" parent="."]
+[node name="time" type="RichTextLabel" parent="."]
 layout_mode = 2
-offset_left = 18.0
-offset_top = 18.0
-offset_right = 360.0
-offset_bottom = 95.0
+anchor_left = 0.016
+anchor_top = 0.028
+anchor_right = 0.312
+anchor_bottom = 0.147
+offset_left = -0.432001
+offset_top = -0.144001
+offset_right = 0.575989
+offset_bottom = -0.255997
 theme_override_fonts/normal_font = SubResource("SystemFont_dst3l")
 theme_override_font_sizes/normal_font_size = 40
 text = "Time: Dusk"
 
-[node name="reminder" type="RichTextLabel" parent="."]
-layout_mode = 2
-offset_left = 33.0
-offset_top = 735.0
-offset_right = 245.0
-offset_bottom = 768.0
-theme_override_fonts/normal_font = SubResource("SystemFont_dst3l")
-theme_override_font_sizes/normal_font_size = 20
-text = "pretend bg is sunset
-"
-
-[node name="DuskPanelContainer" type="PanelContainer" parent="."]
+[node name="title" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -273.0
-offset_top = 150.0
-offset_right = 273.0
-offset_bottom = 223.0
-grow_horizontal = 2
+anchors_preset = -1
+anchor_left = 0.264
+anchor_top = 0.235
+anchor_right = 0.736
+anchor_bottom = 0.346
+offset_left = -0.127991
+offset_top = -0.280014
+offset_right = 0.12793
+offset_bottom = -0.208008
+theme_override_font_sizes/font_size = 48
+text = "Nightfall Approaches"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Top Text" type="RichTextLabel" parent="DuskPanelContainer"]
-layout_mode = 2
-theme_override_fonts/normal_font = SubResource("SystemFont_dst3l")
-theme_override_fonts/bold_italics_font = SubResource("SystemFont_bakn2")
-theme_override_font_sizes/bold_italics_font_size = 50
-theme_override_font_sizes/normal_font_size = 50
-bbcode_enabled = true
-text = "[center]Nightfall Approaches"
-text_direction = 3
-
-[node name="ButtonsContainer" type="VBoxContainer" parent="."]
+[node name="buttons_container" type="VBoxContainer" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -159.0
-offset_top = -24.0
-offset_right = 159.0
-offset_bottom = 58.0
-grow_horizontal = 2
+anchors_preset = -1
+anchor_left = 0.333
+anchor_top = 0.494
+anchor_right = 0.667
+anchor_bottom = 0.79
+offset_left = 0.384003
+offset_top = -0.112
+offset_right = -0.384033
+offset_bottom = 0.0799866
 grow_vertical = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 50
+alignment = 1
 script = ExtResource("1_ok5fe")
 
-[node name="action_confirm" parent="ButtonsContainer" instance=ExtResource("2_q4o8i")]
+[node name="action_confirm" parent="buttons_container" instance=ExtResource("2_q4o8i")]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Do Some Nighttime Activities"
 
-[node name="sleep_confirm" parent="ButtonsContainer" instance=ExtResource("2_q4o8i")]
+[node name="sleep_confirm" parent="buttons_container" instance=ExtResource("2_q4o8i")]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Sleep"
-
-[node name="NinePatchRect" type="NinePatchRect" parent="ButtonsContainer"]
-layout_mode = 2
-texture = SubResource("CompressedTexture2D_lej23")
-patch_margin_left = 100
-patch_margin_right = 100
