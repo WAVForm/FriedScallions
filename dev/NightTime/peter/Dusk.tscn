@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ch8iqbsyjotwr"]
+[gd_scene load_steps=6 format=3 uid="uid://ch8iqbsyjotwr"]
 
 [ext_resource type="Script" path="res://dev/NightTime/peter/buttons.gd" id="1_ok5fe"]
 [ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://confirm_button.tscn" id="2_q4o8i"]
@@ -8,8 +8,6 @@
 [sub_resource type="SystemFont" id="SystemFont_dst3l"]
 
 [sub_resource type="SystemFont" id="SystemFont_bakn2"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lej23"]
 
 [node name="Dusk" type="Control"]
 layout_mode = 3
@@ -99,6 +97,9 @@ text = "Sleep"
 
 [node name="NinePatchRect" type="NinePatchRect" parent="ButtonsContainer"]
 layout_mode = 2
-texture = SubResource("CompressedTexture2D_lej23")
 patch_margin_left = 100
 patch_margin_right = 100
+
+[node name="Astronaut" type="Sprite2D" parent="ButtonsContainer/NinePatchRect"]
+position = Vector2(734, 139)
+scale = Vector2(0.817757, 2.15769)
