@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmlqfpw0lx7yp"]
+[gd_scene load_steps=3 format=3 uid="uid://cmlqfpw0lx7yp"]
 
 [ext_resource type="Script" path="res://dev/NightTime/peter/sleep.gd" id="1_kf6xu"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="2_3qtb8"]
 
-[node name="Control" type="Control"]
+[node name="sleep_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,14 +12,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_kf6xu")
 
-[node name="BG" type="ColorRect" parent="."]
+[node name="bg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.282293, 0.161158, 0.445664, 1)
+color = Color(0.0117647, 0.0509804, 0.145098, 1)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -32,24 +33,16 @@ offset_top = -0.152008
 offset_right = -0.256042
 offset_bottom = 0.192001
 
-[node name="Label" type="Label" parent="PanelContainer"]
+[node name="title" type="Label" parent="PanelContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Sleepy Time"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="."]
+[node name="back_to_dusk" parent="." instance=ExtResource("2_3qtb8")]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.417
-anchor_top = 0.494
-anchor_right = 0.584
-anchor_bottom = 0.593
-offset_left = -0.384033
-offset_top = -0.112
-offset_right = 0.231934
-offset_bottom = -0.264038
-text = "back to dusk
-"
-
-[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+offset_left = 480.0
+offset_top = 320.0
+offset_right = 479.616
+offset_bottom = 319.848
+text = "Back to Dusk"
