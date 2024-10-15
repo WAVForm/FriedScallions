@@ -1,5 +1,7 @@
 extends BaseButton
 
+class_name ConfirmButton
+
 var fill_color = Color.GRAY
 var confirm_delay = 2 #seconds
 var fill_progress = false

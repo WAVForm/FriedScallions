@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://dev/NightTime/yunis/action_node.gd" id="1_762hj"]
 [ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="2_kwe61"]
 
-
 [node name="action" type="Panel"]
 custom_minimum_size = Vector2(265, 160)
 offset_right = 265.0

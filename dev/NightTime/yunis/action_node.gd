@@ -19,8 +19,8 @@ var action
 
 func _ready():
 	var rand_index = randi() % premade_actions.size()
-	action = premade_actions[rand_index]
-	set_nodes()
+	action = premade_actions[rand_index] #select random item in premade actions
+	set_nodes() #set nodes based on selected action
 
 func set_nodes():
 	title_node.text = action.title
