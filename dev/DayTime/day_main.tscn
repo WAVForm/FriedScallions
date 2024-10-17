@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=4 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/day_main.gd" id="1_5mcb3"]
+[ext_resource type="Script" path="res://dev/DayTime/make_product_menu.gd" id="2_b3dyd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 
@@ -10,33 +11,30 @@ script = ExtResource("1_5mcb3")
 [node name="GameWorld" type="CanvasLayer" parent="."]
 layer = 0
 
-[node name="Button" type="Button" parent="GameWorld"]
-offset_left = 156.0
-offset_top = 137.0
-offset_right = 377.0
-offset_bottom = 247.0
-text = "Make Item1"
+[node name="ProductButton" type="Button" parent="GameWorld"]
+offset_left = 194.0
+offset_top = 17.0
+offset_right = 343.0
+offset_bottom = 83.0
+text = "Make Product"
 
-[node name="Item1Label" type="Label" parent="GameWorld"]
-offset_left = 168.0
-offset_top = 254.0
-offset_right = 277.0
-offset_bottom = 277.0
-text = "Item1 Stock: 0"
+[node name="IngredientLabel" type="Label" parent="GameWorld"]
+offset_left = 12.0
+offset_top = 144.0
+offset_right = 121.0
+offset_bottom = 167.0
+text = "Ingredients:
+ingredient_1: 50
+ingredient_2: 50
+ingredient_3: 50
+ingredient_4: 50"
 
-[node name="Button2" type="Button" parent="GameWorld"]
-offset_left = 394.0
-offset_top = 135.0
-offset_right = 615.0
-offset_bottom = 245.0
-text = "Make Item2"
-
-[node name="Item2Label" type="Label" parent="GameWorld"]
-offset_left = 411.0
-offset_top = 253.0
-offset_right = 520.0
-offset_bottom = 276.0
-text = "Item2 Stock: 0"
+[node name="ProductLabel" type="Label" parent="GameWorld"]
+offset_left = 232.0
+offset_top = 147.0
+offset_right = 341.0
+offset_bottom = 170.0
+text = "Items:"
 
 [node name="CustomerLabel" type="Label" parent="GameWorld"]
 offset_left = 110.0
@@ -55,7 +53,7 @@ offset_right = 597.0
 offset_bottom = 396.0
 text = "Serve"
 
-[node name="Label2" type="Label" parent="GameWorld"]
+[node name="ProgressLabel" type="Label" parent="GameWorld"]
 offset_left = 709.0
 offset_top = 197.0
 offset_right = 781.0
@@ -117,6 +115,7 @@ offset_top = 600.0
 offset_right = 1109.0
 offset_bottom = 630.0
 step = 0.0
+show_percentage = false
 
 [node name="Button4" type="Button" parent="GameWorld"]
 offset_left = 15.0
@@ -131,6 +130,13 @@ offset_top = 20.0
 offset_right = 154.0
 offset_bottom = 83.0
 text = "Toggle Shop"
+
+[node name="StartDay" type="Button" parent="GameWorld"]
+offset_left = 727.0
+offset_top = 590.0
+offset_right = 1123.0
+offset_bottom = 639.0
+text = "Start Day"
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
@@ -195,13 +201,102 @@ text = "Column 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="MakeProductMenu" type="Panel" parent="PopupUI"]
+visible = false
+offset_left = 171.0
+offset_top = 56.0
+offset_right = 986.0
+offset_bottom = 570.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
+script = ExtResource("2_b3dyd")
+
+[node name="Ingredient0" type="Button" parent="PopupUI/MakeProductMenu"]
+layout_mode = 2
+offset_left = 27.0
+offset_top = 51.0
+offset_right = 132.0
+offset_bottom = 82.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Ingredient_0"
+
+[node name="Ingredient1" type="Button" parent="PopupUI/MakeProductMenu"]
+layout_mode = 2
+offset_left = 189.0
+offset_top = 54.0
+offset_right = 294.0
+offset_bottom = 85.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Ingredient_1"
+
+[node name="Ingredient2" type="Button" parent="PopupUI/MakeProductMenu"]
+offset_left = 360.0
+offset_top = 51.0
+offset_right = 465.0
+offset_bottom = 82.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Ingredient_2"
+
+[node name="Ingredient3" type="Button" parent="PopupUI/MakeProductMenu"]
+offset_left = 573.0
+offset_top = 51.0
+offset_right = 678.0
+offset_bottom = 82.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Ingredient_3"
+
+[node name="Label" type="Label" parent="PopupUI/MakeProductMenu"]
+layout_mode = 0
+offset_left = 351.0
+offset_top = 267.0
+offset_right = 457.0
+offset_bottom = 305.0
+text = "THE RECIPE"
+horizontal_alignment = 1
+
+[node name="Done" type="Button" parent="PopupUI/MakeProductMenu"]
+offset_left = 350.0
+offset_top = 436.0
+offset_right = 455.0
+offset_bottom = 467.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Done"
+
+[node name="Label2" type="Label" parent="PopupUI/MakeProductMenu"]
+offset_left = 32.0
+offset_top = 122.0
+offset_right = 217.0
+offset_bottom = 301.0
+text = "Item Combo 1:
+    Ingredient_0 - 1
+    Ingredient_1 - 2
+
+Item Combo 2:
+    Ingredient_0 - 1
+    Ingredient_2 - 2
+
+Item Combo 3:
+    Ingredient_0 - 1
+    Ingredient_1 - 1
+    Ingredient_2 - 1"
+
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
 follow_viewport_enabled = true
 
-[connection signal="pressed" from="GameWorld/Button" to="." method="_make_item1"]
-[connection signal="pressed" from="GameWorld/Button2" to="." method="_make_item2"]
+[connection signal="pressed" from="GameWorld/ProductButton" to="." method="_start_making_product"]
 [connection signal="pressed" from="GameWorld/Button3" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameWorld/Hire" to="." method="_hire_server"]
 [connection signal="pressed" from="GameWorld/Button4" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="GameWorld/Button5" to="." method="_toggle_shop_menu"]
+[connection signal="pressed" from="GameWorld/StartDay" to="." method="_on_start_day_pressed"]
+[connection signal="finish_product" from="PopupUI/MakeProductMenu" to="." method="_finish_product"]
+[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient0" to="PopupUI/MakeProductMenu" method="_on_ingredient_0_pressed"]
+[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient1" to="PopupUI/MakeProductMenu" method="_on_ingredient_1_pressed"]
+[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient2" to="PopupUI/MakeProductMenu" method="_on_ingredient_2_pressed"]
+[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient3" to="PopupUI/MakeProductMenu" method="_on_ingredient_3_pressed"]
+[connection signal="pressed" from="PopupUI/MakeProductMenu/Done" to="PopupUI/MakeProductMenu" method="_on_done_pressed"]

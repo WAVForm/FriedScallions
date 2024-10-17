@@ -7,19 +7,37 @@ func _init(ingredients: Array) -> void:
 	super("Custom Product")
 	set_recipe(ingredients)
 	generate_id()
+	calculate_value()
 
 func set_recipe(ingredients: Array) -> void:
 	recipe = []
 	for ingredient: Ingredient in ingredients:
-		# TODO Sort this
-		recipe.append(ingredient)
+		var added = false
+		for i in range(len(recipe)):
+			if ingredient.id <= recipe[i].id:
+				recipe.insert(i, ingredient)
+				added = true
+				break
+		if not added:
+			recipe.append(ingredient)
 
 func generate_id() -> String:
 	id = ""
 	for ingredient: Ingredient in recipe:
 		id += ingredient.id
-	id = "0000"
 	match id:
-		"0000":
-			name = "Debug Product"
+		"011":
+			name = "Item Combo 1"
+		"022":
+			name = "Item Combo 2"
+		"012":
+			name = "Item Combo 3"
+		_:
+			name = "Custom_Product_" + id
 	return id
+
+func calculate_value() -> int:
+	value = 2
+	for ingredient: Ingredient in recipe:
+		value += ingredient.value
+	return value
