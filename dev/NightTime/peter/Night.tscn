@@ -49,14 +49,15 @@ theme_override_constants/separation = 30
 alignment = 1
 script = ExtResource("1_d875b")
 
-[node name="back_to_dusk" parent="." instance=ExtResource("1_r25sx")]
+[node name="sleep_confirm" parent="." instance=ExtResource("1_r25sx")]
 layout_mode = 1
 anchor_left = 0.458
 anchor_top = 0.914
 anchor_right = 0.542
 anchor_bottom = 0.961
 offset_left = -7.61603
-offset_top = -0.272034
-offset_right = 4.61597
-offset_bottom = 0.271973
-text = "Back to Dusk"
+offset_top = -0.271973
+offset_right = 4.61603
+offset_bottom = 0.272034
+text = "Go To Sleep
+"

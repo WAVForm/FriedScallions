@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="FriedScallions"
-run/main_scene="res://dev/main.tscn"
+run/main_scene="res://dev/initial.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+WRAPPER="*res://dev/wrapper.gd"
 
 [display]
 

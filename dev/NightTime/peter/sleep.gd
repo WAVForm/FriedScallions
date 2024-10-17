@@ -1,6 +1,6 @@
 extends Control
 
-@onready var dusk_button = $back_to_dusk
+@onready var dawn_button = $to_dawn
 
 func _ready():
-	dusk_button.confirmed.connect(func(): get_tree().change_scene_to_file("res://dev/NightTime/peter/Dusk.tscn"))
+	dawn_button.confirmed.connect(func(): WRAPPER.change_scene(WRAPPER.SCENES.DAWN))
