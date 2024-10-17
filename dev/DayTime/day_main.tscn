@@ -135,57 +135,6 @@ text = "Toggle Shop"
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="ShopMenu" type="PanelContainer" parent="GameUI"]
-visible = false
-offset_left = 171.0
-offset_top = 56.0
-offset_right = 986.0
-offset_bottom = 570.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
-
-[node name="Row" type="HBoxContainer" parent="GameUI/ShopMenu"]
-layout_mode = 2
-
-[node name="Column1" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column1"]
-layout_mode = 2
-text = "Buy Stock"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Column2" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column2"]
-layout_mode = 2
-text = "Column 2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Column3" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column3"]
-layout_mode = 2
-text = "Column 3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Column4" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column4"]
-layout_mode = 2
-text = "Column 4"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Money" type="Label" parent="GameUI"]
 offset_left = 9.0
 offset_top = 108.0
@@ -194,6 +143,57 @@ offset_bottom = 139.0
 text = "Money: $100"
 
 [node name="PopupUI" type="CanvasLayer" parent="."]
+
+[node name="ShopMenu" type="PanelContainer" parent="PopupUI"]
+visible = false
+offset_left = 171.0
+offset_top = 56.0
+offset_right = 986.0
+offset_bottom = 570.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
+
+[node name="Row" type="HBoxContainer" parent="PopupUI/ShopMenu"]
+layout_mode = 2
+
+[node name="Column1" type="VBoxContainer" parent="PopupUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupUI/ShopMenu/Row/Column1"]
+layout_mode = 2
+text = "Buy Stock"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column2" type="VBoxContainer" parent="PopupUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupUI/ShopMenu/Row/Column2"]
+layout_mode = 2
+text = "Column 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column3" type="VBoxContainer" parent="PopupUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupUI/ShopMenu/Row/Column3"]
+layout_mode = 2
+text = "Column 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column4" type="VBoxContainer" parent="PopupUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="PopupUI/ShopMenu/Row/Column4"]
+layout_mode = 2
+text = "Column 4"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15

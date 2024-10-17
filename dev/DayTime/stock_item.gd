@@ -1,6 +1,7 @@
 class_name StockItem
 var name: String
-
+var id: String
+var value: int
 var count: int = 1
 
 func _init(item_name: String) -> void:

@@ -3,23 +3,23 @@ class_name Product
 
 var recipe: Array
 
-func _init(product_name: String) -> void:
-	super(product_name)
+func _init(ingredients: Array) -> void:
+	super("Custom Product")
+	set_recipe(ingredients)
+	generate_id()
 
 func set_recipe(ingredients: Array) -> void:
 	recipe = []
-	for ingredient in ingredients:
-		var new_ingredient: bool = true
-		for consume_item_event: ConsumeItemEvent in recipe:
-			if consume_item_event.stock_item == ingredient:
-				consume_item_event.count += 1
-				new_ingredient = false
-				break
-		if new_ingredient:
-			recipe.append(ConsumeItemEvent.new(ingredient))
+	for ingredient: Ingredient in ingredients:
+		# TODO Sort this
+		recipe.append(ingredient)
 
-func can_produce() -> bool:
-	for consume_item_event: ConsumeItemEvent in recipe:
-		if not consume_item_event.can_consume():
-			return false
-	return true
+func generate_id() -> String:
+	id = ""
+	for ingredient: Ingredient in recipe:
+		id += ingredient.id
+	id = "0000"
+	match id:
+		"0000":
+			name = "Debug Product"
+	return id

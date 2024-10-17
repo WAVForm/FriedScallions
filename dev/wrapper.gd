@@ -74,9 +74,9 @@ func get_save() -> Dictionary:
 		"state" : state #may not be necessary unless we plan to make the game saveable from anywhere
 	}
 	for ingredient in ingredients:
-		save_dict[ingredient.name] = ingredient.count
+		save_dict["ingredient_" + ingredient.name] = ingredient.count
 	for purchaseable in purchaseables:
-		save_dict[purchaseable.name] = purchaseable.count
+		save_dict["purchaseable_" + purchaseable.name] = purchaseable.count
 	return save_dict
 
 func save_game() -> void:

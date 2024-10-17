@@ -3,8 +3,8 @@ extends Node2D
 const purchaseable_button_scene = preload("res://dev/DayTime/purchase_button.tscn")
 
 # TODO FIX THIS CLEAN IT UP
-@onready var shop_menu = $GameUI/ShopMenu
-@onready var upgrade_bar = $GameUI/ShopMenu/Row/Column2
+@onready var shop_menu = $PopupUI/ShopMenu
+@onready var upgrade_bar = $PopupUI/ShopMenu/Row/Column2
 @onready var money_display = $GameUI/Money
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX
