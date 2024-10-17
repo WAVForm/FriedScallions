@@ -56,7 +56,9 @@ func exit_scene() -> void:
 		MAIN_MENU:
 			pass
 		DAY:
-			pass
+			ingredients = current_child.ingredients
+			purchaseables = current_child.purchaseables
+			money = current_child.money
 		NIGHT:
 			pass
 	if current_child != null:

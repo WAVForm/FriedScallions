@@ -40,6 +40,8 @@ var server_payment_progress: float = 0.0
 var day_cycle_progress: float = 0.0
 var day_cycle_length: int = 60
 
+var time_scale: float = 1.0
+
 signal day_exit()
 
 # Called when the node enters the scene tree for the first time.
