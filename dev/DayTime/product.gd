@@ -17,3 +17,9 @@ func set_recipe(ingredients: Array) -> void:
 				break
 		if new_ingredient:
 			recipe.append(ConsumeItemEvent.new(ingredient))
+
+func can_produce() -> bool:
+	for consume_item_event: ConsumeItemEvent in recipe:
+		if not consume_item_event.can_consume():
+			return false
+	return true

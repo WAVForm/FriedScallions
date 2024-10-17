@@ -1,10 +1,10 @@
 extends Node2D
 
+const purchaseable_button_scene = preload("res://dev/DayTime/purchase_button.tscn")
+
 # TODO FIX THIS CLEAN IT UP
-@onready var item1_button = $GameUI/HBoxContainer/Item1
-@onready var item2_button = $GameUI/HBoxContainer/Item2
-@onready var server_button = $GameUI/HBoxContainer/Server
-@onready var advertisement_button = $GameUI/HBoxContainer/Advertisement
+@onready var shop_menu = $GameUI/ShopMenu
+@onready var upgrade_bar = $GameUI/ShopMenu/Row/Column2
 @onready var money_display = $GameUI/Money
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX
@@ -40,6 +40,13 @@ var server_payment_progress: float = 0.0
 var day_cycle_progress: float = 0.0
 var day_cycle_length: int = 60
 
+
+
+
+
+var ingredients: Array = []
+var products: Array = []
+var purchaseables: Array = []
 var time_scale: float = 1.0
 
 signal day_exit()
@@ -47,17 +54,13 @@ signal day_exit()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	item1_upgrade = _create_purchaseable("Item1", 25, 25)
-	item1_button.set_purchaseable(item1_upgrade)
-	item1_button.purchaseable_pressed.connect(attempt_purchase)
+	upgrade_bar.add_child(_create_purchaseable_button(item1_upgrade))
 	item2_upgrade = _create_purchaseable("Item2", 25, 25)
-	item2_button.set_purchaseable(item2_upgrade)
-	item2_button.purchaseable_pressed.connect(attempt_purchase)
+	upgrade_bar.add_child(_create_purchaseable_button(item2_upgrade))
 	server_upgrade = _create_purchaseable("Serving", 0, 20)
-	server_button.set_purchaseable(server_upgrade)
-	server_button.purchaseable_pressed.connect(attempt_purchase)
+	upgrade_bar.add_child(_create_purchaseable_button(server_upgrade))
 	advertisement_upgrade = _create_purchaseable("Post Ad", 10)
-	advertisement_button.set_purchaseable(advertisement_upgrade)
-	advertisement_button.purchaseable_pressed.connect(attempt_purchase)
+	upgrade_bar.add_child(_create_purchaseable_button(advertisement_upgrade))
 	update_money_display()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -163,6 +166,11 @@ func _create_purchaseable(purchaseable_name: String = "", initial_cost: int = 0,
 	new_purchaseable.spent.connect(spend_money)
 	return new_purchaseable
 
+func _create_purchaseable_button(purchaseable: Purchaseable) -> Node:
+	var new_purchaseable_button = purchaseable_button_scene.instantiate()
+	new_purchaseable_button.set_purchaseable(purchaseable)
+	new_purchaseable_button.purchaseable_pressed.connect(attempt_purchase)
+	return new_purchaseable_button
 
 func _make_item1() -> void:
 	if state == "None":
@@ -220,3 +228,7 @@ func _hire_server() -> void:
 
 func _on_quit_pressed() -> void:
 	day_exit.emit()
+
+
+func _toggle_shop_menu() -> void:
+	shop_menu.visible = not shop_menu.visible

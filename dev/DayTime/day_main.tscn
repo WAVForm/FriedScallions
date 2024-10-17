@@ -1,7 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/day_main.gd" id="1_5mcb3"]
-[ext_resource type="PackedScene" uid="uid://bohubbb30a3tn" path="res://dev/DayTime/purchase_button.tscn" id="2_7riyd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 
 [node name="DayMain" type="Node2D"]
 script = ExtResource("1_5mcb3")
@@ -124,32 +125,72 @@ offset_right = 113.0
 offset_bottom = 639.0
 text = "quit"
 
+[node name="Button5" type="Button" parent="GameWorld"]
+offset_left = 27.0
+offset_top = 20.0
+offset_right = 154.0
+offset_bottom = 83.0
+text = "Toggle Shop"
+
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="GameUI"]
-offset_left = 2.0
-offset_top = 2.0
-offset_right = 670.0
-offset_bottom = 102.0
+[node name="ShopMenu" type="PanelContainer" parent="GameUI"]
+visible = false
+offset_left = 171.0
+offset_top = 56.0
+offset_right = 986.0
+offset_bottom = 570.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
 
-[node name="Item1" parent="GameUI/HBoxContainer" instance=ExtResource("2_7riyd")]
+[node name="Row" type="HBoxContainer" parent="GameUI/ShopMenu"]
 layout_mode = 2
 
-[node name="Item2" parent="GameUI/HBoxContainer" instance=ExtResource("2_7riyd")]
+[node name="Column1" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
 layout_mode = 2
+size_flags_horizontal = 3
 
-[node name="Server" parent="GameUI/HBoxContainer" instance=ExtResource("2_7riyd")]
+[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column1"]
 layout_mode = 2
+text = "Buy Stock"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Advertisement" parent="GameUI/HBoxContainer" instance=ExtResource("2_7riyd")]
+[node name="Column2" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column2"]
+layout_mode = 2
+text = "Column 2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column3" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column3"]
+layout_mode = 2
+text = "Column 3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Column4" type="VBoxContainer" parent="GameUI/ShopMenu/Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="GameUI/ShopMenu/Row/Column4"]
+layout_mode = 2
+text = "Column 4"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Money" type="Label" parent="GameUI"]
-offset_left = 672.0
-offset_top = 2.0
-offset_right = 1038.0
-offset_bottom = 33.0
+offset_left = 9.0
+offset_top = 108.0
+offset_right = 375.0
+offset_bottom = 139.0
 text = "Money: $100"
 
 [node name="PopupUI" type="CanvasLayer" parent="."]
@@ -163,3 +204,4 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameWorld/Button3" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameWorld/Hire" to="." method="_hire_server"]
 [connection signal="pressed" from="GameWorld/Button4" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="GameWorld/Button5" to="." method="_toggle_shop_menu"]

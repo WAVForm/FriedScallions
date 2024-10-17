@@ -7,9 +7,11 @@ var purchaseable = null
 
 signal purchaseable_pressed(purchaseable_to_buy)
 
+func _ready() -> void:
+	update_display()
+
 func set_purchaseable(purchaseable_to_set) -> void:
 	purchaseable = purchaseable_to_set
-	update_display()
 
 func update_display() -> void:
 	if purchaseable != null:
