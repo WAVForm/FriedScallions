@@ -2,6 +2,7 @@ extends Panel
 
 #actions
 var premade_actions = [
+	Action.new("Test", "This is a test", 0.5, Action.Rewards.None, Action.Risks.None),
 	Action.new("Break register", "You attempt to break the register. Some money might fall out if you succeed, but police would be notified if you fail.", 0.1, Action.Rewards.Money, Action.Risks.Police)
 ]
 #current action
@@ -14,12 +15,12 @@ var action
 @onready var chance_percent = $chance_background/chance_percentage as Label
 @onready var chance_reward_icon = $chance_background/chance_reward_icon as TextureRect
 @onready var chance_risk_icon = $chance_background/chance_risk_icon as TextureRect
-@onready var button_node = $action_button as Button
+@onready var button_node = $confirm_button as Button
 
 func _ready():
 	var rand_index = randi() % premade_actions.size()
-	action = premade_actions[rand_index]
-	set_nodes()
+	action = premade_actions[rand_index] #select random item in premade actions
+	set_nodes() #set nodes based on selected action
 
 func set_nodes():
 	title_node.text = action.title

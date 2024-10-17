@@ -1,5 +1,6 @@
 extends Control
 
+@onready var dawn_button = $to_dawn
 
-func _on_button_pressed():
-	get_tree().change_scene_to_file("res://dev/NightTime/peter/Dusk.tscn")
+func _ready():
+	dawn_button.confirmed.connect(func(): WRAPPER.change_scene(WRAPPER.SCENES.DAWN))

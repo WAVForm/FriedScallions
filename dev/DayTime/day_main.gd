@@ -49,8 +49,6 @@ var products: Array = []
 var purchaseables: Array = []
 var time_scale: float = 1.0
 
-signal day_exit()
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	item1_upgrade = _create_purchaseable("Item1", 25, 25)
@@ -69,7 +67,7 @@ func _process(delta: float) -> void:
 	day_cycle_progress_bar.value = day_cycle_progress
 	day_cycle_progress_bar.max_value = day_cycle_length
 	if day_cycle_progress > day_cycle_length:
-		day_exit.emit()
+		WRAPPER.change_scene(WRAPPER.SCENES.DUSK) #TODO sorry if this system sucks sam. should go to dusk when day is done? 
 	customer_timer -= delta
 	if server:
 		if _customer_servable():
@@ -227,7 +225,7 @@ func _hire_server() -> void:
 
 
 func _on_quit_pressed() -> void:
-	day_exit.emit()
+	WRAPPER.change_scene(WRAPPER.SCENES.DEBUG) #TODO sorry if this system sucks sam. I'm guessing quit is temporary until menu is made.
 
 
 func _toggle_shop_menu() -> void:

@@ -1,8 +1,5 @@
 extends Node2D
 
-signal day_time()
-signal night_time()
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -11,10 +8,8 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
+func _on_dawn_pressed():
+	WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 
-func _on_day_time_pressed() -> void:
-	day_time.emit()
-
-
-func _on_night_time_pressed() -> void:
-	night_time.emit()
+func _on_dusk_pressed():
+	WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
