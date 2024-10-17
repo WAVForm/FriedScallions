@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kgcf3v8rogsy"
-path="res://.godot/imported/police.svg-a472604da70d262ad5fb73f41ae2253c.ctex"
+uid="uid://c2dexxbu8lceo"
+path="res://.godot/imported/check.svg-5a726519eab50fc6e775633f30d7a2eb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dev/img/police.svg"
-dest_files=["res://.godot/imported/police.svg-a472604da70d262ad5fb73f41ae2253c.ctex"]
+source_file="res://dev/NightTime/images/check.svg"
+dest_files=["res://.godot/imported/check.svg-5a726519eab50fc6e775633f30d7a2eb.ctex"]
 
 [params]
 

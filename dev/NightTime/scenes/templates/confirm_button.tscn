@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://hxr6lxb18kr3"]
 
-[ext_resource type="Script" path="res://dev/NightTime/yunis/confirm_button.gd" id="1_87k40"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/confirm_button.gd" id="1_87k40"]
 
 [node name="confirm_button" type="Button"]
 anchors_preset = -1

@@ -1,6 +1,6 @@
 extends ColorRect
 
-var time_limit = 15 #how long until sun sets and go to sleep menu
+var time_limit = 5 #how long until sun sets and go to sleep menu
 var progress = 0.0 #overall progress of setting
 
 var light_color = Color("#ffaf40")

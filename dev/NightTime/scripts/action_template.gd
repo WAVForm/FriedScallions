@@ -30,15 +30,15 @@ func set_nodes():
 	#set icons
 	match (action.reward):
 		Action.Rewards.Money:
-			chance_reward_icon.texture = load("res://dev/img/dollar.svg")
+			chance_reward_icon.texture = load("res://dev/NightTime/images/dollar.svg")
 		_:
-			chance_reward_icon.texture = load("res://dev/img/check.svg")
+			chance_reward_icon.texture = load("res://dev/NightTime/images/check.svg")
 	
 	match (action.risk):
 		Action.Risks.Police:
-			chance_risk_icon.texture = load("res://dev/img/police.svg")
+			chance_risk_icon.texture = load("res://dev/NightTime/images/police.svg")
 		_:
-			chance_risk_icon.texture = load("res://dev/img/exclamation.svg")
+			chance_risk_icon.texture = load("res://dev/NightTime/images/exclamation.svg")
 	
 	set_colors()
 

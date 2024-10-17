@@ -1,9 +1,9 @@
 [gd_scene load_steps=7 format=3 uid="uid://ch8iqbsyjotwr"]
 
-[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/yunis/blend_tween_two.tres" id="1_85ygk"]
+[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_85ygk"]
 [ext_resource type="Script" path="res://dev/NightTime/peter/buttons.gd" id="1_ok5fe"]
-[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="2_q4o8i"]
-[ext_resource type="Script" path="res://dev/NightTime/yunis/dawn_dusk_bg.gd" id="2_yorve"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="2_q4o8i"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk_bg.gd" id="2_yorve"]
 
 [sub_resource type="Theme" id="Theme_h6huq"]
 

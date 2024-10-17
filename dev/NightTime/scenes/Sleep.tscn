@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cmlqfpw0lx7yp"]
 
 [ext_resource type="Script" path="res://dev/NightTime/peter/sleep.gd" id="1_kf6xu"]
-[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="2_3qtb8"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="2_3qtb8"]
 
 [node name="sleep_menu" type="Control"]
 layout_mode = 3

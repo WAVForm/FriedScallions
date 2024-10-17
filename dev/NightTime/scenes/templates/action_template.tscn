@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://bmu4hkq5uw8eo"]
 
-[ext_resource type="Script" path="res://dev/NightTime/yunis/action_node.gd" id="1_762hj"]
-[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="2_kwe61"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/action_template.gd" id="1_j5wfn"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="2_nyb7f"]
 
 [node name="action" type="Panel"]
 custom_minimum_size = Vector2(265, 160)
 offset_right = 265.0
 offset_bottom = 160.0
-script = ExtResource("1_762hj")
+script = ExtResource("1_j5wfn")
 
 [node name="action_title" type="Label" parent="."]
 layout_mode = 1
@@ -89,7 +89,7 @@ offset_left = -0.672
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="confirm_button" parent="." instance=ExtResource("2_kwe61")]
+[node name="confirm_button" parent="." instance=ExtResource("2_nyb7f")]
 layout_mode = 1
 anchor_left = 0.225
 anchor_top = 0.708

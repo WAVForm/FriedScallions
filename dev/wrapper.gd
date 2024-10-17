@@ -3,10 +3,10 @@ extends Node
 const DEBUG_SCENE = preload("res://dev/debug_stuff.tscn")
 
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/day_main.tscn")
-const DAWN_SCENE = preload("res://dev/NightTime/peter/Dawn.tscn")
-const DUSK_SCENE = preload("res://dev/NightTime/peter/Dusk.tscn")
-const NIGHT_SCENE = preload("res://dev/NightTime/peter/Night.tscn")
-const SLEEP_SCENE = preload("res://dev/NightTime/peter/Sleep.tscn")
+const DAWN_SCENE = preload("res://dev/NightTime/scenes/Dawn.tscn")
+const DUSK_SCENE = preload("res://dev/NightTime/scenes/Dusk.tscn")
+const NIGHT_SCENE = preload("res://dev/NightTime/scenes/Night.tscn")
+const SLEEP_SCENE = preload("res://dev/NightTime/scenes/Sleep.tscn")
 
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
