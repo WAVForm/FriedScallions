@@ -8,6 +8,8 @@ const DUSK_SCENE = preload("res://dev/NightTime/scenes/Dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/Night.tscn")
 const SLEEP_SCENE = preload("res://dev/NightTime/scenes/Sleep.tscn")
 
+const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/Templates/roll_template.tscn")
+
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
 enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, DEBUG}
@@ -21,7 +23,8 @@ var purchaseables: Array
 var money: int
 
 #Night Time Data
-	#TODO Store actions? Or, buffs/debuffs?
+var heat: float #police attention
+#TODO Store actions? Or, buffs/debuffs?
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -102,3 +105,12 @@ func load_game() -> void:
 			print(i, "   ", node_data[i], "   ", typeof(node_data[i]))
 			# blah blah turn back into variables based on read data
 			# TODO add this part
+
+func roll(pass_chance: float):
+	#TODO maybe add a general "add menu" function
+	#add roll menu self.add_child(ROLL_TEMPLATE.instantiate())
+	#start rollROLL_TEMPLATE.roll()
+	#wait arbitrary time
+	#display final roll
+	#wait arbitrary time
+	#return roll result

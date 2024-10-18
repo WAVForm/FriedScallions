@@ -23,6 +23,10 @@ WRAPPER="*res://dev/wrapper.gd"
 
 window/stretch/mode="canvas_items"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

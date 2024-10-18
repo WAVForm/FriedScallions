@@ -15,12 +15,18 @@ var action
 @onready var chance_percent = $chance_background/chance_percentage as Label
 @onready var chance_reward_icon = $chance_background/chance_reward_icon as TextureRect
 @onready var chance_risk_icon = $chance_background/chance_risk_icon as TextureRect
-@onready var button_node = $confirm_button as Button
+@onready var confirm_button = $confirm_button as ConfirmButton
 
 func _ready():
 	var rand_index = randi() % premade_actions.size()
 	action = premade_actions[rand_index] #select random item in premade actions
 	set_nodes() #set nodes based on selected action
+	confirm_button.confirmed.connect(func(): 
+		if(WRAPPER.roll(action.chance) == true): #show on screen roll. If pass, reward, if fail risk
+			action.apply_reward()
+		else:
+			action.apply_risk()
+	)
 
 func set_nodes():
 	title_node.text = action.title
