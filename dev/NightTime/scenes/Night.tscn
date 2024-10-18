@@ -1,0 +1,63 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs5xabpbt532u"]
+
+[ext_resource type="Script" path="res://dev/NightTime/scripts/action_container.gd" id="1_d875b"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="1_r25sx"]
+
+[node name="night_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="bg" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0117895, 0.0508553, 0.143355, 1)
+
+[node name="title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.099
+anchor_right = 1.0
+anchor_bottom = 0.296
+offset_top = -0.152008
+offset_bottom = 0.192001
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 50
+text = "Nighttime Shenanigans"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="action_container" type="BoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.111
+anchor_top = 0.395
+anchor_right = 0.889
+anchor_bottom = 0.889
+offset_left = 0.127991
+offset_top = 0.0399933
+offset_right = -0.128052
+offset_bottom = -0.0720215
+theme_override_constants/separation = 30
+alignment = 1
+script = ExtResource("1_d875b")
+
+[node name="sleep_confirm" parent="." instance=ExtResource("1_r25sx")]
+layout_mode = 1
+anchor_left = 0.458
+anchor_top = 0.914
+anchor_right = 0.542
+anchor_bottom = 0.961
+offset_left = -7.61603
+offset_top = -0.271973
+offset_right = 4.61603
+offset_bottom = 0.272034
+text = "Go To Sleep
+"

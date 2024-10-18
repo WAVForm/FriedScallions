@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dco8sv8yx0lmp"
-path="res://.godot/imported/dollar.svg-4c6831eb4b3acd4e97c92709c355e1b6.ctex"
+path="res://.godot/imported/dollar.svg-d15503df8bdd4059a5bbfd45a9163403.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dev/img/dollar.svg"
-dest_files=["res://.godot/imported/dollar.svg-4c6831eb4b3acd4e97c92709c355e1b6.ctex"]
+source_file="res://dev/NightTime/images/dollar.svg"
+dest_files=["res://.godot/imported/dollar.svg-d15503df8bdd4059a5bbfd45a9163403.ctex"]
 
 [params]
 

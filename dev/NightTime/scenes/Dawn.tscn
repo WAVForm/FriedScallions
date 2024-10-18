@@ -1,0 +1,86 @@
+[gd_scene load_steps=7 format=3 uid="uid://77mbwehwret5"]
+
+[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_xsswy"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk_bg.gd" id="2_fra3o"]
+[ext_resource type="Script" path="res://dev/NightTime/peter/buttons.gd" id="3_26ne1"]
+[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="4_asvs4"]
+
+[sub_resource type="Theme" id="Theme_h6huq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4qc4r"]
+shader = ExtResource("1_xsswy")
+shader_parameter/start_color = Color(0.0117647, 0.0509804, 0.145098, 1)
+shader_parameter/end_color = Color(1, 0.686275, 0.25098, 1)
+shader_parameter/progress = 0.0
+
+[node name="dawn_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_h6huq")
+metadata/_edit_lock_ = true
+
+[node name="bg" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4qc4r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_fra3o")
+metadata/_edit_lock_ = true
+
+[node name="sun" type="ColorRect" parent="bg"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.264
+anchor_top = 0.235
+anchor_right = 0.736
+anchor_bottom = 0.346
+offset_left = -0.127991
+offset_top = -0.280014
+offset_right = 0.12793
+offset_bottom = -0.208008
+theme_override_font_sizes/font_size = 48
+text = "Morning Approaches"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="button_container" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.333
+anchor_top = 0.593
+anchor_right = 0.667
+anchor_bottom = 0.691
+offset_left = 0.384003
+offset_top = -0.264038
+offset_right = -0.383972
+offset_bottom = 0.231964
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+script = ExtResource("3_26ne1")
+
+[node name="day_confirm" parent="button_container" instance=ExtResource("4_asvs4")]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Go to Daytime"

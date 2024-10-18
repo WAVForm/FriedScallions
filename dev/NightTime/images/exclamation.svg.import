@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2dexxbu8lceo"
-path="res://.godot/imported/check.svg-0a617e0573f274febe095b56eae8e5d7.ctex"
+uid="uid://djidm416urb2f"
+path="res://.godot/imported/exclamation.svg-f56e9ac45d251c4a7fb03ce8086f0988.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://dev/img/check.svg"
-dest_files=["res://.godot/imported/check.svg-0a617e0573f274febe095b56eae8e5d7.ctex"]
+source_file="res://dev/NightTime/images/exclamation.svg"
+dest_files=["res://.godot/imported/exclamation.svg-f56e9ac45d251c4a7fb03ce8086f0988.ctex"]
 
 [params]
 
