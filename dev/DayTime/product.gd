@@ -6,8 +6,6 @@ var recipe: Array
 func _init(ingredients: Array) -> void:
 	super("Custom Product")
 	set_recipe(ingredients)
-	generate_id()
-	calculate_value()
 
 func set_recipe(ingredients: Array) -> void:
 	recipe = []
@@ -20,6 +18,8 @@ func set_recipe(ingredients: Array) -> void:
 				break
 		if not added:
 			recipe.append(ingredient)
+	generate_id()
+	calculate_value()
 
 func generate_id() -> String:
 	id = ""

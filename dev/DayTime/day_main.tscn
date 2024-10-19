@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/day_main.gd" id="1_5mcb3"]
-[ext_resource type="Script" path="res://dev/DayTime/make_product_menu.gd" id="2_b3dyd"]
+[ext_resource type="PackedScene" uid="uid://cx7fg4fx22xda" path="res://make_product_menu.tscn" id="2_f8fm3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 
@@ -138,6 +138,13 @@ offset_right = 1123.0
 offset_bottom = 639.0
 text = "Start Day"
 
+[node name="Trash" type="Button" parent="GameWorld"]
+offset_left = 369.0
+offset_top = 19.0
+offset_right = 518.0
+offset_bottom = 85.0
+text = "Trash"
+
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 
@@ -201,88 +208,7 @@ text = "Column 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MakeProductMenu" type="Panel" parent="PopupUI"]
-visible = false
-offset_left = 171.0
-offset_top = 56.0
-offset_right = 986.0
-offset_bottom = 570.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
-script = ExtResource("2_b3dyd")
-
-[node name="Ingredient0" type="Button" parent="PopupUI/MakeProductMenu"]
-layout_mode = 2
-offset_left = 27.0
-offset_top = 51.0
-offset_right = 132.0
-offset_bottom = 82.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Ingredient_0"
-
-[node name="Ingredient1" type="Button" parent="PopupUI/MakeProductMenu"]
-layout_mode = 2
-offset_left = 189.0
-offset_top = 54.0
-offset_right = 294.0
-offset_bottom = 85.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Ingredient_1"
-
-[node name="Ingredient2" type="Button" parent="PopupUI/MakeProductMenu"]
-offset_left = 360.0
-offset_top = 51.0
-offset_right = 465.0
-offset_bottom = 82.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Ingredient_2"
-
-[node name="Ingredient3" type="Button" parent="PopupUI/MakeProductMenu"]
-offset_left = 573.0
-offset_top = 51.0
-offset_right = 678.0
-offset_bottom = 82.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Ingredient_3"
-
-[node name="Label" type="Label" parent="PopupUI/MakeProductMenu"]
-layout_mode = 0
-offset_left = 351.0
-offset_top = 267.0
-offset_right = 457.0
-offset_bottom = 305.0
-text = "THE RECIPE"
-horizontal_alignment = 1
-
-[node name="Done" type="Button" parent="PopupUI/MakeProductMenu"]
-offset_left = 350.0
-offset_top = 436.0
-offset_right = 455.0
-offset_bottom = 467.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "Done"
-
-[node name="Label2" type="Label" parent="PopupUI/MakeProductMenu"]
-offset_left = 32.0
-offset_top = 122.0
-offset_right = 217.0
-offset_bottom = 301.0
-text = "Item Combo 1:
-    Ingredient_0 - 1
-    Ingredient_1 - 2
-
-Item Combo 2:
-    Ingredient_0 - 1
-    Ingredient_2 - 2
-
-Item Combo 3:
-    Ingredient_0 - 1
-    Ingredient_1 - 1
-    Ingredient_2 - 1"
+[node name="MakeProductMenu" parent="PopupUI" instance=ExtResource("2_f8fm3")]
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
@@ -294,9 +220,5 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameWorld/Button4" to="." method="_on_quit_pressed"]
 [connection signal="pressed" from="GameWorld/Button5" to="." method="_toggle_shop_menu"]
 [connection signal="pressed" from="GameWorld/StartDay" to="." method="_on_start_day_pressed"]
+[connection signal="pressed" from="GameWorld/Trash" to="." method="_on_trash_pressed"]
 [connection signal="finish_product" from="PopupUI/MakeProductMenu" to="." method="_finish_product"]
-[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient0" to="PopupUI/MakeProductMenu" method="_on_ingredient_0_pressed"]
-[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient1" to="PopupUI/MakeProductMenu" method="_on_ingredient_1_pressed"]
-[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient2" to="PopupUI/MakeProductMenu" method="_on_ingredient_2_pressed"]
-[connection signal="pressed" from="PopupUI/MakeProductMenu/Ingredient3" to="PopupUI/MakeProductMenu" method="_on_ingredient_3_pressed"]
-[connection signal="pressed" from="PopupUI/MakeProductMenu/Done" to="PopupUI/MakeProductMenu" method="_on_done_pressed"]

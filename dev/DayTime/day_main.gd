@@ -50,10 +50,10 @@ var day_started: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	ingredients.append(Ingredient.new("Ingredient_0", "0"))
-	ingredients.append(Ingredient.new("Ingredient_1", "1"))
-	ingredients.append(Ingredient.new("Ingredient_2", "2"))
-	ingredients.append(Ingredient.new("Ingredient_3", "3"))
+	ingredients.append(Ingredient.new("Cup", "0"))
+	ingredients.append(Ingredient.new("BeanA", "1"))
+	ingredients.append(Ingredient.new("BeanB", "2"))
+	ingredients.append(Ingredient.new("Sugar", "3"))
 	for ingredient: Ingredient in ingredients:
 		ingredient.add_count(49)
 	
@@ -173,7 +173,7 @@ func _update_labels() -> void:
 	ingredient_label.text = "Ingredients:"
 	for ingredient: Ingredient in ingredients:
 		ingredient_label.text += "\n" + ingredient.name + ": " + str(ingredient.count)
-	product_label.text = "Products:"
+	product_label.text = "Products (max: 4):"
 	for product: Product in products:
 		product_label.text += "\n" + product.name
 
@@ -218,13 +218,14 @@ func _close_shop() -> void:
 		shop_menu.visible = false
 
 func _start_making_product() -> void:
-	if state == STATES.NONE and day_started:
+	if state == STATES.NONE and len(products) < 4:
 		state = STATES.MAKING_PRODUCT
 		product_menu.visible = true
 		product_menu.start_making_product(ingredients)
 
 func _finish_product(made_product: Product) -> void:
-	products.append(made_product)
+	if len(made_product.recipe) > 1:
+		products.append(made_product)
 	state = STATES.NONE
 	product_menu.visible = false
 
@@ -276,3 +277,7 @@ func _toggle_shop_menu() -> void:
 func _on_start_day_pressed() -> void:
 	day_started = true
 	$GameWorld/StartDay.visible = false
+
+
+func _on_trash_pressed() -> void:
+	products.pop_front()
