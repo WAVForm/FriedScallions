@@ -236,7 +236,7 @@ func _start_serving_customer() -> void:
 func _serve_customer() -> bool:
 	for i in range(len(customers[0].order)):
 		for j in range(len(products)):
-			if customers[0].order[i]._is_identical(products[j]):
+			if customers[0].order[i].is_identical(products[j]):
 				earn_money(customers[0].order[i].value + int(floor(customers[0].patience / 10.0)))
 				customers[0].order.remove_at(i)
 				products.remove_at(j)
@@ -248,7 +248,7 @@ func _customer_servable() -> bool:
 		if customers[0].position == 0.0:
 			for item: StockItem in customers[0].order:
 				for product: Product in products:
-					if item._is_identical(product):
+					if item.is_identical(product):
 						return true
 	return false
 

@@ -20,5 +20,5 @@ func remove_count(count_to_remove: int) -> bool:
 func add_count(count_to_add: int) -> void:
 	count += count_to_add
 
-func _is_identical(item: StockItem) -> bool:
+func is_identical(item: StockItem) -> bool:
 	return id == item.id
