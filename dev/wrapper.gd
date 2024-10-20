@@ -8,7 +8,7 @@ const DUSK_SCENE = preload("res://dev/NightTime/scenes/Dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/Night.tscn")
 const SLEEP_SCENE = preload("res://dev/NightTime/scenes/Sleep.tscn")
 
-const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/Templates/roll_template.tscn")
+const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/Templates/Roll.tscn")
 
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
@@ -107,6 +107,7 @@ func load_game() -> void:
 			# TODO add this part
 
 func roll(pass_chance: float):
+	pass
 	#TODO maybe add a general "add menu" function
 	#add roll menu self.add_child(ROLL_TEMPLATE.instantiate())
 	#start rollROLL_TEMPLATE.roll()

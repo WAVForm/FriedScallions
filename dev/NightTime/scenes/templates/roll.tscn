@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgh4ctadcemfn"]
+
+[ext_resource type="Script" path="res://roll.gd" id="1_p8kfl"]
+
+[node name="Roll" type="CanvasLayer"]
+script = ExtResource("1_p8kfl")
+
+[node name="RandNum" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
