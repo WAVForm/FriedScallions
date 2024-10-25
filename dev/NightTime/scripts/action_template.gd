@@ -1,5 +1,7 @@
 extends Panel
 
+class_name ActionTemplate
+
 #actions
 #current action
 var action
@@ -12,14 +14,23 @@ var action
 @onready var chance_reward_icon = $chance_background/chance_reward_icon as TextureRect
 @onready var confirm_button = $confirm_button as ConfirmButton
 
-func _ready():
+func populate(actions:Array):
+	if actions.size() == 0: #if we used all the action prefabs
+		self.queue_free()
 	action = Action.random()
+	while action not in actions:
+		action = Action.random()
+		
 	set_nodes() #set nodes based on selected action
 	confirm_button.confirmed.connect(func():
 		var result = await WRAPPER.roll(action.chance)
 		if (result):
+			print("Got reward")
 			action.apply_reward()
-		WRAPPER.change_scene(WRAPPER.SCENES.ACTION)
+			WRAPPER.change_scene(WRAPPER.SCENES.ACTION)
+		else:
+			print("No reward")
+			WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 	)
 
 func set_nodes():

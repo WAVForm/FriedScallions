@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://4d5jwg6wc1ro"]
 
-[ext_resource type="Script" path="res://roll_template.gd" id="1_iw5ub"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/roll_template.gd" id="1_iw5ub"]
 
-[node name="Roll" type="Control"]
+[node name="roll" type="Control"]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -18,7 +18,7 @@ grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_iw5ub")
 
-[node name="RollBG" type="ColorRect" parent="."]
+[node name="roll_bg" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.3555, 0.45, 0.324, 1)
 
-[node name="RollText" type="Label" parent="."]
+[node name="roll_text" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.12
@@ -40,3 +40,14 @@ theme_override_font_sizes/font_size = 105
 text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="prevent_clicks" type="Control" parent="."]
+layout_mode = 1
+anchor_left = -1.42
+anchor_top = -1.12
+anchor_right = 2.42
+anchor_bottom = 2.12
+offset_left = 3.05176e-05
+offset_bottom = -3.05176e-05
+grow_horizontal = 2
+grow_vertical = 2
