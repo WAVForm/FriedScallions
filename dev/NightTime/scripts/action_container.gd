@@ -16,6 +16,3 @@ func create_action():
 	aspect_ratio.size_flags_horizontal = Control.SIZE_EXPAND_FILL #expand to fill the box container
 	self.add_child(aspect_ratio) #put action holder in box container
 	aspect_ratio.add_child(action_temp.instantiate()) #place action into action holder
-	
-	var confirm = aspect_ratio.get_child(0).get_node("confirm_button") as ConfirmButton #get the confirm button of action
-	#confirm.confirmed.connect() #what to do when confirmed?

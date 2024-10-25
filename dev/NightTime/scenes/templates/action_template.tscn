@@ -48,9 +48,10 @@ anchor_left = 0.027
 anchor_top = 0.708
 anchor_right = 0.175
 anchor_bottom = 0.958
-offset_left = -0.64
-offset_top = 0.0639954
-offset_bottom = 0.0639954
+offset_left = 0.845
+offset_top = -1.28
+offset_right = 1.485
+offset_bottom = -1.28
 color = Color(1, 0, 0, 1)
 
 [node name="chance_percentage" type="Label" parent="chance_background"]
@@ -59,33 +60,22 @@ anchors_preset = -1
 anchor_top = 0.512
 anchor_right = 1.003
 anchor_bottom = 0.982
-offset_top = -0.0214386
-offset_right = -0.0162697
-offset_bottom = 0.00966263
+offset_top = -20.48
+offset_right = 0.0204201
+offset_bottom = 0.720001
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "25%"
+theme_override_font_sizes/font_size = 15
+text = "100%"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="chance_reward_icon" type="TextureRect" parent="chance_background"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.0623333
-anchor_top = 0.0625
-anchor_right = 0.4375
-anchor_bottom = 0.4375
+anchor_left = -0.000200688
+anchor_right = 1.00351
+anchor_bottom = 1.0
 offset_left = 0.00799942
-expand_mode = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="chance_risk_icon" type="TextureRect" parent="chance_background"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5765
-anchor_top = 0.0625
-anchor_right = 0.9375
-anchor_bottom = 0.4375
-offset_left = -0.672
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 

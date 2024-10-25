@@ -5,6 +5,7 @@ class_name ConfirmButton
 var fill_color = Color.GRAY
 var confirm_delay = 0.25 #seconds
 var fill_progress = false
+var first_confirm = true
 @onready var progress_bar = $confirm_progress
 
 signal confirmed
@@ -25,4 +26,6 @@ func _process(delta):
 		else:
 			progress_bar.value -= (progress_bar.max_value*delta)
 	if(progress_bar.value>=progress_bar.max_value): 
-		confirmed.emit()
+		if(first_confirm):
+			confirmed.emit()
+			first_confirm = false

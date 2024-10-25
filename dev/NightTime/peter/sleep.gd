@@ -1,6 +1,5 @@
 extends Control
 
-@onready var dawn_button = $to_dawn
-
 func _ready():
-	dawn_button.confirmed.connect(func(): WRAPPER.change_scene(WRAPPER.SCENES.DAWN))
+	await WRAPPER.wait(2)
+	WRAPPER.change_scene(WRAPPER.SCENES.DAWN)

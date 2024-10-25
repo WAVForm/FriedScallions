@@ -7,12 +7,13 @@ const DAWN_SCENE = preload("res://dev/NightTime/scenes/Dawn.tscn")
 const DUSK_SCENE = preload("res://dev/NightTime/scenes/Dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/Night.tscn")
 const SLEEP_SCENE = preload("res://dev/NightTime/scenes/Sleep.tscn")
+const ACTION_SCENE = preload("res://dev/NightTime/scenes/Action.tscn")
 
-const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/Templates/Roll.tscn")
+const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/Templates/roll.tscn")
 
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
-enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, DEBUG}
+enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, ACTION, DEBUG}
 var state: SCENES = SCENES.NULL
 
 var current_child: Node = null
@@ -52,6 +53,9 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.SLEEP:
 			current_child = SLEEP_SCENE.instantiate()
 			state = SCENES.SLEEP
+		SCENES.ACTION:
+			current_child = ACTION_SCENE.instantiate()
+			state = SCENES.ACTION
 		SCENES.DEBUG:
 			current_child = DEBUG_SCENE.instantiate()
 			state = SCENES.DEBUG
@@ -106,12 +110,15 @@ func load_game() -> void:
 			# blah blah turn back into variables based on read data
 			# TODO add this part
 
+func wait(amt:int):
+	await get_tree().create_timer(amt).timeout #wait function ig
+
 func roll(pass_chance: float):
-	pass
-	#TODO maybe add a general "add menu" function
-	#add roll menu self.add_child(ROLL_TEMPLATE.instantiate())
-	#start rollROLL_TEMPLATE.roll()
-	#wait arbitrary time
-	#display final roll
-	#wait arbitrary time
-	#return roll result
+	self.add_child(ROLL_TEMPLATE.instantiate())
+	var roll_node = $Roll
+	roll_node.chance = pass_chance
+	await wait(4)
+	var result = roll_node.stop()
+	await wait(4)
+	roll_node.queue_free()
+	return true if (result) else false
