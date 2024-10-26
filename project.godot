@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="FriedScallions"
-run/main_scene="res://dev/initial.tscn"
+run/main_scene="res://dev/NightTime/scenes/_initial.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,10 @@ WRAPPER="*res://dev/wrapper.gd"
 [display]
 
 window/stretch/mode="canvas_items"
+
+[filesystem]
+
+import/blender/enabled=false
 
 [rendering]
 

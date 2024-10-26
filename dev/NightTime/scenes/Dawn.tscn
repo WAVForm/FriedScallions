@@ -1,9 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://77mbwehwret5"]
+[gd_scene load_steps=5 format=3 uid="uid://77mbwehwret5"]
 
-[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/yunis/blend_tween_two.tres" id="1_xsswy"]
-[ext_resource type="Script" path="res://dev/NightTime/yunis/dawn_dusk_bg.gd" id="2_fra3o"]
-[ext_resource type="Script" path="res://dev/NightTime/peter/buttons.gd" id="3_26ne1"]
-[ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/yunis/confirm_button.tscn" id="4_asvs4"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk.gd" id="1_875o7"]
+[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_xsswy"]
 
 [sub_resource type="Theme" id="Theme_h6huq"]
 
@@ -21,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_h6huq")
-metadata/_edit_lock_ = true
+script = ExtResource("1_875o7")
 
 [node name="bg" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4qc4r")
@@ -31,8 +29,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("2_fra3o")
-metadata/_edit_lock_ = true
 
 [node name="sun" type="ColorRect" parent="bg"]
 layout_mode = 1
@@ -64,23 +60,21 @@ text = "Morning Approaches"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="button_container" type="VBoxContainer" parent="."]
+[node name="day_text" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.333
-anchor_top = 0.593
-anchor_right = 0.667
-anchor_bottom = 0.691
-offset_left = 0.384003
-offset_top = -0.264038
-offset_right = -0.383972
-offset_bottom = 0.231964
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -64.5
+offset_right = 128.0
+offset_bottom = 64.5
+grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 50
-alignment = 1
-script = ExtResource("3_26ne1")
-
-[node name="day_confirm" parent="button_container" instance=ExtResource("4_asvs4")]
-layout_mode = 2
-size_flags_vertical = 3
-text = "Go to Daytime"
+theme_override_font_sizes/font_size = 60
+text = "Day ?
+"
+horizontal_alignment = 1
+vertical_alignment = 1

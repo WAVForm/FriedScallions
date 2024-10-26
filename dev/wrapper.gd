@@ -1,16 +1,21 @@
 extends Node
 
-const DEBUG_SCENE = preload("res://dev/debug_stuff.tscn")
+const DEBUG_SCENE = preload("res://dev/debug_menu.tscn")
 
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/day_main.tscn")
-const DAWN_SCENE = preload("res://dev/NightTime/peter/Dawn.tscn")
-const DUSK_SCENE = preload("res://dev/NightTime/peter/Dusk.tscn")
-const NIGHT_SCENE = preload("res://dev/NightTime/peter/Night.tscn")
-const SLEEP_SCENE = preload("res://dev/NightTime/peter/Sleep.tscn")
+const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
+const DUSK_SCENE = preload("res://dev/NightTime/scenes/dusk.tscn")
+const NIGHT_SCENE = preload("res://dev/NightTime/scenes/night.tscn")
+const SLEEP_SCENE = preload("res://dev/NightTime/scenes/sleep.tscn")
+const ACTION_SCENE = preload("res://dev/NightTime/scenes/action.tscn")
+const TEXT_EVENT_SCENE = preload("res://dev/NightTime/scenes/text_event.tscn")
+
+const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/templates/roll_template.tscn")
 
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
-enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, DEBUG}
+var day = 1
+enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
 var state: SCENES = SCENES.NULL
 
 var current_child: Node = null
@@ -21,14 +26,15 @@ var purchaseables: Array
 var money: int
 
 #Night Time Data
-	#TODO Store actions? Or, buffs/debuffs?
+var heat: float #police attention
+#TODO Store actions? Or, buffs/debuffs?
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	change_scene(SCENES.DEBUG)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	pass
 
 func change_scene(sceneid: SCENES) -> void:
@@ -49,6 +55,14 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.SLEEP:
 			current_child = SLEEP_SCENE.instantiate()
 			state = SCENES.SLEEP
+			day += 1
+		SCENES.ACTION:
+			current_child = ACTION_SCENE.instantiate()
+			state = SCENES.ACTION
+			day += 1
+		SCENES.TEXT_EVENT:
+			current_child = TEXT_EVENT_SCENE.instantiate()
+			state = SCENES.TEXT_EVENT
 		SCENES.DEBUG:
 			current_child = DEBUG_SCENE.instantiate()
 			state = SCENES.DEBUG
@@ -63,8 +77,6 @@ func exit_scene() -> void:
 			#ingredients = current_child.ingredients #TODO sam, dis broken 
 			#purchaseables = current_child.purchaseables #TODO sam, dis broken too
 			money = current_child.money
-		SCENES.NIGHT:
-			pass
 	if current_child != null:
 		current_child.queue_free()
 
@@ -102,3 +114,42 @@ func load_game() -> void:
 			print(i, "   ", node_data[i], "   ", typeof(node_data[i]))
 			# blah blah turn back into variables based on read data
 			# TODO add this part
+
+func wait(amt:int):
+	await get_tree().create_timer(amt).timeout #wait function ig
+
+func roll(pass_chance: float):
+	self.add_child(ROLL_TEMPLATE.instantiate())
+	var roll_node = $roll
+	roll_node.chance = pass_chance
+	await wait(4)
+	var result = roll_node.stop()
+	if (day == 3):
+		roll_node.rtext.text = "100%"
+		roll_node.current = 100
+		result = 1.0
+	await wait(4)
+	roll_node.queue_free()
+	return true if (result) else false
+
+func get_text_event():
+	match day:
+		1:
+			change_scene(SCENES.TEXT_EVENT)
+			current_child.set_text("Overnight you toiled at a new recipe for a pastry.", 2)
+		2:
+			change_scene(SCENES.TEXT_EVENT)
+			current_child.set_text("Overnight you toiled at a new recipe for a cake.", 2)
+		3:
+			change_scene(SCENES.TEXT_EVENT)
+			current_child.set_text("That new neighbor has to be stopped or else I'll go out of business!", 2)
+		_:
+			#No text event
+			change_scene(SCENES.NIGHT)
+			
+func after_text_event():
+	match day:
+		3:
+			change_scene(SCENES.NIGHT)
+		_:
+			change_scene(SCENES.SLEEP)
