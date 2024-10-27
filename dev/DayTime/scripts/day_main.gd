@@ -74,7 +74,9 @@ static var null_product: Product = Product.new("null", [], 0, 0)
 @onready var trash_button = $GameUI/Trash
 
 
-var server: bool = false
+static var server: bool:
+	get:
+		return purchaseables[4].count >= 1
 
 var progress: float = 0.0
 var customers: Array[Customer] = []
@@ -126,6 +128,9 @@ func _ready() -> void:
 	
 	employee_bar.add_child(_create_purchaseable_button(purchaseables[4]))
 	
+	if server:
+		spend_money(5 * purchaseables[4].count)
+	
 	update_current_products()
 	update_money_display()
 
@@ -175,7 +180,7 @@ func _server_process(delta) -> void:
 	if server:
 		if can_serve_customer():
 			auto_serve_progress += delta
-			var duration = 2.0
+			var duration = 2.0 / (0.5 + 0.5 * purchaseables[4].count)
 			if auto_serve_progress >= duration:
 				auto_serve_progress = 0.0
 				_serve_customer()
