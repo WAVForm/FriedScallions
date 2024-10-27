@@ -2,7 +2,7 @@ extends Node
 
 const DEBUG_SCENE = preload("res://dev/debug_menu.tscn")
 
-const DAY_MAIN_SCENE = preload("res://dev/DayTime/day_main.tscn")
+const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
 const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
 const DUSK_SCENE = preload("res://dev/NightTime/scenes/dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/night.tscn")
@@ -21,9 +21,21 @@ var state: SCENES = SCENES.NULL
 var current_child: Node = null
 
 # Day Time Data
-var ingredients: Array
-var purchaseables: Array
-var money: int
+var ingredients: Array[Ingredient]:
+	get:
+		return DayMain.ingredients
+	set(new_ingredients):
+		DayMain.ingredients = new_ingredients
+var purchaseables: Array[Purchaseable]:
+	get:
+		return DayMain.purchaseables
+	set(new_purchaseables):
+		DayMain.purchaseables = new_purchaseables
+var money: int:
+	get:
+		return DayMain.money
+	set(new_money):
+		DayMain.money = new_money
 
 #Night Time Data
 var heat: float #police attention
@@ -137,9 +149,13 @@ func get_text_event():
 		1:
 			change_scene(SCENES.TEXT_EVENT)
 			current_child.set_text("Overnight you toiled at a new recipe for a pastry.", 2)
+			purchaseables[0].count = 1
+			purchaseables[0].unlocked = 1
 		2:
 			change_scene(SCENES.TEXT_EVENT)
 			current_child.set_text("Overnight you toiled at a new recipe for a cake.", 2)
+			purchaseables[3].count = 1
+			purchaseables[3].unlocked = 1
 		3:
 			change_scene(SCENES.TEXT_EVENT)
 			current_child.set_text("That new neighbor has to be stopped or else I'll go out of business!", 2)

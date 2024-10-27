@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5g05ol1qkfre"]
+
+[ext_resource type="Script" path="res://dev/DayTime/scripts/number_popup.gd" id="1_ei4d6"]
+
+[node name="NumberPopup" type="Label"]
+text = "+10 Money"
+script = ExtResource("1_ei4d6")

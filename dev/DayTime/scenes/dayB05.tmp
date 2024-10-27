@@ -1,42 +1,39 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0mniyqf1at8e"]
 
-[ext_resource type="Script" path="res://dev/DayTime/day_main.gd" id="1_5mcb3"]
-[ext_resource type="PackedScene" uid="uid://cx7fg4fx22xda" path="res://make_product_menu.tscn" id="2_f8fm3"]
+[ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
+[ext_resource type="PackedScene" uid="uid://v3jntx5qwgy1" path="res://dev/models/store.fbx" id="2_2g8bb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 
 [node name="DayMain" type="Node2D"]
-script = ExtResource("1_5mcb3")
+script = ExtResource("1_jp6l8")
 
-[node name="GameWorld" type="CanvasLayer" parent="."]
-layer = 0
+[node name="GameWorld" type="Node3D" parent="."]
 
-[node name="ProductButton" type="Button" parent="GameWorld"]
-offset_left = 194.0
-offset_top = 17.0
-offset_right = 343.0
-offset_bottom = 83.0
-text = "Make Product"
+[node name="store" parent="GameWorld" instance=ExtResource("2_2g8bb")]
 
-[node name="IngredientLabel" type="Label" parent="GameWorld"]
+[node name="GameUI" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="IngredientLabel" type="Label" parent="GameUI"]
 offset_left = 12.0
 offset_top = 144.0
-offset_right = 121.0
-offset_bottom = 167.0
+offset_right = 135.0
+offset_bottom = 271.0
 text = "Ingredients:
 ingredient_1: 50
 ingredient_2: 50
 ingredient_3: 50
 ingredient_4: 50"
 
-[node name="ProductLabel" type="Label" parent="GameWorld"]
+[node name="ProductLabel" type="Label" parent="GameUI"]
 offset_left = 232.0
 offset_top = 147.0
 offset_right = 341.0
 offset_bottom = 170.0
 text = "Items:"
 
-[node name="CustomerLabel" type="Label" parent="GameWorld"]
+[node name="CustomerLabel" type="Label" parent="GameUI"]
 offset_left = 110.0
 offset_top = 311.0
 offset_right = 356.0
@@ -46,21 +43,21 @@ Patience:
 Customers in line:
 "
 
-[node name="Button3" type="Button" parent="GameWorld"]
+[node name="ServeButton" type="Button" parent="GameUI"]
 offset_left = 414.0
 offset_top = 314.0
 offset_right = 597.0
 offset_bottom = 396.0
 text = "Serve"
 
-[node name="ProgressLabel" type="Label" parent="GameWorld"]
+[node name="ProgressLabel" type="Label" parent="GameUI"]
 offset_left = 709.0
 offset_top = 197.0
 offset_right = 781.0
 offset_bottom = 220.0
 text = "Progress:"
 
-[node name="ProgressBar" type="ProgressBar" parent="GameWorld"]
+[node name="ProgressBar" type="ProgressBar" parent="GameUI"]
 offset_left = 704.0
 offset_top = 228.0
 offset_right = 957.0
@@ -69,47 +66,40 @@ max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="Hire" type="Button" parent="GameWorld"]
-offset_left = 732.0
-offset_top = 294.0
-offset_right = 915.0
-offset_bottom = 376.0
-text = "Hire ($50 + $1/s)
-"
-
-[node name="AutoServeDisplay" type="Control" parent="GameWorld"]
-visible = false
+[node name="AutoServeDisplay" type="Control" parent="GameUI"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Label3" type="Label" parent="GameWorld/AutoServeDisplay"]
-layout_mode = 0
 offset_left = 711.0
-offset_top = 290.0
-offset_right = 795.0
-offset_bottom = 313.0
+offset_top = 307.0
+offset_right = 953.0
+offset_bottom = 378.0
+
+[node name="Label3" type="Label" parent="GameUI/AutoServeDisplay"]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 9.0
+offset_right = 85.0
+offset_bottom = 32.0
 text = "AutoServe:"
 
-[node name="AutoServe" type="ProgressBar" parent="GameWorld/AutoServeDisplay"]
+[node name="AutoServe" type="ProgressBar" parent="GameUI/AutoServeDisplay"]
 layout_mode = 0
-offset_left = 709.0
-offset_top = 319.0
-offset_right = 946.0
-offset_bottom = 331.0
+offset_left = -1.0
+offset_top = 38.0
+offset_right = 236.0
+offset_bottom = 50.0
 max_value = 1.0
 step = 0.0
 show_percentage = false
 
-[node name="Label3" type="Label" parent="GameWorld"]
+[node name="DayProgress" type="Label" parent="GameUI"]
 offset_left = 743.0
 offset_top = 570.0
-offset_right = 815.0
+offset_right = 849.0
 offset_bottom = 593.0
 text = "Day Progress:"
 
-[node name="ProgressBar2" type="ProgressBar" parent="GameWorld"]
+[node name="DayProgressBar" type="ProgressBar" parent="GameUI"]
 offset_left = 738.0
 offset_top = 600.0
 offset_right = 1109.0
@@ -117,36 +107,19 @@ offset_bottom = 630.0
 step = 0.0
 show_percentage = false
 
-[node name="Button4" type="Button" parent="GameWorld"]
+[node name="Quit" type="Button" parent="GameUI"]
 offset_left = 15.0
 offset_top = 601.0
 offset_right = 113.0
 offset_bottom = 639.0
 text = "quit"
 
-[node name="Button5" type="Button" parent="GameWorld"]
-offset_left = 27.0
-offset_top = 20.0
-offset_right = 154.0
-offset_bottom = 83.0
-text = "Toggle Shop"
-
-[node name="StartDay" type="Button" parent="GameWorld"]
-offset_left = 727.0
-offset_top = 590.0
-offset_right = 1123.0
-offset_bottom = 639.0
-text = "Start Day"
-
-[node name="Trash" type="Button" parent="GameWorld"]
+[node name="Trash" type="Button" parent="GameUI"]
 offset_left = 369.0
 offset_top = 19.0
 offset_right = 518.0
 offset_bottom = 85.0
 text = "Trash"
-
-[node name="GameUI" type="CanvasLayer" parent="."]
-layer = 5
 
 [node name="Money" type="Label" parent="GameUI"]
 offset_left = 9.0
@@ -208,17 +181,10 @@ text = "Column 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MakeProductMenu" parent="PopupUI" instance=ExtResource("2_f8fm3")]
-
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
 follow_viewport_enabled = true
 
-[connection signal="pressed" from="GameWorld/ProductButton" to="." method="_start_making_product"]
-[connection signal="pressed" from="GameWorld/Button3" to="." method="_start_serving_customer"]
-[connection signal="pressed" from="GameWorld/Hire" to="." method="_hire_server"]
-[connection signal="pressed" from="GameWorld/Button4" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="GameWorld/Button5" to="." method="_toggle_shop_menu"]
-[connection signal="pressed" from="GameWorld/StartDay" to="." method="_on_start_day_pressed"]
-[connection signal="pressed" from="GameWorld/Trash" to="." method="_on_trash_pressed"]
-[connection signal="finish_product" from="PopupUI/MakeProductMenu" to="." method="_finish_product"]
+[connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
+[connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="GameUI/Trash" to="." method="_on_trash_pressed"]

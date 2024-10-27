@@ -7,12 +7,18 @@ extends Control
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	dawn.confirmed.connect(func():
-		print(int(day_text.text))
-		WRAPPER.day = int(day_text.text)
+		if day_text.text == "":
+			WRAPPER.day = 1
+		else:
+			print(int(day_text.text))
+			WRAPPER.day = int(day_text.text)
 		WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 	)
 	dusk.confirmed.connect(func(): 
-		WRAPPER.day = int(day_text.text)
+		if day_text.text == "":
+			WRAPPER.day = 1
+		else:
+			WRAPPER.day = int(day_text.text)
 		WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
 	)
 
