@@ -37,14 +37,7 @@ func set_nodes():
 	title_node.text = action.title
 	desc_node.text = action.desc
 	chance_percent.text = str(int(action.chance*100)) + "%"
-	
-	#set icons
-	match (action.reward):
-		Action.Rewards.Money:
-			chance_reward_icon.texture = load("res://dev/NightTime/images/dollar.svg")
-		_:
-			chance_reward_icon.texture = load("res://dev/NightTime/images/check.svg")
-	
+	chance_reward_icon.texture = action.icon
 	set_colors()
 
 func set_colors():

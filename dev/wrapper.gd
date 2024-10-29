@@ -38,7 +38,6 @@ var money: int:
 		DayMain.money = new_money
 
 #Night Time Data
-var heat: float #police attention
 #TODO Store actions? Or, buffs/debuffs?
 
 # Called when the node enters the scene tree for the first time.
