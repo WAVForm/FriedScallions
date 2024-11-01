@@ -11,7 +11,6 @@ func _ready():
 		if day_text.text == "":
 			WRAPPER.day = 1
 		else:
-			print(int(day_text.text))
 			WRAPPER.day = int(day_text.text)
 		WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 	)

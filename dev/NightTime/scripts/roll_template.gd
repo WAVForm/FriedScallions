@@ -24,4 +24,4 @@ func _process(_delta):
 
 func stop():
 	rolling = false
-	return 1.0-chance < current/100.0 #is the roll higher than the pass chance
+	return 1.0-chance <= current/100.0 #is the roll higher than the pass chance

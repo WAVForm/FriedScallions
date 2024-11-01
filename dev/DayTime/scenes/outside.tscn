@@ -1,10 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=9 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="1_04b0a"]
 [ext_resource type="Script" path="res://dev/DayTime/scenes/outside.gd" id="1_vpoum"]
 [ext_resource type="PackedScene" uid="uid://bjwy36djyl2mc" path="res://dev/DayTime/scenes/person.tscn" id="3_bslps"]
-[ext_resource type="Material" uid="uid://d3ys6wdns1rve" path="res://dev/DayTime/shaders/friendly.tres" id="3_voaxv"]
-[ext_resource type="Material" uid="uid://h8iqqqr8t066" path="res://dev/DayTime/shaders/enemy.tres" id="4_ipqib"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -15,28 +13,28 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8ftmu"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, -5, 0, 0, 1.5, -9.5, 0, 2, 0, 0, 0, 8, 0, -1.75),
+"points": PackedVector3Array(0, 0, 0, -1, 0, -4.75, 0, 0, 1.5, 0.5, 0, 2, 0, 0, 0, 8, 0, -1.75),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_edimi"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -10, 0, 0, 8, 0, -0.25, 0, 0, 3.75, 0, 0, 0, 0.5, 0, -3),
+"points": PackedVector3Array(0, 0, 0, -8, 0, 0, 8, 0, -0.25, -1.5, 0, 3.75, 0, 0, 0, 0.5, 0, -3),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8uxoe"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, -5, 0, 0, 1.5, 9, 0, 2, 0, 0, 0, -8, 0, -1.75),
+"points": PackedVector3Array(0, 0, 0, 1, 0, -4.75, 0, 0, 1.5, -0.5, 0, 2, 0, 0, 0, -8, 0, -1.75),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_htfp2"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 10, 0, 0, -8, 0, -0.25, 0, 0, 3.75, 0, 0, 0, -0.5, 0, -3.25),
+"points": PackedVector3Array(0, 0, 0, 8.5, 0, 0, -8, 0, -0.25, 1.5, 0, 3.75, 0, 0, 0, -0.5, 0, -3.25),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -51,8 +49,8 @@ script = ExtResource("1_vpoum")
 [node name="advertiser" parent="friendly" instance=ExtResource("3_bslps")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.5)
 
-[node name="Person" parent="friendly/advertiser" index="0"]
-material_override = ExtResource("3_voaxv")
+[node name="collider" parent="friendly/advertiser" index="1"]
+disabled = true
 
 [node name="path_to_advert" type="Path3D" parent="friendly"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
@@ -71,8 +69,8 @@ curve = SubResource("Curve3D_edimi")
 [node name="advertiser" parent="enemy" instance=ExtResource("3_bslps")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.5)
 
-[node name="Person" parent="enemy/advertiser" index="0"]
-material_override = ExtResource("4_ipqib")
+[node name="collider" parent="enemy/advertiser" index="1"]
+disabled = true
 
 [node name="path_to_advert" type="Path3D" parent="enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
