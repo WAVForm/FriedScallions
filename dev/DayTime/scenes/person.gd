@@ -25,23 +25,23 @@ func _process(delta):
 		match state:
 			STATES.TO_ADVERT:
 				if progress < 1.0:
-					progress += delta / move_speed
+					progress += delta / move_speed #TODO not goord
 					self.position = advert_path.curve.sample(0, progress) + advert_path.position
 				else:
 					self.position = advert_path.curve.sample(0, 1.0) + advert_path.position
 					progress = 0
-					wait_time[0] = randf_range(0, 5)
+					wait_time[0] = randf_range(0, 5) #TODO wait times aint doing so hot
 					state = STATES.AT_ADVERT
 			STATES.AT_ADVERT:
 				if wait_time[0] < wait_time[1]:
 					wait_time[1] += delta
 				else:
-					#TODO check if line?
+					#TODO no direct path to store, walk to end of line then keep moving forward in line until person is directly in front 
 					self.position = shop_path.curve.sample(0, 0.0) + shop_path.position
 					state = STATES.TO_SHOP
 			STATES.TO_SHOP:
 				if progress < 1.0:
-					progress += delta / move_speed
+					progress += delta / move_speed #TODO not goord
 					self.position = shop_path.curve.sample(0, progress) + shop_path.position
 				else:
 					self.position = shop_path.curve.sample(0, 1.0) + shop_path.position
