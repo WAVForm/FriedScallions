@@ -39,6 +39,7 @@ var money: int:
 		DayMain.money = new_money
 
 #Night Time Data
+var slept: bool
 #TODO Store actions? Or, buffs/debuffs?
 
 func _ready():

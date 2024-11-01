@@ -38,6 +38,8 @@ func apply_reward():
 		Rewards.Money:
 			#random number between money low and high * 1.0 + risk chance
 			WRAPPER.money += (randi_range(MONEY_RANGE[0], MONEY_RANGE[1]))*(1.0+(1.0-chance))
+		Rewards.Ingredients:
+			WRAPPER.ingredients[randi() % WRAPPER.ingredients.size()].count += (randi_range(INGREDIENT_RANGE[0], INGREDIENT_RANGE[1]))*(1.0+(1.0-chance))
 
 static func random():
 	return prefab_actions[randi()%prefab_actions.size()]

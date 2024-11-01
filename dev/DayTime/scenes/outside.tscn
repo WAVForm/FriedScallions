@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=11 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="1_04b0a"]
 [ext_resource type="Script" path="res://dev/DayTime/scenes/outside.gd" id="1_vpoum"]
@@ -15,21 +15,28 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8ftmu"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 1.5, -0.75, 0, 0, 0, 0, 0, 0.5, 0, -5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, -5, 0, 0, 1.5, -9.5, 0, 2, 0, 0, 0, 8, 0, -1.75),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_edimi"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.75, 0, 0, 0, 0, 0, 0.5, 0, -3),
-"tilts": PackedFloat32Array(0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, -10, 0, 0, 8, 0, -0.25, 0, 0, 3.75, 0, 0, 0, 0.5, 0, -3),
+"tilts": PackedFloat32Array(0, 0)
 }
-point_count = 3
+point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8uxoe"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0.75, 0, 0, 0, 0, 0, -0.5, 0, -5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, -5, 0, 0, 1.5, 9, 0, 2, 0, 0, 0, -8, 0, -1.75),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
+[sub_resource type="Curve3D" id="Curve3D_htfp2"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 10, 0, 0, -8, 0, -0.25, 0, 0, 3.75, 0, 0, 0, -0.5, 0, -3.25),
 "tilts": PackedFloat32Array(0, 0)
 }
 point_count = 2
@@ -51,7 +58,7 @@ material_override = ExtResource("3_voaxv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
 
-[node name="path_to_shop" type="Path3D" parent="friendly"]
+[node name="path_to_line" type="Path3D" parent="friendly"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 curve = SubResource("Curve3D_8ftmu")
 
@@ -71,13 +78,13 @@ material_override = ExtResource("4_ipqib")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
 
-[node name="path_to_shop" type="Path3D" parent="enemy"]
+[node name="path_to_line" type="Path3D" parent="enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 curve = SubResource("Curve3D_8uxoe")
 
 [node name="line" type="Path3D" parent="enemy"]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -1.5, 0, -1.5)
-curve = SubResource("Curve3D_edimi")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -1.5)
+curve = SubResource("Curve3D_htfp2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.85264, 0.522499, 0, -0.522499, 0.85264, 0, 6.065, 13.196)
