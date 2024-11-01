@@ -6,8 +6,8 @@ var text = null
 var text_progress = 0.0
 var text_progress_time = 4 #default, change in wrapper to reflect time needed to read
 
-func set_text(text, time=4):
-	event_text.text = "[center]" + text + "[/center]"
+func set_text(txt, time=4):
+	event_text.text = "[center]" + txt + "[/center]"
 	text_progress_time = time
 	readable = true
 	

@@ -105,8 +105,8 @@ static func create_ingredient(ingredient_name: String, start_count: int, initial
 	ingredient_dict[initial] = new_ingredient
 	return new_ingredient
 
-static func create_product(product_name: String, initials_recipe: Array[String], price: int, popularity: int) -> Product:
-	return Product.new(product_name, generate_recipe(initials_recipe), price, popularity)
+static func create_product(p_product_name: String, p_initials_recipe: Array[String], p_price: int, p_popularity: int) -> Product:
+	return Product.new(p_product_name, generate_recipe(p_initials_recipe), p_price, p_popularity)
 
 static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]:
 	var recipe: Array[Ingredient] = []

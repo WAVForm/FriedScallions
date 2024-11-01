@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=10 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="1_04b0a"]
 [ext_resource type="Script" path="res://dev/DayTime/scenes/outside.gd" id="1_vpoum"]
-[ext_resource type="PackedScene" uid="uid://dcdfyntv6xfhk" path="res://dev/models/person.blend" id="2_uxrj3"]
+[ext_resource type="PackedScene" uid="uid://bjwy36djyl2mc" path="res://dev/DayTime/scenes/person.tscn" id="3_bslps"]
 [ext_resource type="Material" uid="uid://d3ys6wdns1rve" path="res://dev/DayTime/shaders/friendly.tres" id="3_voaxv"]
 [ext_resource type="Material" uid="uid://h8iqqqr8t066" path="res://dev/DayTime/shaders/enemy.tres" id="4_ipqib"]
 
@@ -27,6 +27,13 @@ _data = {
 }
 point_count = 3
 
+[sub_resource type="Curve3D" id="Curve3D_8uxoe"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0.75, 0, 0, 0, 0, 0, -0.5, 0, -5),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [node name="outside" type="Node3D"]
 script = ExtResource("1_vpoum")
 
@@ -34,14 +41,14 @@ script = ExtResource("1_vpoum")
 
 [node name="friendly" type="Node3D" parent="."]
 
-[node name="advert" parent="friendly" instance=ExtResource("2_uxrj3")]
+[node name="advertiser" parent="friendly" instance=ExtResource("3_bslps")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.5)
 
-[node name="Person" parent="friendly/advert" index="0"]
+[node name="Person" parent="friendly/advertiser" index="0"]
 material_override = ExtResource("3_voaxv")
 
 [node name="path_to_advert" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
 
 [node name="path_to_shop" type="Path3D" parent="friendly"]
@@ -54,23 +61,29 @@ curve = SubResource("Curve3D_edimi")
 
 [node name="enemy" type="Node3D" parent="."]
 
-[node name="advert" parent="enemy" instance=ExtResource("2_uxrj3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.99906, 0.00866938, 1.49156)
+[node name="advertiser" parent="enemy" instance=ExtResource("3_bslps")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.5)
 
-[node name="Person" parent="enemy/advert" index="0"]
+[node name="Person" parent="enemy/advertiser" index="0"]
 material_override = ExtResource("4_ipqib")
 
 [node name="path_to_advert" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
 
 [node name="path_to_shop" type="Path3D" parent="enemy"]
-transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -1.5, 0, 0)
-curve = SubResource("Curve3D_8ftmu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
+curve = SubResource("Curve3D_8uxoe")
 
 [node name="line" type="Path3D" parent="enemy"]
 transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, -1.5, 0, -1.5)
 curve = SubResource("Curve3D_edimi")
 
-[editable path="friendly/advert"]
-[editable path="enemy/advert"]
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.85264, 0.522499, 0, -0.522499, 0.85264, 0, 6.065, 13.196)
+
+[node name="OmniLight3D" type="DirectionalLight3D" parent="."]
+light_angular_distance = 25.0
+
+[editable path="friendly/advertiser"]
+[editable path="enemy/advertiser"]

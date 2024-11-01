@@ -3,6 +3,7 @@ extends Control
 @onready var day_text:TextEdit = $day_text
 @onready var dawn:ConfirmButton = $day_selection/dawn
 @onready var dusk:ConfirmButton = $day_selection/dusk
+@onready var outside:ConfirmButton = $misc/outside
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,7 +22,4 @@ func _ready():
 			WRAPPER.day = int(day_text.text)
 		WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
 	)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
+	outside.confirmed.connect(func(): WRAPPER.change_scene(WRAPPER.SCENES.OUTSIDE))

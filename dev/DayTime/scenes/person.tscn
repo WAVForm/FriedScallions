@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjwy36djyl2mc"]
+
+[ext_resource type="PackedScene" uid="uid://dcdfyntv6xfhk" path="res://dev/models/person.blend" id="1_vesfd"]
+[ext_resource type="Script" path="res://dev/DayTime/scenes/person.gd" id="2_568pu"]
+
+[node name="person" instance=ExtResource("1_vesfd")]
+script = ExtResource("2_568pu")

@@ -3,6 +3,7 @@ extends Node
 const DEBUG_SCENE = preload("res://dev/debug_menu.tscn")
 
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
+const OUTSIDE = preload("res://dev/DayTime/scenes/outside.tscn")
 const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
 const DUSK_SCENE = preload("res://dev/NightTime/scenes/dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/night.tscn")
@@ -15,7 +16,7 @@ const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/templates/roll_templat
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
 var day = 1
-enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
+enum SCENES {NULL, MAIN_MENU, DAWN, DAY, OUTSIDE, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
 var state: SCENES = SCENES.NULL
 
 var current_child: Node = null
@@ -40,13 +41,8 @@ var money: int:
 #Night Time Data
 #TODO Store actions? Or, buffs/debuffs?
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready():
 	change_scene(SCENES.DEBUG)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 func change_scene(sceneid: SCENES) -> void:
 	exit_scene()
@@ -57,6 +53,9 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.DAY:
 			current_child = DAY_MAIN_SCENE.instantiate()
 			state = SCENES.DAY
+		SCENES.OUTSIDE:
+			current_child = OUTSIDE.instantiate()
+			state = SCENES.OUTSIDE
 		SCENES.DUSK:
 			current_child = DUSK_SCENE.instantiate()
 			state = SCENES.DUSK
