@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bov4lthmbrlg4"]
+
+[ext_resource type="Script" path="res://roll.gd" id="1_11vsi"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_11vsi")
+
+[node name="RandNum" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "00"
