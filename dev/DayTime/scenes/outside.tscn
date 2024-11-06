@@ -13,31 +13,31 @@ point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8ftmu"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -1, 0, -4.75, 0, 0, 1.5, 0.5, 0, 2, 0, 0, 0, 8, 0, -1.75),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, -0.3, 0, -3, 0, 0, 1.5, 0.3, 0, 0, 0, 0, 0, 0, 0, -1.2, -0.5, 0, 0.5, 0, 0, 0, 8, 0, -1.5),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve3D" id="Curve3D_edimi"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -8, 0, 0, 8, 0, -0.25, -1.5, 0, 3.75, 0, 0, 0, 0.5, 0, -3),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, -0.5, 0, -0.75, 8, 0, 0, 0, 0, 0.5, 0, 0, 0, 0, 0, -0.45, -0.5, 0, 0, 0, 0, 0, 0.5, 0, -3),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve3D" id="Curve3D_8uxoe"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 1, 0, -4.75, 0, 0, 1.5, -0.5, 0, 2, 0, 0, 0, -8, 0, -1.75),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, 0.3, 0, -3, 0, 0, 1.5, 0.3, 0, 0, 0, 0, 0, 0, 0, -1.2, -0.5, 0, 0.5, 0, 0, 0, -8, 0, -1.5),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 2
+point_count = 3
 
 [sub_resource type="Curve3D" id="Curve3D_htfp2"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 8.5, 0, 0, -8, 0, -0.25, 1.5, 0, 3.75, 0, 0, 0, -0.5, 0, -3.25),
-"tilts": PackedFloat32Array(0, 0)
+"points": PackedVector3Array(0, 0, 0, -0.5, 0, -0.75, -8, 0, -0.000346184, 0, 0, 0.5, 0, 0, 0, 0, 0, -0.45, 0.5, 0, 0, 0, 0, 0, -0.5, 0, -3.5),
+"tilts": PackedFloat32Array(0, 0, 0)
 }
-point_count = 2
+point_count = 3
 
 [node name="outside" type="Node3D"]
 script = ExtResource("1_vpoum")
@@ -49,8 +49,11 @@ script = ExtResource("1_vpoum")
 [node name="advertiser" parent="friendly" instance=ExtResource("3_bslps")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.5)
 
-[node name="collider" parent="friendly/advertiser" index="1"]
-disabled = true
+[node name="collider" parent="friendly/advertiser" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
+
+[node name="info" parent="friendly/advertiser" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.15576, 0)
 
 [node name="path_to_advert" type="Path3D" parent="friendly"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
@@ -69,8 +72,11 @@ curve = SubResource("Curve3D_edimi")
 [node name="advertiser" parent="enemy" instance=ExtResource("3_bslps")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.5)
 
-[node name="collider" parent="enemy/advertiser" index="1"]
-disabled = true
+[node name="collider" parent="enemy/advertiser" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
+
+[node name="info" parent="enemy/advertiser" index="3"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.15576, 0)
 
 [node name="path_to_advert" type="Path3D" parent="enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)

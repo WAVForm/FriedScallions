@@ -21,7 +21,7 @@ func _process(delta):
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		spawn_person(0)
+		spawn_person()
 
 func spawn_person(side:int=2):
 	match side:
