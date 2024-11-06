@@ -1,5 +1,7 @@
 extends Control
 
+class_name Roll
+
 var roll_delay = 50 #higher number to decrease flashing
 var roll_i = 0
 var chance = 0.0
@@ -19,9 +21,16 @@ func _process(_delta):
 	roll_i += 1
 	if current/100.0 < 1.0-chance:
 		bg.color = Color.RED
-	elif current/100.0 >= 1.0 - chance:
+	elif current/100.0 >= 1.0-chance:
 		bg.color = Color.GREEN
 
 func stop():
 	rolling = false
-	return 1.0-chance <= current/100.0 #is the roll higher than the pass chance
+	return current/100.0 >= 1.0-chance #is the roll higher than the pass chance
+
+static func roll(c:float):
+	var r = randf()
+	if r >= 1.0-c:
+		return true
+	elif r < 1.0-c:
+		return false

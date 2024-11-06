@@ -1,8 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=11 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="1_04b0a"]
 [ext_resource type="Script" path="res://dev/DayTime/scenes/outside.gd" id="1_vpoum"]
-[ext_resource type="PackedScene" uid="uid://bjwy36djyl2mc" path="res://dev/DayTime/scenes/person.tscn" id="3_bslps"]
+[ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="3_d2alk"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -11,9 +11,16 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="Curve3D" id="Curve3D_xxlv4"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -3, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
+
 [sub_resource type="Curve3D" id="Curve3D_8ftmu"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -0.3, 0, -3, 0, 0, 1.5, 0.3, 0, 0, 0, 0, 0, 0, 0, -1.2, -0.5, 0, 0.5, 0, 0, 0, 8, 0, -1.5),
+"points": PackedVector3Array(0, 0, 0, -0.6, 0, -3.505, 0, 0, 1.5, 0.3, 0, 0, 0, 0, 0, 0, 0, -1.2, -0.5, 0, 0.5, 0, 0, 0, 8, 0, -1.5),
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
@@ -24,6 +31,13 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0)
 }
 point_count = 3
+
+[sub_resource type="Curve3D" id="Curve3D_tv1gt"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0),
+"tilts": PackedFloat32Array(0, 0)
+}
+point_count = 2
 
 [sub_resource type="Curve3D" id="Curve3D_8uxoe"]
 _data = {
@@ -46,18 +60,17 @@ script = ExtResource("1_vpoum")
 
 [node name="friendly" type="Node3D" parent="."]
 
-[node name="advertiser" parent="friendly" instance=ExtResource("3_bslps")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 1.5)
-
-[node name="collider" parent="friendly/advertiser" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
-
-[node name="info" parent="friendly/advertiser" index="3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.15576, 0)
+[node name="advertiser" type="MeshInstance3D" parent="friendly"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 2, 0.3, 1.5)
+mesh = ExtResource("3_d2alk")
 
 [node name="path_to_advert" type="Path3D" parent="friendly"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
+
+[node name="crossing_path" type="Path3D" parent="friendly"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5)
+curve = SubResource("Curve3D_xxlv4")
 
 [node name="path_to_line" type="Path3D" parent="friendly"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0)
@@ -69,18 +82,18 @@ curve = SubResource("Curve3D_edimi")
 
 [node name="enemy" type="Node3D" parent="."]
 
-[node name="advertiser" parent="enemy" instance=ExtResource("3_bslps")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 1.5)
-
-[node name="collider" parent="enemy/advertiser" index="2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
-
-[node name="info" parent="enemy/advertiser" index="3"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.15576, 0)
+[node name="advertiser" type="MeshInstance3D" parent="enemy"]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, -2, 0.3, 1.5)
+mesh = ExtResource("3_d2alk")
+skeleton = NodePath("../../friendly/advertiser")
 
 [node name="path_to_advert" type="Path3D" parent="enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
 curve = SubResource("Curve3D_gfkr7")
+
+[node name="crossing_path" type="Path3D" parent="enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
+curve = SubResource("Curve3D_tv1gt")
 
 [node name="path_to_line" type="Path3D" parent="enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
@@ -95,6 +108,3 @@ transform = Transform3D(1, 0, 0, 0, 0.85264, 0.522499, 0, -0.522499, 0.85264, 0,
 
 [node name="OmniLight3D" type="DirectionalLight3D" parent="."]
 light_angular_distance = 25.0
-
-[editable path="friendly/advertiser"]
-[editable path="enemy/advertiser"]
