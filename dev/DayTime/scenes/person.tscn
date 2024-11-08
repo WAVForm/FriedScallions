@@ -1,11 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjwy36djyl2mc"]
+[gd_scene load_steps=4 format=3 uid="uid://bjwy36djyl2mc"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/person.gd" id="2_568pu"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="2_k5jhh"]
-[ext_resource type="Texture2D" uid="uid://c15myocf56idk" path="res://dev/DayTime/images/outsideconcept.jpg" id="3_emq2w"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rv2yu"]
-size = Vector3(0.75, 1.079, 0.75)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_luggb"]
+radius = 0.18
+height = 1.26318
 
 [node name="person" type="Area3D"]
 script = ExtResource("2_568pu")
@@ -14,13 +14,14 @@ script = ExtResource("2_568pu")
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.3, 0)
 mesh = ExtResource("2_k5jhh")
 
+[node name="check_front" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0.5, -0.4)
+
 [node name="collider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0179214, 0.497314, 0.0156707)
-shape = SubResource("BoxShape3D_rv2yu")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
+shape = SubResource("CapsuleShape3D_luggb")
 
-[node name="RayCast3D" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0.5, -0.6)
-
-[node name="Sprite3D" type="Sprite3D" parent="."]
-transform = Transform3D(-9.17939e-10, 0, 0.01, 0, 0.02, 0, -0.021, 0, -4.37114e-10, 0, 0.805, -0.3)
-texture = ExtResource("3_emq2w")
+[node name="info" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15576, 0)
+pixel_size = 0.01
+text = "asdasdas"

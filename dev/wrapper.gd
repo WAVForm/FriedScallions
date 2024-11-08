@@ -38,6 +38,10 @@ var money: int:
 	set(new_money):
 		DayMain.money = new_money
 
+var popularity: float = 0.5
+signal friendly_shop_entered
+signal enemy_shop_entered
+
 #Night Time Data
 var slept: bool
 #TODO Store actions? Or, buffs/debuffs?
