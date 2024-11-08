@@ -3,16 +3,19 @@ extends Area3D
 class_name Person
 
 @onready var check_front = $check_front
-@onready var top_info = $info
+@onready var textbox = $text
+@onready var background = $textbox_bg
+var items:Array
 var id: int
 
 var outside:Node3D
 var parent:Node3D
+var current_path:Path3D
 var advert_path:Path3D
 var cross_path:Path3D
 var line_path:Path3D
 var line:Path3D
-enum STATES {NONE, TO_ADVERT, AT_ADVERT, CROSSING, TO_LINE, IN_LINE, AT_DOOR, INSIDE}
+enum STATES {NONE, TO_ADVERT, AT_ADVERT, CROSSING, TO_LINE, IN_LINE, AT_DOOR, TO_REGISTER, FROM_REGISTER}
 var state:STATES = STATES.NONE
 
 var started = false
@@ -51,6 +54,9 @@ func start(p_id: int):
 	line_path = parent.get_node("path_to_line") as Path3D
 	line = parent.get_node("line") as Path3D
 	state = STATES.TO_ADVERT
+	textbox.visible = false
+	background.visible = false
+	populate_textbox()
 	self.position = advert_path.curve.get_point_position(0) + advert_path.position
 	started = true
 	moving = true
@@ -84,7 +90,10 @@ func try_move(delta):
 		move_on_path(delta)
 
 func move_on_path(delta):
-	var current_path = advert_path if state == STATES.TO_ADVERT else cross_path if state == STATES.CROSSING else line_path if state == STATES.TO_LINE else line if state == STATES.IN_LINE else null
+	if state == STATES.TO_REGISTER or state == STATES.FROM_REGISTER:
+		1 + 1
+	else:
+		current_path = advert_path if state == STATES.TO_ADVERT else cross_path if state == STATES.CROSSING else line_path if state == STATES.TO_LINE else line if state == STATES.IN_LINE else null
 	if current_path != null:
 		var len = current_path.curve.get_baked_length()
 		if progress + (len * max_progression * delta) < len:
@@ -128,5 +137,12 @@ func on_enter():
 func _process(delta):
 	if started:
 		try_move(delta)
-		top_info.text = "S: " + str(state) + " | ID: " + str(id)
-		top_info.rotation.y = 0 - self.rotation.y
+		
+func populate_textbox():
+	for item in items:
+		textbox.text += item.name + "\n"
+		
+func text_appear():
+	textbox.visible = true
+	background.visible = true
+	

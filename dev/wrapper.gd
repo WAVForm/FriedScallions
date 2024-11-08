@@ -4,6 +4,7 @@ const DEBUG_SCENE = preload("res://dev/debug_menu.tscn")
 
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
 const OUTSIDE = preload("res://dev/DayTime/scenes/outside.tscn")
+const INSIDE = preload("res://dev/DayTime/scenes/inside.tscn")
 const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
 const DUSK_SCENE = preload("res://dev/NightTime/scenes/dusk.tscn")
 const NIGHT_SCENE = preload("res://dev/NightTime/scenes/night.tscn")
@@ -16,7 +17,7 @@ const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/templates/roll_templat
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
 var day = 1
-enum SCENES {NULL, MAIN_MENU, DAWN, DAY, OUTSIDE, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
+enum SCENES {NULL, MAIN_MENU, DAWN, DAY, OUTSIDE, INSIDE, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
 var state: SCENES = SCENES.NULL
 
 var current_child: Node = null
@@ -61,6 +62,9 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.OUTSIDE:
 			current_child = OUTSIDE.instantiate()
 			state = SCENES.OUTSIDE
+		SCENES.INSIDE:
+			current_child = INSIDE.instantiate()
+			state = SCENES.INSIDE
 		SCENES.DUSK:
 			current_child = DUSK_SCENE.instantiate()
 			state = SCENES.DUSK

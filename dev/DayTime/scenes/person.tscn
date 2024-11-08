@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjwy36djyl2mc"]
+[gd_scene load_steps=5 format=3 uid="uid://bjwy36djyl2mc"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/person.gd" id="2_568pu"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="2_k5jhh"]
@@ -6,6 +6,8 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_luggb"]
 radius = 0.18
 height = 1.26318
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_l1cup"]
 
 [node name="person" type="Area3D"]
 script = ExtResource("2_568pu")
@@ -21,7 +23,16 @@ target_position = Vector3(0, 0.5, -0.4)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
 shape = SubResource("CapsuleShape3D_luggb")
 
-[node name="info" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15576, 0)
-pixel_size = 0.01
-text = "asdasdas"
+[node name="text" type="Label3D" parent="."]
+transform = Transform3D(-4.37114e-08, -6.60024e-15, -1, -1.50996e-07, 1, 0, -1, -1.50996e-07, 4.37114e-08, 0.01, 2.32752, 0)
+text = "Item A
+Item B
+Item C
+"
+vertical_alignment = 0
+autowrap_mode = 1
+width = 270.0
+
+[node name="textbox_bg" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.10837e-08, 1.1, -6.15456e-08, 0.48234, -4.80825e-08, 0, -1.8432e-15, -9.61651e-08, -0.704, 0, 1.87732, 0)
+mesh = SubResource("PlaneMesh_l1cup")
