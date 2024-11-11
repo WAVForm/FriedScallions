@@ -13,11 +13,11 @@ height = 1.26318
 script = ExtResource("2_568pu")
 
 [node name="model" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.3, 0)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0.3, 0)
 mesh = ExtResource("2_k5jhh")
 
 [node name="check_front" type="RayCast3D" parent="."]
-target_position = Vector3(0, 0.5, -0.4)
+target_position = Vector3(0, 0.5, -0.5)
 
 [node name="collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.407723, 0)
@@ -34,5 +34,5 @@ autowrap_mode = 1
 width = 270.0
 
 [node name="textbox_bg" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.10837e-08, 1.1, -6.15456e-08, 0.48234, -4.80825e-08, 0, -1.8432e-15, -9.61651e-08, -0.704, 0, 1.87732, 0)
+transform = Transform3D(2.10837e-08, 1.1, -6.15456e-08, 0.48234, -4.80825e-08, 0, -1.8432e-15, -9.61651e-08, -0.704, 0, 2, 0)
 mesh = SubResource("PlaneMesh_l1cup")

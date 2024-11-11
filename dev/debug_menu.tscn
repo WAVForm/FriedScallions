@@ -64,10 +64,6 @@ offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="outside" parent="misc" instance=ExtResource("1_bop0a")]
+[node name="day_scene" parent="misc" instance=ExtResource("1_bop0a")]
 layout_mode = 2
-text = "Outside"
-
-[node name="inside" parent="misc" instance=ExtResource("1_bop0a")]
-layout_mode = 2
-text = "Inside"
+text = "3D Scene"
