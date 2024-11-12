@@ -1,9 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwo130dpykwr"]
+[gd_scene load_steps=3 format=3 uid="uid://bwo130dpykwr"]
 
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="1_6qx65"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/customer_display.gd" id="1_x40l0"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j47lv"]
 
 [node name="CustomerDisplay" type="PathFollow3D"]
 script = ExtResource("1_x40l0")
@@ -11,4 +9,3 @@ script = ExtResource("1_x40l0")
 [node name="Model" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0.3, 0)
 mesh = ExtResource("1_6qx65")
-surface_material_override/0 = SubResource("StandardMaterial3D_j47lv")

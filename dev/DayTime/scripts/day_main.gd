@@ -114,7 +114,16 @@ static func create_product(p_product_name: String, p_initials_recipe: Array[Stri
 static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]:
 	var recipe: Array[Ingredient] = []
 	for initial in initials_recipe:
-		recipe.append(ingredient_dict[initial])
+		var true_initial: String
+		var count: int
+		if len(initial) > 1:
+			true_initial = initial[-1]
+			count = int(initial.trim_suffix(true_initial))
+		else:
+			true_initial = initial
+			count = 1
+		for i in range(count):
+			recipe.append(ingredient_dict[true_initial])
 	return recipe
 
 # Called when the node enters the scene tree for the first time.
@@ -158,9 +167,6 @@ func _process(delta: float) -> void:
 	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
 	trash_button.disabled = len(counter) == 0
 
-func _draw() -> void:
-	# TODO FIX FIX FIX SUPER DUPER DUPER TEMP
-	queue_path.update_customers(customers)
 
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
@@ -249,18 +255,18 @@ func _customer_process(delta) -> void:
 			order.append(new_order_product)
 		customers.append(Customer.new(order))
 	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - 50.0 * delta, 30.0 * i, 200.0)
+		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
 		if customers[i].position == 0:
 			if state != STATES.MANUAL_SERVING:
 				customers[i].patience -= 2.0 * delta
 		else:
-			customers[i].patience -= 1.0 * delta
-		queue_redraw()
+			customers[i].patience -= 0.65 * delta
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
+	queue_path.update_customers(customers)
 	var current_order = ""
 	var patience = ""
 	if len(customers) > 0:
