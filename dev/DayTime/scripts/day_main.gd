@@ -4,6 +4,11 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
+@export var PATIENCE_ON_SERVE: int = 5
+@export var PASTRY_1_RECIPE: Array[String] = ["F", "B"]
+@export_category("Flour")
+@export var FLOUR_START_AMOUNT: int = 50
+
 static var money: int = 100
 static var popularity: int = 0
 static var ingredient_dict: Dictionary = {}
@@ -114,7 +119,16 @@ static func create_product(p_product_name: String, p_initials_recipe: Array[Stri
 static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]:
 	var recipe: Array[Ingredient] = []
 	for initial in initials_recipe:
-		recipe.append(ingredient_dict[initial])
+		var true_initial: String
+		var count: int
+		if len(initial) > 1:
+			true_initial = initial[-1]
+			count = int(initial.trim_suffix(true_initial))
+		else:
+			true_initial = initial
+			count = 1
+		for i in range(count):
+			recipe.append(ingredient_dict[true_initial])
 	return recipe
 
 # Called when the node enters the scene tree for the first time.
@@ -158,9 +172,6 @@ func _process(delta: float) -> void:
 	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
 	trash_button.disabled = len(counter) == 0
 
-func _draw() -> void:
-	# TODO FIX FIX FIX SUPER DUPER DUPER TEMP
-	queue_path.update_customers(customers)
 
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
@@ -249,18 +260,18 @@ func _customer_process(delta) -> void:
 			order.append(new_order_product)
 		customers.append(Customer.new(order))
 	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - 50.0 * delta, 30.0 * i, 200.0)
+		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
 		if customers[i].position == 0:
 			if state != STATES.MANUAL_SERVING:
 				customers[i].patience -= 2.0 * delta
 		else:
-			customers[i].patience -= 1.0 * delta
-		queue_redraw()
+			customers[i].patience -= 0.65 * delta
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
+	queue_path.update_customers(customers)
 	var current_order = ""
 	var patience = ""
 	if len(customers) > 0:
@@ -335,27 +346,34 @@ func _start_serving_customer() -> void:
 		state = STATES.MANUAL_SERVING
 
 func _serve_customer() -> bool:
-	for i in range(len(customers[0].order)):
-		if customers[0].order[i] in counter:
-			var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
-			var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
-			earn_money(money_gain)
-			popularity += popularity_gain
-			var money_popup = number_popup_scene.instantiate()
-			money_popup.text = "+" + str(money_gain) + " Money"
-			money_popup.position.x += 500
-			money_popup.position.y += 500
-			day_ui.add_child(money_popup)
-			var popularity_popup = number_popup_scene.instantiate()
-			popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
-			popularity_popup.position.x += 500
-			popularity_popup.position.y += 500
-			popularity_popup.delay = 0.375
-			day_ui.add_child(popularity_popup)
-			counter.erase(customers[0].order[i])
-			customers[0].order.remove_at(i)
-			return true
-	return false
+	var items_served: int = 0
+	var no_items: bool = false
+	while not no_items:
+		no_items = true
+		for i in range(len(customers[0].order)):
+			if customers[0].order[i] in counter:
+				var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
+				var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
+				earn_money(money_gain)
+				popularity += popularity_gain
+				var money_popup = number_popup_scene.instantiate()
+				money_popup.text = "+" + str(money_gain) + " Money"
+				money_popup.position.x += 500
+				money_popup.position.y += 500
+				day_ui.add_child(money_popup)
+				var popularity_popup = number_popup_scene.instantiate()
+				popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
+				popularity_popup.position.x += 500
+				popularity_popup.position.y += 500
+				popularity_popup.delay = 0.375
+				day_ui.add_child(popularity_popup)
+				counter.erase(customers[0].order[i])
+				customers[0].order.remove_at(i)
+				no_items = false
+				break
+	
+	customers[0].patience += PATIENCE_ON_SERVE
+	return items_served > 0
 
 func can_serve_customer() -> bool:
 	if len(customers) > 0:
