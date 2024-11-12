@@ -4,6 +4,11 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
+@export var PATIENCE_ON_SERVE: int = 5
+@export var PASTRY_1_RECIPE: Array[String] = ["F", "B"]
+@export_category("Flour")
+@export var FLOUR_START_AMOUNT: int = 50
+
 static var money: int = 100
 static var popularity: int = 0
 static var ingredient_dict: Dictionary = {}
@@ -341,27 +346,34 @@ func _start_serving_customer() -> void:
 		state = STATES.MANUAL_SERVING
 
 func _serve_customer() -> bool:
-	for i in range(len(customers[0].order)):
-		if customers[0].order[i] in counter:
-			var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
-			var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
-			earn_money(money_gain)
-			popularity += popularity_gain
-			var money_popup = number_popup_scene.instantiate()
-			money_popup.text = "+" + str(money_gain) + " Money"
-			money_popup.position.x += 500
-			money_popup.position.y += 500
-			day_ui.add_child(money_popup)
-			var popularity_popup = number_popup_scene.instantiate()
-			popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
-			popularity_popup.position.x += 500
-			popularity_popup.position.y += 500
-			popularity_popup.delay = 0.375
-			day_ui.add_child(popularity_popup)
-			counter.erase(customers[0].order[i])
-			customers[0].order.remove_at(i)
-			return true
-	return false
+	var items_served: int = 0
+	var no_items: bool = false
+	while not no_items:
+		no_items = true
+		for i in range(len(customers[0].order)):
+			if customers[0].order[i] in counter:
+				var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
+				var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
+				earn_money(money_gain)
+				popularity += popularity_gain
+				var money_popup = number_popup_scene.instantiate()
+				money_popup.text = "+" + str(money_gain) + " Money"
+				money_popup.position.x += 500
+				money_popup.position.y += 500
+				day_ui.add_child(money_popup)
+				var popularity_popup = number_popup_scene.instantiate()
+				popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
+				popularity_popup.position.x += 500
+				popularity_popup.position.y += 500
+				popularity_popup.delay = 0.375
+				day_ui.add_child(popularity_popup)
+				counter.erase(customers[0].order[i])
+				customers[0].order.remove_at(i)
+				no_items = false
+				break
+	
+	customers[0].patience += PATIENCE_ON_SERVE
+	return items_served > 0
 
 func can_serve_customer() -> bool:
 	if len(customers) > 0:
