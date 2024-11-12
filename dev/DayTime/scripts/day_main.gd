@@ -48,6 +48,9 @@ static var cakes: Array[Product] = [
 ]
 static var null_product: Product = Product.new("null", [], 0, 0)
 
+# TODO more stuff i gotta fix later
+@onready var queue_path = $GameWorld/QueuePath
+
 # TODO FIX THIS CLEAN IT UP
 @onready var morning_ui = $MorningUI
 @onready var shop_menu = $MorningUI/ShopMenu
@@ -157,14 +160,7 @@ func _process(delta: float) -> void:
 
 func _draw() -> void:
 	# TODO FIX FIX FIX SUPER DUPER DUPER TEMP
-	for customer in customers:
-		var percentage = customer.patience_percentage
-		var customer_color
-		if percentage > 0.5:
-			customer_color = Color(2.0 * (1.0 - percentage), 1.0, 0.0)
-		else:
-			customer_color = Color(1.0, 2.0 * (percentage), 0.0)
-		draw_circle(Vector2(300, 350 - customer.position), 10.0, customer_color)
+	queue_path.update_customers(customers)
 
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
