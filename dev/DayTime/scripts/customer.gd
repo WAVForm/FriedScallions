@@ -8,5 +8,7 @@ var patience_percentage: float:
 	get: 
 		return patience / max_patience
 
-func _init(order_products: Array) -> void:
+func _init(order_products: Array, initial_patience: float) -> void:
 	order = order_products
+	patience = initial_patience
+	max_patience = initial_patience

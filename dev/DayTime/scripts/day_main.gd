@@ -4,10 +4,55 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
+@export_category("General")
+@export var DAY_LENGTH: float = 60.0
+@export_subgroup("Customer")
+@export var INITIAL_PATIENCE: float = 30.0
 @export var PATIENCE_ON_SERVE: int = 5
+@export var PATIENCE_DECAY: float = 2.0
+@export var IN_LINE_MULT: float = 0.325 # Slows the decay of patience if they "haven't ordered yet"
+@export_category("ANYTHING BELOW THIS")
+@export var POINT_IS_NOT: String = "IMPLEMENTED"
+@export_category("Pastry")
+@export_subgroup("1")
+@export var PASTRY_1_NAME: String = "Croissant"
 @export var PASTRY_1_RECIPE: Array[String] = ["F", "B"]
-@export_category("Flour")
+@export var PASTRY_1_PRICE: int = 1
+@export var PASTRY_1_POPULARITY: int = 1
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export var PASTRY_PRICE_BASE: int = 5
+@export var PASTRY_PRICE_SCALE: int = 5
+@export var PASTRY_INITIAL_LEVEL: int = 0
+@export var PASTRY_INITIAL_UNLOCK: int = 0
+@export_category("Coffee")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Tea")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Cake")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Ingredients")
+@export_subgroup("Flour")
 @export var FLOUR_START_AMOUNT: int = 50
+@export var FLOUR_PRICE: int = 5
+@export var FLOUR_BUY_AMOUNT: int = 15
+@export_subgroup("Butter")
+@export_subgroup("Milk")
+@export_subgroup("Sugar")
 
 static var money: int = 100
 static var popularity: int = 0
@@ -81,6 +126,8 @@ static var null_product: Product = Product.new("null", [], 0, 0)
 @onready var serve_button = $GameUI/ServeButton
 @onready var trash_button = $GameUI/Trash
 
+# TODO fix this also
+@onready var overview_ui = $DayOverUI
 
 static var server: bool:
 	get:
@@ -94,7 +141,6 @@ var customer_timer: float = 0.0
 var auto_serve_progress: float = 0.0
 
 var day_cycle_progress: float = 0.0
-var day_cycle_length: int = 60
 
 var pastry: Product
 var coffee: Product
@@ -176,12 +222,14 @@ func _process(delta: float) -> void:
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
 	day_cycle_progress_bar.value = day_cycle_progress
-	day_cycle_progress_bar.max_value = day_cycle_length
-	if day_cycle_progress > day_cycle_length:
+	day_cycle_progress_bar.max_value = DAY_LENGTH
+	if day_cycle_progress > DAY_LENGTH:
 		day_ended = true
 		if len(customers) == 0:
 			print("Money: $" + str(money))
-			WRAPPER.change_scene(WRAPPER.SCENES.DUSK) # TODO bring up day summary when day is done. Go to dusk once user dismisses
+			day_ui.visible = false
+			overview_ui.visible = true # TODO make this actually update the overview ui
+			get_tree().paused = true
 
 func _server_process(delta) -> void:
 	if server:
@@ -258,14 +306,13 @@ func _customer_process(delta) -> void:
 					4:
 						new_order_product = cake
 			order.append(new_order_product)
-		customers.append(Customer.new(order))
+		customers.append(Customer.new(order, INITIAL_PATIENCE))
 	for i in range(len(customers)):
 		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
-		if customers[i].position == 0:
-			if state != STATES.MANUAL_SERVING:
-				customers[i].patience -= 2.0 * delta
-		else:
-			customers[i].patience -= 0.65 * delta
+		var patience_decay_rate = PATIENCE_DECAY
+		if customers[i].position > 0:
+			patience_decay_rate *= IN_LINE_MULT * delta
+		customers[i].patience -= patience_decay_rate * delta
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			customers.pop_front()
@@ -420,3 +467,7 @@ func _on_tea_pressed() -> void:
 func _on_cake_pressed() -> void:
 	if cake.can_produce() and not counter_full():
 		_attempt_enter_state(STATES.CAKE)
+
+func _on_end_day_pressed() -> void:
+	get_tree().paused = false
+	WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
