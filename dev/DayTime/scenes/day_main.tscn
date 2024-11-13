@@ -18,6 +18,7 @@ font_size = 32
 
 [node name="DayMain" type="Node2D"]
 script = ExtResource("1_jp6l8")
+PASTRY_PRICE_BASE = 1
 
 [node name="GameWorld" type="Node3D" parent="."]
 

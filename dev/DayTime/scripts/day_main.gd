@@ -11,8 +11,10 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var PATIENCE_ON_SERVE: int = 5
 @export var PATIENCE_DECAY: float = 2.0
 @export var IN_LINE_MULT: float = 0.325 # Slows the decay of patience if they "haven't ordered yet"
+
 @export_category("ANYTHING BELOW THIS")
 @export var POINT_IS_NOT: String = "IMPLEMENTED"
+
 @export_category("Pastry")
 @export_subgroup("1")
 @export var PASTRY_1_NAME: String = "Croissant"
@@ -20,39 +22,100 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var PASTRY_1_PRICE: int = 1
 @export var PASTRY_1_POPULARITY: int = 1
 @export_subgroup("2")
+@export var PASTRY_2_NAME: String = "Croissant"
+@export var PASTRY_2_RECIPE: Array[String] = ["F", "B"]
+@export var PASTRY_2_PRICE: int = 1
+@export var PASTRY_2_POPULARITY: int = 1
 @export_subgroup("3")
-@export_subgroup("4")
+@export var PASTRY_3_NAME: String = "Croissant"
+@export var PASTRY_3_RECIPE: Array[String] = ["F", "B"]
+@export var PASTRY_3_PRICE: int = 1
+@export var PASTRY_3_POPULARITY: int = 1
 @export_subgroup("Upgrade")
 @export var PASTRY_PRICE_BASE: int = 5
 @export var PASTRY_PRICE_SCALE: int = 5
 @export var PASTRY_INITIAL_LEVEL: int = 0
 @export var PASTRY_INITIAL_UNLOCK: int = 0
+
 @export_category("Coffee")
 @export_subgroup("1")
+@export var COFFEE_1_NAME: String = "Croissant"
+@export var COFFEE_1_RECIPE: Array[String] = ["F", "B"]
+@export var COFFEE_1_PRICE: int = 1
+@export var COFFEE_1_POPULARITY: int = 1
 @export_subgroup("2")
+@export var COFFEE_2_NAME: String = "Croissant"
+@export var COFFEE_2_RECIPE: Array[String] = ["F", "B"]
+@export var COFFEE_2_PRICE: int = 1
+@export var COFFEE_2_POPULARITY: int = 1
 @export_subgroup("3")
-@export_subgroup("4")
+@export var COFFEE_3_NAME: String = "Croissant"
+@export var COFFEE_3_RECIPE: Array[String] = ["F", "B"]
+@export var COFFEE_3_PRICE: int = 1
+@export var COFFEE_3_POPULARITY: int = 1
 @export_subgroup("Upgrade")
+@export var COFFEE_PRICE_BASE: int = 5
+@export var COFFEE_PRICE_SCALE: int = 5
+@export var COFFEE_INITIAL_LEVEL: int = 0
+@export var COFFEE_INITIAL_UNLOCK: int = 0
+
 @export_category("Tea")
 @export_subgroup("1")
+@export var TEA_1_NAME: String = "Croissant"
+@export var TEA_1_RECIPE: Array[String] = ["F", "B"]
+@export var TEA_1_PRICE: int = 1
+@export var TEA_1_POPULARITY: int = 1
 @export_subgroup("2")
+@export var TEA_2_NAME: String = "Croissant"
+@export var TEA_2_RECIPE: Array[String] = ["F", "B"]
+@export var TEA_2_PRICE: int = 1
+@export var TEA_2_POPULARITY: int = 1
 @export_subgroup("3")
-@export_subgroup("4")
+@export var TEA_3_NAME: String = "Croissant"
+@export var TEA_3_RECIPE: Array[String] = ["F", "B"]
+@export var TEA_3_PRICE: int = 1
+@export var TEA_3_POPULARITY: int = 1
 @export_subgroup("Upgrade")
+@export var TEA_PRICE_BASE: int = 5
+@export var TEA_PRICE_SCALE: int = 5
+@export var TEA_INITIAL_LEVEL: int = 0
+@export var TEA_INITIAL_UNLOCK: int = 0
+
 @export_category("Cake")
 @export_subgroup("1")
+@export var CAKE_1_NAME: String = "Croissant"
+@export var CAKE_1_RECIPE: Array[String] = ["F", "B"]
+@export var CAKE_1_PRICE: int = 1
+@export var CAKE_1_POPULARITY: int = 1
 @export_subgroup("2")
+@export var CAKE_2_NAME: String = "Croissant"
+@export var CAKE_2_RECIPE: Array[String] = ["F", "B"]
+@export var CAKE_2_PRICE: int = 1
+@export var CAKE_2_POPULARITY: int = 1
 @export_subgroup("3")
-@export_subgroup("4")
+@export var CAKE_3_NAME: String = "Croissant"
+@export var CAKE_3_RECIPE: Array[String] = ["F", "B"]
+@export var CAKE_3_PRICE: int = 1
+@export var CAKE_3_POPULARITY: int = 1
 @export_subgroup("Upgrade")
+
 @export_category("Ingredients")
 @export_subgroup("Flour")
 @export var FLOUR_START_AMOUNT: int = 50
 @export var FLOUR_PRICE: int = 5
 @export var FLOUR_BUY_AMOUNT: int = 15
 @export_subgroup("Butter")
+@export var BUTTER_START_AMOUNT: int = 50
+@export var BUTTER_PRICE: int = 5
+@export var BUTTER_BUY_AMOUNT: int = 15
 @export_subgroup("Milk")
+@export var MILK_START_AMOUNT: int = 50
+@export var MILK_PRICE: int = 5
+@export var MILK_BUY_AMOUNT: int = 15
 @export_subgroup("Sugar")
+@export var SUGAR_START_AMOUNT: int = 50
+@export var SUGAR_PRICE: int = 5
+@export var SUGAR_BUY_AMOUNT: int = 15
 
 static var money: int = 100
 static var popularity: int = 0
