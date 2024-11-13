@@ -4,6 +4,56 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
+@export_category("General")
+@export var DAY_LENGTH: float = 60.0
+@export_subgroup("Customer")
+@export var INITIAL_PATIENCE: float = 30.0
+@export var PATIENCE_ON_SERVE: int = 5
+@export var PATIENCE_DECAY: float = 2.0
+@export var IN_LINE_MULT: float = 0.325 # Slows the decay of patience if they "haven't ordered yet"
+@export_category("ANYTHING BELOW THIS")
+@export var POINT_IS_NOT: String = "IMPLEMENTED"
+@export_category("Pastry")
+@export_subgroup("1")
+@export var PASTRY_1_NAME: String = "Croissant"
+@export var PASTRY_1_RECIPE: Array[String] = ["F", "B"]
+@export var PASTRY_1_PRICE: int = 1
+@export var PASTRY_1_POPULARITY: int = 1
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export var PASTRY_PRICE_BASE: int = 5
+@export var PASTRY_PRICE_SCALE: int = 5
+@export var PASTRY_INITIAL_LEVEL: int = 0
+@export var PASTRY_INITIAL_UNLOCK: int = 0
+@export_category("Coffee")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Tea")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Cake")
+@export_subgroup("1")
+@export_subgroup("2")
+@export_subgroup("3")
+@export_subgroup("4")
+@export_subgroup("Upgrade")
+@export_category("Ingredients")
+@export_subgroup("Flour")
+@export var FLOUR_START_AMOUNT: int = 50
+@export var FLOUR_PRICE: int = 5
+@export var FLOUR_BUY_AMOUNT: int = 15
+@export_subgroup("Butter")
+@export_subgroup("Milk")
+@export_subgroup("Sugar")
+
 static var money: int = 100
 static var popularity: int = 0
 static var ingredient_dict: Dictionary = {}
@@ -48,6 +98,9 @@ static var cakes: Array[Product] = [
 ]
 static var null_product: Product = Product.new("null", [], 0, 0)
 
+# TODO more stuff i gotta fix later
+@onready var queue_path = $GameWorld/QueuePath
+
 # TODO FIX THIS CLEAN IT UP
 @onready var morning_ui = $MorningUI
 @onready var shop_menu = $MorningUI/ShopMenu
@@ -73,6 +126,8 @@ static var null_product: Product = Product.new("null", [], 0, 0)
 @onready var serve_button = $GameUI/ServeButton
 @onready var trash_button = $GameUI/Trash
 
+# TODO fix this also
+@onready var overview_ui = $DayOverUI
 
 static var server: bool:
 	get:
@@ -86,7 +141,6 @@ var customer_timer: float = 0.0
 var auto_serve_progress: float = 0.0
 
 var day_cycle_progress: float = 0.0
-var day_cycle_length: int = 60
 
 var pastry: Product
 var coffee: Product
@@ -111,7 +165,16 @@ static func create_product(p_product_name: String, p_initials_recipe: Array[Stri
 static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]:
 	var recipe: Array[Ingredient] = []
 	for initial in initials_recipe:
-		recipe.append(ingredient_dict[initial])
+		var true_initial: String
+		var count: int
+		if len(initial) > 1:
+			true_initial = initial[-1]
+			count = int(initial.trim_suffix(true_initial))
+		else:
+			true_initial = initial
+			count = 1
+		for i in range(count):
+			recipe.append(ingredient_dict[true_initial])
 	return recipe
 
 # Called when the node enters the scene tree for the first time.
@@ -155,26 +218,18 @@ func _process(delta: float) -> void:
 	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
 	trash_button.disabled = len(counter) == 0
 
-func _draw() -> void:
-	# TODO FIX FIX FIX SUPER DUPER DUPER TEMP
-	for customer in customers:
-		var percentage = customer.patience_percentage
-		var customer_color
-		if percentage > 0.5:
-			customer_color = Color(2.0 * (1.0 - percentage), 1.0, 0.0)
-		else:
-			customer_color = Color(1.0, 2.0 * (percentage), 0.0)
-		draw_circle(Vector2(300, 350 - customer.position), 10.0, customer_color)
 
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
 	day_cycle_progress_bar.value = day_cycle_progress
-	day_cycle_progress_bar.max_value = day_cycle_length
-	if day_cycle_progress > day_cycle_length:
+	day_cycle_progress_bar.max_value = DAY_LENGTH
+	if day_cycle_progress > DAY_LENGTH:
 		day_ended = true
 		if len(customers) == 0:
 			print("Money: $" + str(money))
-			WRAPPER.change_scene(WRAPPER.SCENES.DUSK) # TODO bring up day summary when day is done. Go to dusk once user dismisses
+			day_ui.visible = false
+			overview_ui.visible = true # TODO make this actually update the overview ui
+			get_tree().paused = true
 
 func _server_process(delta) -> void:
 	if server:
@@ -251,20 +306,19 @@ func _customer_process(delta) -> void:
 					4:
 						new_order_product = cake
 			order.append(new_order_product)
-		customers.append(Customer.new(order))
+		customers.append(Customer.new(order, INITIAL_PATIENCE))
 	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - 50.0 * delta, 30.0 * i, 200.0)
-		if customers[i].position == 0:
-			if state != STATES.MANUAL_SERVING:
-				customers[i].patience -= 2.0 * delta
-		else:
-			customers[i].patience -= 1.0 * delta
-		queue_redraw()
+		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
+		var patience_decay_rate = PATIENCE_DECAY
+		if customers[i].position > 0:
+			patience_decay_rate *= IN_LINE_MULT * delta
+		customers[i].patience -= patience_decay_rate * delta
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
+	queue_path.update_customers(customers)
 	var current_order = ""
 	var patience = ""
 	if len(customers) > 0:
@@ -339,27 +393,34 @@ func _start_serving_customer() -> void:
 		state = STATES.MANUAL_SERVING
 
 func _serve_customer() -> bool:
-	for i in range(len(customers[0].order)):
-		if customers[0].order[i] in counter:
-			var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
-			var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
-			earn_money(money_gain)
-			popularity += popularity_gain
-			var money_popup = number_popup_scene.instantiate()
-			money_popup.text = "+" + str(money_gain) + " Money"
-			money_popup.position.x += 500
-			money_popup.position.y += 500
-			day_ui.add_child(money_popup)
-			var popularity_popup = number_popup_scene.instantiate()
-			popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
-			popularity_popup.position.x += 500
-			popularity_popup.position.y += 500
-			popularity_popup.delay = 0.375
-			day_ui.add_child(popularity_popup)
-			counter.erase(customers[0].order[i])
-			customers[0].order.remove_at(i)
-			return true
-	return false
+	var items_served: int = 0
+	var no_items: bool = false
+	while not no_items:
+		no_items = true
+		for i in range(len(customers[0].order)):
+			if customers[0].order[i] in counter:
+				var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
+				var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
+				earn_money(money_gain)
+				popularity += popularity_gain
+				var money_popup = number_popup_scene.instantiate()
+				money_popup.text = "+" + str(money_gain) + " Money"
+				money_popup.position.x += 500
+				money_popup.position.y += 500
+				day_ui.add_child(money_popup)
+				var popularity_popup = number_popup_scene.instantiate()
+				popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
+				popularity_popup.position.x += 500
+				popularity_popup.position.y += 500
+				popularity_popup.delay = 0.375
+				day_ui.add_child(popularity_popup)
+				counter.erase(customers[0].order[i])
+				customers[0].order.remove_at(i)
+				no_items = false
+				break
+	
+	customers[0].patience += PATIENCE_ON_SERVE
+	return items_served > 0
 
 func can_serve_customer() -> bool:
 	if len(customers) > 0:
@@ -406,3 +467,7 @@ func _on_tea_pressed() -> void:
 func _on_cake_pressed() -> void:
 	if cake.can_produce() and not counter_full():
 		_attempt_enter_state(STATES.CAKE)
+
+func _on_end_day_pressed() -> void:
+	get_tree().paused = false
+	WRAPPER.change_scene(WRAPPER.SCENES.DUSK)

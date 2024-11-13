@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=6 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://cd0sx1sbvq076" path="res://dev/models/Gamejam_Frame_Cut-3DView-{3D}.fbx" id="2_q83fi"]
@@ -12,9 +12,6 @@ _data = {
 point_count = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_bv1vo"]
-font_size = 32
 
 [node name="DayMain" type="Node2D"]
 script = ExtResource("1_jp6l8")
@@ -208,7 +205,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column2"]
 layout_mode = 2
-text = "Upgrade Recipes"
+text = "Column 2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -218,7 +215,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column3"]
 layout_mode = 2
-text = "Hire"
+text = "Column 3"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -228,7 +225,7 @@ size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column4"]
 layout_mode = 2
-text = "Current Resources"
+text = "Column 4"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -257,49 +254,6 @@ offset_right = 973.0
 offset_bottom = 556.0
 text = "Start Day"
 
-[node name="DayOverUI" type="CanvasLayer" parent="."]
-process_mode = 3
-visible = false
-
-[node name="Overview" type="PanelContainer" parent="DayOverUI"]
-offset_left = 374.0
-offset_top = 56.0
-offset_right = 781.0
-offset_bottom = 570.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
-
-[node name="Column1" type="VBoxContainer" parent="DayOverUI/Overview"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Title" type="Label" parent="DayOverUI/Overview/Column1"]
-layout_mode = 2
-text = "Overview"
-label_settings = SubResource("LabelSettings_bv1vo")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DayOverUI/Overview/Column1"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = " Name of Stat"
-
-[node name="Label3" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "### "
-horizontal_alignment = 2
-
-[node name="EndDay" type="Button" parent="DayOverUI"]
-offset_left = 664.0
-offset_top = 510.0
-offset_right = 771.0
-offset_bottom = 559.0
-text = "End Day"
-
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
 follow_viewport_enabled = true
@@ -312,4 +266,3 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameUI/Tea" to="." method="_on_tea_pressed"]
 [connection signal="pressed" from="GameUI/Cake" to="." method="_on_cake_pressed"]
 [connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
-[connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
