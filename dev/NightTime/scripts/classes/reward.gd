@@ -60,4 +60,4 @@ static var TIERS = [
 ]
 
 static func random_from_tier(tier:int):
-	return Reward.new(Reward.TIERS[tier][randi()%Reward.TIERS[tier].size()])
+	return Reward.new(Reward.TIERS[tier-1][randi()%Reward.TIERS[tier].size()])
