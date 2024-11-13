@@ -16,7 +16,7 @@ var state:STATES = STATES.NONE
 
 var started = false
 var moving = false
-var len = 0.0
+var path_len = 0.0
 var progress = 0.0
 var max_progression = 0.25
 var wait_time = 1.0
@@ -77,12 +77,12 @@ func try_move(delta):
 
 func move_on_path(delta):
 	if current_path != null:
-		if progress + (len * max_progression * delta) < len:
-			progress += len * max_progression * delta
+		if progress + (path_len * max_progression * delta) < path_len:
+			progress += path_len * max_progression * delta
 			self.transform = current_path.curve.sample_baked_with_rotation(progress)
 			self.position += current_path.position
 		else:
-			self.transform = current_path.curve.sample_baked_with_rotation(len)
+			self.transform = current_path.curve.sample_baked_with_rotation(path_len)
 			self.position += current_path.position
 			progress = 0
 			if state == STATES.CROSSING:
