@@ -23,6 +23,10 @@ WRAPPER="*res://dev/wrapper.gd"
 
 window/stretch/mode="canvas_items"
 
+[gui]
+
+theme/custom_font="res://dev/font/rainyhearts.ttf"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
