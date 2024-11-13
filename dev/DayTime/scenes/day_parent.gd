@@ -40,29 +40,29 @@ func spawn_person(side:int=2):
 			side = randi() % 2
 			spawn_person(side)
 
-func set_current_path(person:Person):
+func set_current_path(p:Person):
 	var path = null
-	match person.state:
+	match p.state:
 		Person.STATES.TO_ADVERT:
-			path = person.side.get_node("to_advert") as Path3D
+			path = p.side.get_node("to_advert") as Path3D
 		Person.STATES.CROSSING:
-			path = person.side.get_node("crossing") as Path3D
+			path = p.side.get_node("crossing") as Path3D
 		Person.STATES.TO_LINE:
-			path = person.side.get_node("to_line") as Path3D
+			path = p.side.get_node("to_line") as Path3D
 		Person.STATES.IN_LINE:
-			path = person.side.get_node("line") as Path3D
+			path = p.side.get_node("line") as Path3D
 		Person.STATES.TO_REGISTER:
-			path = person.side.get_node("to_register") as Path3D
+			path = p.side.get_node("to_register") as Path3D
 		Person.STATES.FROM_REGISTER:
-			path = person.side.get_node("from_register") as Path3D
+			path = p.side.get_node("from_register") as Path3D
 		Person.STATES.LEAVING:
-			path = person.side.get_node("leave") as Path3D
+			path = p.side.get_node("leave") as Path3D
 		_:
-			person.len = 0
-			person.current_path = path
+			p.len = 0
+			p.current_path = path
 			return
-	person.len = path.curve.get_baked_length()
-	person.current_path = path
+	p.len = path.curve.get_baked_length()
+	p.current_path = path
 	
-func switch_side(person:Person):
-	person.side = friendly if person.side == enemy else enemy
+func switch_side(p:Person):
+	p.side = friendly if p.side == enemy else enemy

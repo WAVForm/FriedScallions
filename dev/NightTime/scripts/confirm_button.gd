@@ -3,7 +3,7 @@ extends BaseButton
 class_name ConfirmButton
 
 var fill_color = Color.GRAY
-var confirm_delay = 0.25 #seconds
+var confirm_delay = 0.1 #seconds
 var fill_progress = false
 var first_confirm = true
 @onready var progress_bar = $confirm_progress
