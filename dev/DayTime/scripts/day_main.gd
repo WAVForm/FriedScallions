@@ -8,6 +8,8 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var DAY_LENGTH: float = 60.0
 @export var STARTING_MONEY: int = 100
 @export var STARTING_POPULARITY: int = 0
+@export var PRODUCTION_TIME: float = 1.0
+@export var SERVING_TIME: float = 1.0
 @export_subgroup("Customer")
 @export var INITIAL_PATIENCE: float = 30.0
 ##Amount of patience restored upon being served (partial order)
@@ -58,8 +60,8 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_subgroup("Upgrade")
 @export var COFFEE_PRICE_BASE: int = 5
 @export var COFFEE_PRICE_SCALE: int = 5
-@export var COFFEE_INITIAL_LEVEL: int = 0
-@export var COFFEE_INITIAL_UNLOCK: int = 0
+@export var COFFEE_INITIAL_LEVEL: int = 1
+@export var COFFEE_INITIAL_UNLOCK: int = 1
 
 @export_category("Tea")
 @export_subgroup("1")
@@ -80,8 +82,8 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_subgroup("Upgrade")
 @export var TEA_PRICE_BASE: int = 5
 @export var TEA_PRICE_SCALE: int = 5
-@export var TEA_INITIAL_LEVEL: int = 0
-@export var TEA_INITIAL_UNLOCK: int = 0
+@export var TEA_INITIAL_LEVEL: int = 1
+@export var TEA_INITIAL_UNLOCK: int = 1
 
 @export_category("Cake")
 @export_subgroup("1")
@@ -126,6 +128,8 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_category("Employees")
 @export var SERVER_WAGE_BASE: int = 5
 @export var SERVER_WAGE_SCALE: int = 5
+@export var SERVER_SPEED_BASE: float = 0.25
+@export var SERVER_SPEED_SCALE: float = 0.25
 @export_subgroup("Server")
 @export var SERVER_PRICE_BASE: int = 5
 @export var SERVER_PRICE_SCALE: int = 5
@@ -147,7 +151,7 @@ static var cakes: Array[Product]
 static var null_product: Product = Product.new("null", [], 0, 0)
 
 # TODO more stuff i gotta fix later
-@onready var queue_path = $GameWorld/QueuePath
+@onready var queue_path = $Inside/QueuePath
 
 # TODO FIX THIS CLEAN IT UP
 @onready var morning_ui = $MorningUI
@@ -330,8 +334,8 @@ func _day_cycle_process(delta) -> void:
 func _server_process(delta) -> void:
 	if server:
 		if can_serve_customer():
-			auto_serve_progress += delta
-			var duration = 2.0 / (0.5 + 0.5 * purchaseables[4].count)
+			auto_serve_progress += (SERVER_SPEED_BASE + SERVER_SPEED_SCALE * purchaseables[4].count) + delta
+			var duration = SERVING_TIME
 			if auto_serve_progress >= duration:
 				auto_serve_progress = 0.0
 				_serve_customer()
@@ -343,7 +347,7 @@ func _server_process(delta) -> void:
 func _manual_state_process(delta) -> void:
 	match state:
 		STATES.PASTRY:
-			var duration = 1.0
+			var duration = PRODUCTION_TIME
 			progress += delta
 			if progress >= duration:
 				pastry.produce()
@@ -351,7 +355,7 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 		STATES.COFFEE:
-			var duration = 1.0
+			var duration = PRODUCTION_TIME
 			progress += delta
 			if progress >= duration:
 				coffee.produce()
@@ -359,7 +363,7 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 		STATES.TEA:
-			var duration = 1.0
+			var duration = PRODUCTION_TIME
 			progress += delta
 			if progress >= duration:
 				tea.produce()
@@ -367,7 +371,7 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 		STATES.CAKE:
-			var duration = 1.0
+			var duration = PRODUCTION_TIME
 			progress += delta
 			if progress >= duration:
 				cake.produce()
@@ -375,7 +379,7 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 		STATES.MANUAL_SERVING: 
-			var duration = 1.0
+			var duration = SERVING_TIME
 			progress += delta
 			if progress >= duration:
 				_serve_customer()
@@ -402,18 +406,21 @@ func _customer_process(delta) -> void:
 					4:
 						new_order_product = cake
 			order.append(new_order_product)
+		print("Adding customer")
 		customers.append(Customer.new(order, INITIAL_PATIENCE))
+		print("Added customer")
 	for i in range(len(customers)):
 		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
 		var patience_decay_rate = PATIENCE_DECAY
 		if customers[i].position > 0:
-			patience_decay_rate *= IN_LINE_MULT * delta
+			patience_decay_rate *= IN_LINE_MULT
 		customers[i].patience -= patience_decay_rate * delta
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
+	
 	queue_path.update_customers(customers)
 	var current_order = ""
 	var patience = ""
