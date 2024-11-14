@@ -6,11 +6,16 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
+@export var STARTING_MONEY: int = 100
+@export var STARTING_POPULARITY: int = 0
 @export_subgroup("Customer")
 @export var INITIAL_PATIENCE: float = 30.0
+##Amount of patience restored upon being served (partial order)
 @export var PATIENCE_ON_SERVE: int = 5
+##Decay of patience/second
 @export var PATIENCE_DECAY: float = 2.0
-@export var IN_LINE_MULT: float = 0.325 # Slows the decay of patience if they "haven't ordered yet"
+##Multiplier to slow the decay of patience if they "haven't ordered yet"
+@export var IN_LINE_MULT: float = 0.325
 
 @export_category("ANYTHING BELOW THIS")
 @export var POINT_IS_NOT: String = "IMPLEMENTED"
@@ -117,8 +122,9 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var SUGAR_PRICE: int = 5
 @export var SUGAR_BUY_AMOUNT: int = 15
 
-static var money: int = 100
-static var popularity: int = 0
+static var new_game: bool = true
+static var money: int
+static var popularity: int
 static var ingredient_dict: Dictionary = {}
 static var ingredients: Array[Ingredient] = [
 	create_ingredient("Flour", 50, "F"),
@@ -242,6 +248,10 @@ static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if new_game:
+		_generate_new_game()
+		new_game = false
+	
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[0]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[1]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[2]))
@@ -259,6 +269,10 @@ func _ready() -> void:
 	
 	update_current_products()
 	update_money_display()
+
+func _generate_new_game() -> void:
+	money = STARTING_MONEY
+	popularity = STARTING_POPULARITY
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
