@@ -6,14 +6,16 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
+@export var STARTING_MONEY: int = 100
+@export var STARTING_POPULARITY: int = 0
 @export_subgroup("Customer")
 @export var INITIAL_PATIENCE: float = 30.0
+##Amount of patience restored upon being served (partial order)
 @export var PATIENCE_ON_SERVE: int = 5
+##Decay of patience/second
 @export var PATIENCE_DECAY: float = 2.0
-@export var IN_LINE_MULT: float = 0.325 # Slows the decay of patience if they "haven't ordered yet"
-
-@export_category("ANYTHING BELOW THIS")
-@export var POINT_IS_NOT: String = "IMPLEMENTED"
+##Multiplier to slow the decay of patience if they "haven't ordered yet"
+@export var IN_LINE_MULT: float = 0.325
 
 @export_category("Pastry")
 @export_subgroup("1")
@@ -98,6 +100,10 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var CAKE_3_PRICE: int = 1
 @export var CAKE_3_POPULARITY: int = 1
 @export_subgroup("Upgrade")
+@export var CAKE_PRICE_BASE: int = 5
+@export var CAKE_PRICE_SCALE: int = 5
+@export var CAKE_INITIAL_LEVEL: int = 0
+@export var CAKE_INITIAL_UNLOCK: int = 0
 
 @export_category("Ingredients")
 @export_subgroup("Flour")
@@ -117,48 +123,27 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export var SUGAR_PRICE: int = 5
 @export var SUGAR_BUY_AMOUNT: int = 15
 
-static var money: int = 100
-static var popularity: int = 0
-static var ingredient_dict: Dictionary = {}
-static var ingredients: Array[Ingredient] = [
-	create_ingredient("Flour", 50, "F"),
-	create_ingredient("Butter", 50, "B"),
-	create_ingredient("Milk", 50, "M"),
-	create_ingredient("Sugar", 50, "S")
-]
-static var restock_purchaseables: Array[RestockPurchaseable] = [
-	RestockPurchaseable.new("Flour", 5, ingredient_dict.F, 15),
-	RestockPurchaseable.new("Butter", 5, ingredient_dict.B, 15),
-	RestockPurchaseable.new("Milk", 5, ingredient_dict.M, 15),
-	RestockPurchaseable.new("Sugar", 5, ingredient_dict.S, 15)
-]
-static var purchaseables: Array[Purchaseable] = [
-	Purchaseable.new("Pastry", 5, 5, 0, 0),
-	Purchaseable.new("Coffee", 5, 5, 1, 1),
-	Purchaseable.new("Tea", 5, 5, 1, 1),
-	Purchaseable.new("Cake", 5, 5, 0, 0),
-	Purchaseable.new("Server", 5, 5, 0, 0)
-]
-static var pastries: Array[Product] = [
-	create_product("Croissant", ["F", "B"], 1, 1),
-	create_product("Butter Croissant", ["F", "B", "B"], 2, 2),
-	create_product("Sugar Croissant", ["F", "B", "S"], 5, 3)
-]
-static var coffees: Array[Product] = [
-	create_product("Americano", ["M", "S"], 1, 2),
-	create_product("Caramel Frappe", ["M", "S", "S"], 2, 3),
-	create_product("crack", ["M", "M", "S", "S"], 4, 25)
-]
-static var teas: Array[Product] = [
-	create_product("Black Tea", ["S"], 1, 1),
-	create_product("Earl Grey", ["S", "S"], 1, 3),
-	create_product("Chai Latte", ["M", "S", "S"], 3, 4)
-]
-static var cakes: Array[Product] = [
-	create_product("Vanilla Cake", ["F", "B", "M", "S"], 4, 3),
-	create_product("2-Layer Cake", ["F", "B", "M", "S", "S"], 6, 5),
-	create_product("Birthday Cake", ["F", "B", "B", "M", "S", "S"], 9, 9)
-]
+@export_category("Employees")
+@export var SERVER_WAGE_BASE: int = 5
+@export var SERVER_WAGE_SCALE: int = 5
+@export_subgroup("Server")
+@export var SERVER_PRICE_BASE: int = 5
+@export var SERVER_PRICE_SCALE: int = 5
+@export var SERVER_INITIAL_LEVEL: int = 0
+@export var SERVER_INITIAL_UNLOCK: int = 0
+
+
+static var new_game: bool = true
+static var money: int
+static var popularity: int
+static var ingredient_dict: Dictionary
+static var ingredients: Array[Ingredient]
+static var restock_purchaseables: Array[RestockPurchaseable]
+static var purchaseables: Array[Purchaseable]
+static var pastries: Array[Product]
+static var coffees: Array[Product]
+static var teas: Array[Product]
+static var cakes: Array[Product]
 static var null_product: Product = Product.new("null", [], 0, 0)
 
 # TODO more stuff i gotta fix later
@@ -242,6 +227,10 @@ static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if new_game:
+		_generate_new_game()
+		new_game = false
+	
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[0]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[1]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[2]))
@@ -255,10 +244,54 @@ func _ready() -> void:
 	employee_bar.add_child(_create_purchaseable_button(purchaseables[4]))
 	
 	if server:
-		spend_money(5 * purchaseables[4].count)
+		spend_money(SERVER_WAGE_BASE + SERVER_WAGE_SCALE * purchaseables[4].count)
 	
 	update_current_products()
 	update_money_display()
+
+func _generate_new_game() -> void:
+	money = STARTING_MONEY
+	popularity = STARTING_POPULARITY
+	ingredient_dict = {}
+	ingredients = [
+	create_ingredient("Flour", FLOUR_START_AMOUNT, "F"),
+	create_ingredient("Butter", BUTTER_START_AMOUNT, "B"),
+	create_ingredient("Milk", MILK_START_AMOUNT, "M"),
+	create_ingredient("Sugar", SUGAR_START_AMOUNT, "S")
+	]
+	restock_purchaseables = [
+	RestockPurchaseable.new("Flour", FLOUR_PRICE, ingredient_dict.F, FLOUR_BUY_AMOUNT),
+	RestockPurchaseable.new("Butter", BUTTER_PRICE, ingredient_dict.B, BUTTER_BUY_AMOUNT),
+	RestockPurchaseable.new("Milk", MILK_PRICE, ingredient_dict.M, MILK_BUY_AMOUNT),
+	RestockPurchaseable.new("Sugar", SUGAR_PRICE, ingredient_dict.S, SUGAR_BUY_AMOUNT)
+	]
+	purchaseables = [
+	Purchaseable.new("Pastry", PASTRY_PRICE_BASE, PASTRY_PRICE_SCALE, PASTRY_INITIAL_LEVEL, PASTRY_INITIAL_UNLOCK),
+	Purchaseable.new("Coffee", COFFEE_PRICE_BASE, COFFEE_PRICE_SCALE, COFFEE_INITIAL_LEVEL, COFFEE_INITIAL_UNLOCK),
+	Purchaseable.new("Tea", TEA_PRICE_BASE, TEA_PRICE_SCALE, TEA_INITIAL_LEVEL, TEA_INITIAL_UNLOCK),
+	Purchaseable.new("Cake", CAKE_PRICE_BASE, CAKE_PRICE_SCALE, CAKE_INITIAL_LEVEL, CAKE_INITIAL_UNLOCK),
+	Purchaseable.new("Server", SERVER_PRICE_BASE, SERVER_PRICE_SCALE, SERVER_INITIAL_LEVEL, SERVER_INITIAL_UNLOCK)
+	]
+	pastries = [
+	create_product(PASTRY_1_NAME, PASTRY_1_RECIPE, PASTRY_1_PRICE, PASTRY_1_POPULARITY),
+	create_product(PASTRY_2_NAME, PASTRY_2_RECIPE, PASTRY_2_PRICE, PASTRY_2_POPULARITY),
+	create_product(PASTRY_3_NAME, PASTRY_3_RECIPE, PASTRY_3_PRICE, PASTRY_3_POPULARITY)
+	]
+	coffees = [
+	create_product(COFFEE_1_NAME, COFFEE_1_RECIPE, COFFEE_1_PRICE, COFFEE_1_POPULARITY),
+	create_product(COFFEE_2_NAME, COFFEE_2_RECIPE, COFFEE_2_PRICE, COFFEE_2_POPULARITY),
+	create_product(COFFEE_3_NAME, COFFEE_3_RECIPE, COFFEE_3_PRICE, COFFEE_3_POPULARITY)
+	]
+	teas = [
+	create_product(TEA_1_NAME, TEA_1_RECIPE, TEA_1_PRICE, TEA_1_POPULARITY),
+	create_product(TEA_2_NAME, TEA_2_RECIPE, TEA_2_PRICE, TEA_2_POPULARITY),
+	create_product(TEA_3_NAME, TEA_3_RECIPE, TEA_3_PRICE, TEA_3_POPULARITY)
+	]
+	cakes = [
+	create_product(CAKE_1_NAME, CAKE_1_RECIPE, CAKE_1_PRICE, CAKE_1_POPULARITY),
+	create_product(CAKE_2_NAME, CAKE_2_RECIPE, CAKE_2_PRICE, CAKE_2_POPULARITY),
+	create_product(CAKE_3_NAME, CAKE_3_RECIPE, CAKE_3_PRICE, CAKE_3_POPULARITY)
+	]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
