@@ -22,16 +22,19 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_category("Pastry")
 @export_subgroup("1")
 @export var PASTRY_1_NAME: String = "Croissant"
+@export var PASTRY_1_TEXTURE: Texture2D
 @export var PASTRY_1_RECIPE: Array[String] = ["F", "B"]
 @export var PASTRY_1_PRICE: int = 1
 @export var PASTRY_1_POPULARITY: int = 1
 @export_subgroup("2")
 @export var PASTRY_2_NAME: String = "Croissant"
+@export var PASTRY_2_TEXTURE: Texture2D
 @export var PASTRY_2_RECIPE: Array[String] = ["F", "B"]
 @export var PASTRY_2_PRICE: int = 1
 @export var PASTRY_2_POPULARITY: int = 1
 @export_subgroup("3")
 @export var PASTRY_3_NAME: String = "Croissant"
+@export var PASTRY_3_TEXTURE: Texture2D
 @export var PASTRY_3_RECIPE: Array[String] = ["F", "B"]
 @export var PASTRY_3_PRICE: int = 1
 @export var PASTRY_3_POPULARITY: int = 1
@@ -44,16 +47,19 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_category("Coffee")
 @export_subgroup("1")
 @export var COFFEE_1_NAME: String = "Croissant"
+@export var COFFEE_1_TEXTURE: Texture2D
 @export var COFFEE_1_RECIPE: Array[String] = ["F", "B"]
 @export var COFFEE_1_PRICE: int = 1
 @export var COFFEE_1_POPULARITY: int = 1
 @export_subgroup("2")
 @export var COFFEE_2_NAME: String = "Croissant"
+@export var COFFEE_2_TEXTURE: Texture2D
 @export var COFFEE_2_RECIPE: Array[String] = ["F", "B"]
 @export var COFFEE_2_PRICE: int = 1
 @export var COFFEE_2_POPULARITY: int = 1
 @export_subgroup("3")
 @export var COFFEE_3_NAME: String = "Croissant"
+@export var COFFEE_3_TEXTURE: Texture2D
 @export var COFFEE_3_RECIPE: Array[String] = ["F", "B"]
 @export var COFFEE_3_PRICE: int = 1
 @export var COFFEE_3_POPULARITY: int = 1
@@ -66,16 +72,19 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_category("Tea")
 @export_subgroup("1")
 @export var TEA_1_NAME: String = "Croissant"
+@export var TEA_1_TEXTURE: Texture2D
 @export var TEA_1_RECIPE: Array[String] = ["F", "B"]
 @export var TEA_1_PRICE: int = 1
 @export var TEA_1_POPULARITY: int = 1
 @export_subgroup("2")
 @export var TEA_2_NAME: String = "Croissant"
+@export var TEA_2_TEXTURE: Texture2D
 @export var TEA_2_RECIPE: Array[String] = ["F", "B"]
 @export var TEA_2_PRICE: int = 1
 @export var TEA_2_POPULARITY: int = 1
 @export_subgroup("3")
 @export var TEA_3_NAME: String = "Croissant"
+@export var TEA_3_TEXTURE: Texture2D
 @export var TEA_3_RECIPE: Array[String] = ["F", "B"]
 @export var TEA_3_PRICE: int = 1
 @export var TEA_3_POPULARITY: int = 1
@@ -88,16 +97,19 @@ const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 @export_category("Cake")
 @export_subgroup("1")
 @export var CAKE_1_NAME: String = "Croissant"
+@export var CAKE_1_TEXTURE: Texture2D
 @export var CAKE_1_RECIPE: Array[String] = ["F", "B"]
 @export var CAKE_1_PRICE: int = 1
 @export var CAKE_1_POPULARITY: int = 1
 @export_subgroup("2")
 @export var CAKE_2_NAME: String = "Croissant"
+@export var CAKE_2_TEXTURE: Texture2D
 @export var CAKE_2_RECIPE: Array[String] = ["F", "B"]
 @export var CAKE_2_PRICE: int = 1
 @export var CAKE_2_POPULARITY: int = 1
 @export_subgroup("3")
 @export var CAKE_3_NAME: String = "Croissant"
+@export var CAKE_3_TEXTURE: Texture2D
 @export var CAKE_3_RECIPE: Array[String] = ["F", "B"]
 @export var CAKE_3_PRICE: int = 1
 @export var CAKE_3_POPULARITY: int = 1
@@ -148,10 +160,11 @@ static var pastries: Array[Product]
 static var coffees: Array[Product]
 static var teas: Array[Product]
 static var cakes: Array[Product]
-static var null_product: Product = Product.new("null", [], 0, 0)
+static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0)
 
 # TODO more stuff i gotta fix later
 @onready var queue_path = $Inside/QueuePath
+@onready var counter_display = $Inside/Counter
 
 # TODO FIX THIS CLEAN IT UP
 @onready var morning_ui = $MorningUI
@@ -211,8 +224,8 @@ static func create_ingredient(ingredient_name: String, start_count: int, initial
 	ingredient_dict[initial] = new_ingredient
 	return new_ingredient
 
-static func create_product(p_product_name: String, p_initials_recipe: Array[String], p_price: int, p_popularity: int) -> Product:
-	return Product.new(p_product_name, generate_recipe(p_initials_recipe), p_price, p_popularity)
+static func create_product(p_product_name: String, p_texture: Texture2D, p_initials_recipe: Array[String], p_price: int, p_popularity: int) -> Product:
+	return Product.new(p_product_name, p_texture, generate_recipe(p_initials_recipe), p_price, p_popularity)
 
 static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]:
 	var recipe: Array[Ingredient] = []
@@ -277,24 +290,24 @@ func _generate_new_game() -> void:
 	Purchaseable.new("Server", SERVER_PRICE_BASE, SERVER_PRICE_SCALE, SERVER_INITIAL_LEVEL, SERVER_INITIAL_UNLOCK)
 	]
 	pastries = [
-	create_product(PASTRY_1_NAME, PASTRY_1_RECIPE, PASTRY_1_PRICE, PASTRY_1_POPULARITY),
-	create_product(PASTRY_2_NAME, PASTRY_2_RECIPE, PASTRY_2_PRICE, PASTRY_2_POPULARITY),
-	create_product(PASTRY_3_NAME, PASTRY_3_RECIPE, PASTRY_3_PRICE, PASTRY_3_POPULARITY)
+	create_product(PASTRY_1_NAME, PASTRY_1_TEXTURE, PASTRY_1_RECIPE, PASTRY_1_PRICE, PASTRY_1_POPULARITY),
+	create_product(PASTRY_2_NAME, PASTRY_2_TEXTURE, PASTRY_2_RECIPE, PASTRY_2_PRICE, PASTRY_2_POPULARITY),
+	create_product(PASTRY_3_NAME, PASTRY_3_TEXTURE, PASTRY_3_RECIPE, PASTRY_3_PRICE, PASTRY_3_POPULARITY)
 	]
 	coffees = [
-	create_product(COFFEE_1_NAME, COFFEE_1_RECIPE, COFFEE_1_PRICE, COFFEE_1_POPULARITY),
-	create_product(COFFEE_2_NAME, COFFEE_2_RECIPE, COFFEE_2_PRICE, COFFEE_2_POPULARITY),
-	create_product(COFFEE_3_NAME, COFFEE_3_RECIPE, COFFEE_3_PRICE, COFFEE_3_POPULARITY)
+	create_product(COFFEE_1_NAME, COFFEE_1_TEXTURE, COFFEE_1_RECIPE, COFFEE_1_PRICE, COFFEE_1_POPULARITY),
+	create_product(COFFEE_2_NAME, COFFEE_2_TEXTURE, COFFEE_2_RECIPE, COFFEE_2_PRICE, COFFEE_2_POPULARITY),
+	create_product(COFFEE_3_NAME, COFFEE_3_TEXTURE, COFFEE_3_RECIPE, COFFEE_3_PRICE, COFFEE_3_POPULARITY)
 	]
 	teas = [
-	create_product(TEA_1_NAME, TEA_1_RECIPE, TEA_1_PRICE, TEA_1_POPULARITY),
-	create_product(TEA_2_NAME, TEA_2_RECIPE, TEA_2_PRICE, TEA_2_POPULARITY),
-	create_product(TEA_3_NAME, TEA_3_RECIPE, TEA_3_PRICE, TEA_3_POPULARITY)
+	create_product(TEA_1_NAME, TEA_1_TEXTURE, TEA_1_RECIPE, TEA_1_PRICE, TEA_1_POPULARITY),
+	create_product(TEA_2_NAME, TEA_2_TEXTURE, TEA_2_RECIPE, TEA_2_PRICE, TEA_2_POPULARITY),
+	create_product(TEA_3_NAME, TEA_3_TEXTURE, TEA_3_RECIPE, TEA_3_PRICE, TEA_3_POPULARITY)
 	]
 	cakes = [
-	create_product(CAKE_1_NAME, CAKE_1_RECIPE, CAKE_1_PRICE, CAKE_1_POPULARITY),
-	create_product(CAKE_2_NAME, CAKE_2_RECIPE, CAKE_2_PRICE, CAKE_2_POPULARITY),
-	create_product(CAKE_3_NAME, CAKE_3_RECIPE, CAKE_3_PRICE, CAKE_3_POPULARITY)
+	create_product(CAKE_1_NAME, CAKE_1_TEXTURE, CAKE_1_RECIPE, CAKE_1_PRICE, CAKE_1_POPULARITY),
+	create_product(CAKE_2_NAME, CAKE_2_TEXTURE, CAKE_2_RECIPE, CAKE_2_PRICE, CAKE_2_POPULARITY),
+	create_product(CAKE_3_NAME, CAKE_3_TEXTURE, CAKE_3_RECIPE, CAKE_3_PRICE, CAKE_3_POPULARITY)
 	]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -304,6 +317,7 @@ func _process(delta: float) -> void:
 		_server_process(time_scale * delta)
 		_manual_state_process(time_scale * delta)
 		_customer_process(time_scale * delta)
+		counter_display.update_counter(counter)
 	_update_labels()
 	if state != STATES.NONE and not counter_full():
 		make_pastry_button.disabled = true
@@ -496,34 +510,40 @@ func _start_serving_customer() -> void:
 		state = STATES.MANUAL_SERVING
 
 func _serve_customer() -> bool:
-	var items_served: int = 0
+	var items_served: Array[Product] = []
 	var no_items: bool = false
+	var money_gain: int = 0
+	var popularity_gain: int = 0
 	while not no_items:
 		no_items = true
 		for i in range(len(customers[0].order)):
-			if customers[0].order[i] in counter:
-				var money_gain = customers[0].order[i].sell_value + int(floor(customers[0].patience / 10.0))
-				var popularity_gain = customers[0].order[i].popularity_value + int(floor(customers[0].patience / 10.0))
-				earn_money(money_gain)
-				popularity += popularity_gain
-				var money_popup = number_popup_scene.instantiate()
-				money_popup.text = "+" + str(money_gain) + " Money"
-				money_popup.position.x += 500
-				money_popup.position.y += 500
-				day_ui.add_child(money_popup)
-				var popularity_popup = number_popup_scene.instantiate()
-				popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
-				popularity_popup.position.x += 500
-				popularity_popup.position.y += 500
-				popularity_popup.delay = 0.375
-				day_ui.add_child(popularity_popup)
-				counter.erase(customers[0].order[i])
+			var current_order = customers[0].order[i]
+			if current_order in counter:
+				money_gain += current_order.sell_value + int(floor(customers[0].patience / 10.0))
+				popularity_gain += current_order.popularity_value + int(floor(customers[0].patience / 10.0))
+				items_served.append(current_order)
+				counter.erase(current_order)
 				customers[0].order.remove_at(i)
 				no_items = false
 				break
+	if len(items_served) > 0:
+		earn_money(money_gain)
+		popularity += popularity_gain
+		var money_popup = number_popup_scene.instantiate()
+		money_popup.text = "+" + str(money_gain) + " Money"
+		money_popup.position.x += 500
+		money_popup.position.y += 500
+		day_ui.add_child(money_popup)
+		var popularity_popup = number_popup_scene.instantiate()
+		popularity_popup.text = "+" + str(popularity_gain) + " Popularity"
+		popularity_popup.position.x += 500
+		popularity_popup.position.y += 500
+		popularity_popup.delay = 0.375
+		day_ui.add_child(popularity_popup)
+		counter_display.serve_items(items_served)
 	
 	customers[0].patience += PATIENCE_ON_SERVE
-	return items_served > 0
+	return len(items_served) > 0
 
 func can_serve_customer() -> bool:
 	if len(customers) > 0:
@@ -574,3 +594,7 @@ func _on_cake_pressed() -> void:
 func _on_end_day_pressed() -> void:
 	get_tree().paused = false
 	WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
+
+func _on_camera_toggled(toggled_on: bool) -> void:
+	day_ui.visible = not toggled_on
+	$day_parent.switch_camera()
