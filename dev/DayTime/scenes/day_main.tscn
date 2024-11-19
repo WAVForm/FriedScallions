@@ -71,7 +71,7 @@ CAKE_2_TEXTURE = SubResource("GradientTexture2D_de6cf")
 CAKE_3_TEXTURE = SubResource("GradientTexture2D_de6cf")
 
 [node name="day_parent" parent="." instance=ExtResource("2_eg5aa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.5)
 
 [node name="Inside" type="Node3D" parent="."]
 

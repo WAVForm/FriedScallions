@@ -54,16 +54,19 @@ func set_current_path(p:Person):
 		Person.STATES.IN_LINE:
 			path = p.side.get_node("line") as Path3D
 		Person.STATES.TO_REGISTER:
+			WRAPPER.friendly_shop_entered.emit() #TODO bandaid visual fix, redo this later
+			p.visible = false
+			
 			path = p.side.get_node("to_register") as Path3D
 		Person.STATES.FROM_REGISTER:
 			path = p.side.get_node("from_register") as Path3D
 		Person.STATES.LEAVING:
 			path = p.side.get_node("leave") as Path3D
 		_:
-			p.len = 0
+			p.path_len = 0
 			p.current_path = path
 			return
-	p.len = path.curve.get_baked_length()
+	p.path_len = path.curve.get_baked_length()
 	p.current_path = path
 	
 func switch_side(p:Person):

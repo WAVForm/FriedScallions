@@ -265,6 +265,7 @@ func _ready() -> void:
 	
 	update_current_products()
 	update_money_display()
+	WRAPPER.friendly_shop_entered.connect(_create_customer)
 
 func _generate_new_game() -> void:
 	money = STARTING_MONEY
@@ -401,28 +402,6 @@ func _manual_state_process(delta) -> void:
 			progress_bar.value = progress / duration
 
 func _customer_process(delta) -> void:
-	var customer_rate = 6.0
-	if not day_ended:
-		customer_timer += delta
-	if customer_timer >= customer_rate:
-		customer_timer -= customer_rate 
-		var order = []
-		for i in range(randi_range(1, 3)):
-			var new_order_product = null_product
-			while new_order_product == null_product:
-				match randi_range(1, 4):
-					1:
-						new_order_product = pastry
-					2:
-						new_order_product = coffee
-					3:
-						new_order_product = tea
-					4:
-						new_order_product = cake
-			order.append(new_order_product)
-		print("Adding customer")
-		customers.append(Customer.new(order, INITIAL_PATIENCE))
-		print("Added customer")
 	for i in range(len(customers)):
 		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
 		var patience_decay_rate = PATIENCE_DECAY
@@ -472,6 +451,23 @@ func update_current_products() -> void:
 		cake = cakes[purchaseables[3].count - 1]
 	else:
 		cake = null_product
+
+func _create_customer() -> void:
+	var order = []
+	for i in range(randi_range(1, 3)):
+		var new_order_product = null_product
+		while new_order_product == null_product:
+			match randi_range(1, 4):
+				1:
+					new_order_product = pastry
+				2:
+					new_order_product = coffee
+				3:
+					new_order_product = tea
+				4:
+					new_order_product = cake
+		order.append(new_order_product)
+	customers.append(Customer.new(order, INITIAL_PATIENCE))
 
 func _attempt_enter_state(new_state: STATES) -> bool:
 	if state == STATES.NONE:
