@@ -4,6 +4,8 @@ var people = 0
 
 @onready var friendly = $friendly as Node3D
 @onready var enemy = $enemy as Node3D
+@onready var inside_camera = $inside_camera as Camera3D
+@onready var outside_camera = $outside_camera as Camera3D
 
 var spawn_delay = [10.0, 10.0] #current time, delay until next person should try to spawn
 var spawn_chance = 0.25 #chance for person to spawn after delay
@@ -66,3 +68,9 @@ func set_current_path(p:Person):
 	
 func switch_side(p:Person):
 	p.side = friendly if p.side == enemy else enemy
+
+func switch_camera() -> void:
+	if inside_camera.current:
+		outside_camera.current = true
+	else:
+		inside_camera.current = true
