@@ -7,28 +7,33 @@ class_name ActionTemplate
 var action
 
 #nodes
-@onready var title_node = $action_title as Label
+@onready var title_node = $action_title as Label	
 @onready var desc_node = $action_description as Label
 @onready var chance_color = $chance_background as ColorRect
 @onready var chance_percent = $chance_background/chance_percentage as Label
 @onready var chance_reward_icon = $chance_background/chance_reward_icon as TextureRect
 @onready var confirm_button = $confirm_button as ConfirmButton
 
-func populate(actions:Array):
-	if actions.size() == 0: #if we used all the action prefabs
-		self.queue_free()
-	action = Action.random()
-	while action not in actions:
+func populate():
+	if WRAPPER.night_events[0].size() != 0: #priority queue not empty
+		action = WRAPPER.night_events[0].front()
+		WRAPPER.night_events[0].pop_front()
+	else: #it is empty
 		action = Action.random()
-		
+		while action in WRAPPER.night_events[1]:
+			action = Action.random()
+		WRAPPER.night_events[1].append(action)
+	action.check_and_add_tree_siblings()
 	set_nodes() #set nodes based on selected action
 	confirm_button.confirmed.connect(func():
 		var result = await WRAPPER.roll(action.chance)
 		if (result):
+			action.add_next(true)
 			print("Got reward")
 			action.apply_reward()
 			WRAPPER.change_scene(WRAPPER.SCENES.ACTION)
 		else:
+			action.add_next(false)
 			print("No reward")
 			WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 	)
@@ -37,7 +42,6 @@ func set_nodes():
 	title_node.text = action.title
 	desc_node.text = action.desc
 	chance_percent.text = str(int(action.chance*100)) + "%"
-	chance_reward_icon.texture = action.icon
 	set_colors()
 
 func set_colors():
