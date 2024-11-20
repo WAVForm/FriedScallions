@@ -341,30 +341,16 @@ offset_right = 781.0
 offset_bottom = 570.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
 
-[node name="Column1" type="VBoxContainer" parent="DayOverUI/Overview"]
+[node name="StatList" type="VBoxContainer" parent="DayOverUI/Overview"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="DayOverUI/Overview/Column1"]
+[node name="Title" type="Label" parent="DayOverUI/Overview/StatList"]
 layout_mode = 2
 text = "Overview"
 label_settings = SubResource("LabelSettings_bv1vo")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DayOverUI/Overview/Column1"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = " Name of Stat"
-
-[node name="Label3" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "### "
-horizontal_alignment = 2
 
 [node name="EndDay" type="Button" parent="DayOverUI"]
 offset_left = 664.0
