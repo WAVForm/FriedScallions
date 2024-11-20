@@ -8,9 +8,12 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
 @export var STARTING_MONEY: int = 100
-@export var STARTING_POPULARITY: int = 0
+@export var STARTING_POPULARITY: int = 10
 @export var PRODUCTION_TIME: float = 1.0
 @export var SERVING_TIME: float = 1.0
+@export_subgroup("Enemy")
+@export var ENEMY_STARTING_POPULARITY: int = 0
+@export var ENEMY_POPULARITY_GROWTH: int = 20
 @export_subgroup("Customer")
 @export var INITIAL_PATIENCE: float = 30.0
 ##Amount of patience restored upon being served (partial order)
@@ -283,7 +286,7 @@ func _ready() -> void:
 	WRAPPER.friendly_shop_entered.connect(_create_customer)
 
 func _update_popularities() -> void:
-	enemy_popularity += 20
+	enemy_popularity += ENEMY_POPULARITY_GROWTH
 	enemy_popularity -= int(floor(0.1 * enemy_popularity))
 	popularity -= int(floor(0.1 * popularity))
 	print("Player Popularity: " + str(popularity))
@@ -293,7 +296,7 @@ func _update_popularities() -> void:
 func _generate_new_game() -> void:
 	money = STARTING_MONEY
 	popularity = STARTING_POPULARITY
-	enemy_popularity = 0
+	enemy_popularity = ENEMY_STARTING_POPULARITY
 	ingredient_dict = {}
 	ingredients = [
 	create_ingredient("Flour", FLOUR_START_AMOUNT, "F"),

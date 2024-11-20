@@ -38,7 +38,15 @@ var money: int:
 	set(new_money):
 		DayMain.money = new_money
 
-var popularity: float = 0.5
+var popularity: float:
+	get:
+		return popularity_split
+	set(value):
+		DayMain.popularity += int(10*value) #TODO uber jank bandaid fix
+var popularity_split: float:
+	get:
+		return DayMain.popularity_split
+
 signal friendly_shop_entered
 signal enemy_shop_entered
 
