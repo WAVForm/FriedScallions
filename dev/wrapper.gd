@@ -10,13 +10,14 @@ const NIGHT_SCENE = preload("res://dev/NightTime/scenes/night.tscn")
 const SLEEP_SCENE = preload("res://dev/NightTime/scenes/sleep.tscn")
 const ACTION_SCENE = preload("res://dev/NightTime/scenes/action.tscn")
 const TEXT_EVENT_SCENE = preload("res://dev/NightTime/scenes/text_event.tscn")
+const TITLE_SCREEN = preload("res://dev/DayTime/scenes/title_screen.tscn")
 
 const ROLL_TEMPLATE = preload("res://dev/NightTime/scenes/templates/roll_template.tscn")
 
 const SAVE_FILE_LOCATION = "user://savegame.save"
 
 var day = 1
-enum SCENES {NULL, MAIN_MENU, DAWN, DAY, DAY_PARENT, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
+enum SCENES {NULL, TITLE_SCREEN, DAWN, DAY, DAY_PARENT, DUSK, NIGHT, SLEEP, ACTION, TEXT_EVENT, DEBUG}
 var state: SCENES = SCENES.NULL
 
 var current_child: Node = null
@@ -56,7 +57,7 @@ var night_events = [[], []] # [PRIORITY QUEUE, LIST OF USED ACTIONS]
 #TODO Store actions? Or, buffs/debuffs?
 
 func _ready():
-	change_scene(SCENES.DEBUG)
+	change_scene(SCENES.TITLE_SCREEN)
 
 func change_scene(sceneid: SCENES) -> void:
 	exit_scene()
@@ -92,13 +93,14 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.DEBUG:
 			current_child = DEBUG_SCENE.instantiate()
 			state = SCENES.DEBUG
+		SCENES.TITLE_SCREEN:
+			current_child = TITLE_SCREEN.instantiate()
+			state = SCENES.TITLE_SCREEN
 	self.add_child(current_child)
 
 func exit_scene() -> void:
 	# Get data from each scene here before loading the next
 	match state:
-		SCENES.MAIN_MENU:
-			pass
 		SCENES.DAY:
 			#ingredients = current_child.ingredients #TODO sam, dis broken 
 			#purchaseables = current_child.purchaseables #TODO sam, dis broken too
