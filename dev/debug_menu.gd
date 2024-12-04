@@ -14,11 +14,4 @@ func _ready():
 			WRAPPER.day = int(day_text.text)
 		WRAPPER.change_scene(WRAPPER.SCENES.DAWN)
 	)
-	dusk.confirmed.connect(func(): 
-		if day_text.text == "":
-			WRAPPER.day = 1
-		else:
-			WRAPPER.day = int(day_text.text)
-		WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
-	)
 	day_scene.confirmed.connect(func(): WRAPPER.change_scene(WRAPPER.SCENES.DAY_PARENT))

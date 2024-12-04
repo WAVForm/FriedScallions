@@ -31,10 +31,6 @@ alignment = 1
 layout_mode = 2
 text = "Dawn"
 
-[node name="dusk" parent="day_selection" instance=ExtResource("1_bop0a")]
-layout_mode = 2
-text = "Dusk"
-
 [node name="day_text" type="TextEdit" parent="."]
 layout_mode = 1
 anchors_preset = 8
