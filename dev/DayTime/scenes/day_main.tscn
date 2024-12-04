@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=19 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -10,45 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cot7x86s3ymx" path="res://dev/DayTime/textures/texture_coffee3.png" id="5_jift6"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/counter.gd" id="5_r6t8u"]
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
+[ext_resource type="ArrayMesh" uid="uid://bs5y3p5iruoyu" path="res://dev/models/servingtray.tres" id="6_tatth"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
-[ext_resource type="ArrayMesh" uid="uid://c8ytpfu3y7upx" path="res://dev/models/servingtray.tres" id="6_tatth"]
-
-[sub_resource type="Gradient" id="Gradient_oxcep"]
-colors = PackedColorArray(1, 1, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_bfh6n"]
-gradient = SubResource("Gradient_oxcep")
-width = 1024
-height = 1024
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="Gradient" id="Gradient_s40be"]
-colors = PackedColorArray(0, 0, 0, 1, 0.247059, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_uyndc"]
-gradient = SubResource("Gradient_s40be")
-width = 1024
-height = 1024
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="Gradient" id="Gradient_ibqsu"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 1, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2mk8"]
-gradient = SubResource("Gradient_ibqsu")
-width = 1024
-height = 1024
-fill_to = Vector2(0, 1)
-
-[sub_resource type="Gradient" id="Gradient_xixke"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_de6cf"]
-gradient = SubResource("Gradient_xixke")
-fill_from = Vector2(1, 1)
+[ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
+[ext_resource type="AudioStream" uid="uid://tvqrle8vxoy7" path="res://dev/Audio/Restaurant Ambience  Sound Effect (Copyright Free).mp3" id="15_kcqja"]
 
 [sub_resource type="Curve3D" id="Curve3D_lg64r"]
 _data = {
@@ -110,10 +76,13 @@ CAKE_3_POPULARITY = 9
 FLOUR_START_AMOUNT = 6
 FLOUR_PRICE = 10
 FLOUR_BUY_AMOUNT = 6
+BUTTER_START_AMOUNT = 16
 BUTTER_PRICE = 6
 BUTTER_BUY_AMOUNT = 8
+MILK_START_AMOUNT = 48
 MILK_PRICE = 3
 MILK_BUY_AMOUNT = 16
+SUGAR_START_AMOUNT = 16
 SUGAR_PRICE = 6
 SUGAR_BUY_AMOUNT = 8
 
@@ -477,6 +446,18 @@ text = "End Day"
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
 follow_viewport_enabled = true
+
+[node name="Background Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_dbsdv")
+volume_db = -15.0
+autoplay = true
+parameters/looping = false
+
+[node name="Cafe Ambience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_kcqja")
+volume_db = -23.229
+autoplay = true
+parameters/looping = false
 
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
