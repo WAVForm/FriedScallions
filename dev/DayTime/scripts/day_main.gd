@@ -266,7 +266,7 @@ func _ready() -> void:
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
 	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		time_scale = 1.0
+		DAY_LENGTH = 40
 	
 	if new_game:
 		_generate_new_game()

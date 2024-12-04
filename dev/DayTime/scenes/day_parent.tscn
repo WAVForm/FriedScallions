@@ -111,31 +111,31 @@ transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 2, 0.5, 2)
 mesh = ExtResource("3_q47cd")
 
 [node name="to_advert" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, 15)
 curve = SubResource("Curve3D_gfkr7")
 
 [node name="crossing" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, 1.5)
 curve = SubResource("Curve3D_xxlv4")
 
 [node name="to_line" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.2, 1.5)
 curve = SubResource("Curve3D_8ftmu")
 
 [node name="line" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0.2, -1.5)
 curve = SubResource("Curve3D_edimi")
 
 [node name="to_register" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, -4)
 curve = SubResource("Curve3D_j8f7q")
 
 [node name="from_register" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0, -7.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 0.2, -7.25)
 curve = SubResource("Curve3D_f8jml")
 
 [node name="leave" type="Path3D" parent="friendly"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.2, -4)
 curve = SubResource("Curve3D_25nln")
 
 [node name="enemy" type="Node3D" parent="."]
@@ -146,31 +146,31 @@ mesh = ExtResource("3_q47cd")
 skeleton = NodePath("../../friendly")
 
 [node name="to_advert" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 15)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.2, 15)
 curve = SubResource("Curve3D_gfkr7")
 
 [node name="crossing" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.2, 1.5)
 curve = SubResource("Curve3D_tv1gt")
 
 [node name="to_line" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0.2, 1.5)
 curve = SubResource("Curve3D_8uxoe")
 
 [node name="line" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15, 0.2, -1.5)
 curve = SubResource("Curve3D_htfp2")
 
 [node name="to_register" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0, -1.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 0.2, -1.75)
 curve = SubResource("Curve3D_bqmtm")
 
 [node name="from_register" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, -4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0.2, -4.75)
 curve = SubResource("Curve3D_axxso")
 
 [node name="leave" type="Path3D" parent="enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0, -3.4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.2, -3.4)
 curve = SubResource("Curve3D_0a43h")
 
 [node name="outside_camera" type="Camera3D" parent="."]
