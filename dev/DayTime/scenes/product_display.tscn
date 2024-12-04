@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://c31o4wi77l76q"]
+
+[ext_resource type="Script" path="res://dev/DayTime/scripts/product_display.gd" id="1_dqngo"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_mjip5"]
+size = Vector2(1024, 1024)
+
+[node name="ProductDisplay" type="Sprite3D"]
+pixel_size = 0.001
+billboard = 1
+shaded = true
+texture = SubResource("PlaceholderTexture2D_mjip5")
+script = ExtResource("1_dqngo")
