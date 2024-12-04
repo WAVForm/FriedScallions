@@ -177,8 +177,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var restock_bar = $MorningUI/ShopMenu/Row/Column1
 @onready var upgrade_bar = $MorningUI/ShopMenu/Row/Column2
 @onready var employee_bar = $MorningUI/ShopMenu/Row/Column3
-@onready var money_display = $MorningUI/Money
-@onready var morning_ingredient_label = $MorningUI/IngredientLabel
+@onready var money_display = $MorningUI/moneybg/Money
+@onready var morning_ingredient_label = $MorningUI/ingredientbg/IngredientLabel
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX'
 @onready var day_ui = $GameUI
@@ -266,7 +266,7 @@ func _ready() -> void:
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
 	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		time_scale = 100.0
+		DAY_LENGTH = 40
 	
 	if new_game:
 		_generate_new_game()
@@ -460,7 +460,7 @@ func _customer_process(delta) -> void:
 			for item: Product in customers[0].order:
 				current_order += item.name + " "
 			patience = str(floor(customers[0].patience))
-	customer_label.text = "Current Order: " + current_order + "\nPatience: " + patience + "\nCustomers in line: " + str(len(customers))
+	customer_label.text = "Current Order: " + current_order + "\nPatience: " + patience
 
 func _update_labels() -> void:
 	var ingredient_label_text = "Ingredients:"

@@ -3,15 +3,10 @@
 [ext_resource type="Script" path="res://dev/DayTime/scripts/purchase_button.gd" id="1_hpyuu"]
 
 [node name="PurchaseButton" type="AspectRatioContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -952.0
-offset_bottom = -498.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 2
+custom_minimum_size = Vector2(150, 120)
+offset_right = 200.0
+offset_bottom = 120.0
+size_flags_horizontal = 4
 ratio = 1.75
 stretch_mode = 0
 alignment_vertical = 0

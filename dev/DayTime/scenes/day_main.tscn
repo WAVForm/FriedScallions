@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=18 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -12,10 +12,47 @@
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
+[ext_resource type="ArrayMesh" uid="uid://c8ytpfu3y7upx" path="res://dev/models/servingtray.tres" id="6_tatth"]
+
+[sub_resource type="Gradient" id="Gradient_oxcep"]
+colors = PackedColorArray(1, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bfh6n"]
+gradient = SubResource("Gradient_oxcep")
+width = 1024
+height = 1024
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_s40be"]
+colors = PackedColorArray(0, 0, 0, 1, 0.247059, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uyndc"]
+gradient = SubResource("Gradient_s40be")
+width = 1024
+height = 1024
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ibqsu"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2mk8"]
+gradient = SubResource("Gradient_ibqsu")
+width = 1024
+height = 1024
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_xixke"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_de6cf"]
+gradient = SubResource("Gradient_xixke")
+fill_from = Vector2(1, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_lg64r"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0, 0, 0, 0, 0, 0, 0, 0, 1.5, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -3.5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.15697, 0, 0, 0, 0, 0, 0, 0, 0, 1.14351, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -3.5),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
@@ -73,13 +110,10 @@ CAKE_3_POPULARITY = 9
 FLOUR_START_AMOUNT = 6
 FLOUR_PRICE = 10
 FLOUR_BUY_AMOUNT = 6
-BUTTER_START_AMOUNT = 16
 BUTTER_PRICE = 6
 BUTTER_BUY_AMOUNT = 8
-MILK_START_AMOUNT = 48
 MILK_PRICE = 3
 MILK_BUY_AMOUNT = 16
-SUGAR_START_AMOUNT = 16
 SUGAR_PRICE = 6
 SUGAR_BUY_AMOUNT = 8
 
@@ -101,13 +135,29 @@ light_energy = 1.2
 omni_range = 24.38
 
 [node name="QueuePath" type="Path3D" parent="Inside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00399, 0, 2.5)
 curve = SubResource("Curve3D_lg64r")
 script = ExtResource("3_xjqli")
 
 [node name="Counter" type="Node3D" parent="Inside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -4.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.834, -4.281)
 script = ExtResource("5_r6t8u")
+
+[node name="servingtray1" type="MeshInstance3D" parent="Inside"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 11.5, 0.834, -4.281)
+mesh = ExtResource("6_tatth")
+
+[node name="servingtray2" type="MeshInstance3D" parent="Inside"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12.25, 0.834, -4.281)
+mesh = ExtResource("6_tatth")
+
+[node name="servingtray3" type="MeshInstance3D" parent="Inside"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 13, 0.834, -4.281)
+mesh = ExtResource("6_tatth")
+
+[node name="servingtray4" type="MeshInstance3D" parent="Inside"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 13.75, 0.834, -4.281)
+mesh = ExtResource("6_tatth")
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
@@ -284,6 +334,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column1"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 text = "Buy Stock"
 horizontal_alignment = 1
@@ -294,6 +345,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column2"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 text = "Upgrade Recipes"
 horizontal_alignment = 1
@@ -304,6 +356,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column3"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 text = "Hire"
 horizontal_alignment = 1
@@ -314,34 +367,71 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="MorningUI/ShopMenu/Row/Column4"]
+custom_minimum_size = Vector2(0, 35)
 layout_mode = 2
 text = "Current Resources"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Money" type="Label" parent="MorningUI"]
-offset_left = 844.0
-offset_top = 108.0
-offset_right = 964.0
-offset_bottom = 139.0
-text = "Money: $100"
+[node name="moneybg" type="ColorRect" parent="MorningUI"]
+offset_left = 816.0
+offset_top = 88.0
+offset_right = 966.0
+offset_bottom = 138.0
+color = Color(0.336608, 0.336608, 0.336608, 1)
 
-[node name="IngredientLabel" type="Label" parent="MorningUI"]
-offset_left = 842.0
-offset_top = 159.0
-offset_right = 965.0
-offset_bottom = 286.0
+[node name="Money" type="Label" parent="MorningUI/moneybg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "Money: $100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ingredientbg" type="ColorRect" parent="MorningUI"]
+offset_left = 816.0
+offset_top = 144.0
+offset_right = 966.0
+offset_bottom = 294.0
+color = Color(0.336608, 0.336608, 0.336608, 1)
+
+[node name="IngredientLabel" type="Label" parent="MorningUI/ingredientbg"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
 text = "Ingredients:
 ingredient_1: 50
 ingredient_2: 50
 ingredient_3: 50
 ingredient_4: 50"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="StartDay" type="Button" parent="MorningUI"]
-offset_left = 866.0
-offset_top = 507.0
-offset_right = 973.0
-offset_bottom = 556.0
+custom_minimum_size = Vector2(150, 50)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 240.0
+offset_top = 180.0
+offset_right = 390.0
+offset_bottom = 230.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 text = "Start Day"
 
 [node name="DayOverUI" type="CanvasLayer" parent="."]

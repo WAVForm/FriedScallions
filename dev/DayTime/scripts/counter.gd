@@ -16,7 +16,7 @@ func update_counter(products: Array[Product]) -> void:
 			var removed_product_display = product_displays.pop_back()
 			removed_product_display.queue_free()
 	for i in range(len(products)):
-		product_displays[i].position.x = 0.9 * i
+		product_displays[i].position.x = i * 0.75
 		product_displays[i].texture = products[i].texture
 
 func serve_items(products: Array[Product]) -> void:
