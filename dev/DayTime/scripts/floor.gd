@@ -15,7 +15,7 @@ func _ready():
 
 func _physics_process(delta):
 	if target != null:
-		player.position = player.position.lerp(target, time)
+		player.global_position = player.global_position.lerp(target, time)
 		time += delta
 		if time >= 1.0:
 			target = null

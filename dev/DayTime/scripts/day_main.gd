@@ -225,7 +225,7 @@ var tea: Product
 var cake: Product
 var counter: Array[Product] = []
 
-var time_scale: float = 100.0
+var time_scale: float = 10.0
 enum STATES {NONE, PASTRY, COFFEE, TEA, CAKE, MANUAL_SERVING}
 var state: STATES = STATES.NONE
 var day_started: bool = false
