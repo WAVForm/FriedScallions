@@ -345,8 +345,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="DayOverUI/Overview/StatList"]
+[node name="ColorRect" type="ColorRect" parent="DayOverUI/Overview/StatList"]
+custom_minimum_size = Vector2(400, 35)
 layout_mode = 2
+color = Color(0.392475, 0.403857, 0.306919, 1)
+
+[node name="Title" type="Label" parent="DayOverUI/Overview/StatList/ColorRect"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 text = "Overview"
 label_settings = SubResource("LabelSettings_bv1vo")
 horizontal_alignment = 1

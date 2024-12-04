@@ -29,6 +29,7 @@ func update_display() -> void:
 				button.text = "Upgrade ($" + str(purchaseable.price) + ")"
 			button.disabled = false
 		else:
+			self.visible = false
 			button.text = "Locked"
 			button.disabled = true
 
