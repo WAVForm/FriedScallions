@@ -4,7 +4,7 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.tscn")
-
+#region EDITOR VARIABLES
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
 @export var STARTING_MONEY: int = 100
@@ -15,6 +15,7 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export var ENEMY_STARTING_POPULARITY: int = 0
 @export var ENEMY_POPULARITY_GROWTH: int = 20
 @export_subgroup("Customer")
+@export var CUSTOMER_SPEED: int = 25
 @export var INITIAL_PATIENCE: float = 30.0
 ##Amount of patience restored upon being served (partial order)
 @export var PATIENCE_ON_SERVE: int = 5
@@ -151,8 +152,9 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export var SERVER_PRICE_SCALE: int = 5
 @export var SERVER_INITIAL_LEVEL: int = 0
 @export var SERVER_INITIAL_UNLOCK: int = 0
+#endregion
 
-
+#region STATIC VARIABLES
 static var new_game: bool = true
 static var money: int
 static var popularity: int
@@ -166,7 +168,9 @@ static var coffees: Array[Product]
 static var teas: Array[Product]
 static var cakes: Array[Product]
 static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0)
+#endregion
 
+#region SAMS TODO LIST
 # TODO more stuff i gotta fix later
 @onready var queue_path = $Inside/QueuePath
 @onready var counter_display = $Inside/Counter
@@ -201,7 +205,9 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var stat_list = $DayOverUI/Overview/StatList
 
 @onready var outside = $day_parent
+#endregion
 
+#not sure what the rest of this is
 static var server: bool:
 	get:
 		return purchaseables[4].count >= 1
@@ -346,6 +352,8 @@ func _generate_new_game() -> void:
 	create_product(CAKE_3_NAME, CAKE_3_TEXTURE, CAKE_3_RECIPE, CAKE_3_PRICE, CAKE_3_POPULARITY)
 	]
 
+
+#region FRAME UPDATE
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if day_started and not day_ended:
@@ -367,14 +375,17 @@ func _process(delta: float) -> void:
 		make_cake_button.disabled = counter_full() or not cake.can_produce()
 	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
 	trash_button.disabled = len(counter) == 0
+#endregion
 
-
+#region DAY_CYCLE
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
 	day_cycle_progress_bar.value = day_cycle_progress
 	day_cycle_progress_bar.max_value = DAY_LENGTH
 	if (not day_ended) and day_cycle_progress > DAY_LENGTH:
 		day_ended = true
+		print("day ended")
+		customers.clear() # evaporate leftover customers
 	if day_ended:
 		if len(customers) == 0:
 			print("Money: $" + str(money))
@@ -382,6 +393,7 @@ func _day_cycle_process(delta) -> void:
 			$Camera.visible = false
 			overview_ui.visible = true
 			_generate_overview_menu()
+#endregion
 
 func _server_process(delta) -> void:
 	if server:
@@ -438,9 +450,10 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 
+#region CUSTOMER
 func _customer_process(delta) -> void:
 	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
+		customers[i].position = clamp(customers[i].position - CUSTOMER_SPEED * delta, 15.0 * i, 200.0)
 		var patience_decay_rate = PATIENCE_DECAY
 		if customers[i].position > 0:
 			patience_decay_rate *= IN_LINE_MULT
@@ -461,6 +474,7 @@ func _customer_process(delta) -> void:
 				current_order += item.name + " "
 			patience = str(floor(customers[0].patience))
 	customer_label.text = "Current Order: " + current_order + "\nPatience: " + patience
+#endregion
 
 func _update_labels() -> void:
 	var ingredient_label_text = "Ingredients:"
@@ -556,10 +570,6 @@ func _add_stat_display(stat_name: String, stat_value: String) -> void:
 	stat_list.add_child(new_stat_display)
 	new_stat_display.update_display(stat_name, stat_value)
 
-func _start_serving_customer() -> void:
-	if state == STATES.NONE and can_serve_customer():
-		state = STATES.MANUAL_SERVING
-
 func _serve_customer() -> bool:
 	var items_served: Array[Product] = []
 	var no_items: bool = false
@@ -617,6 +627,11 @@ func _generate_overview_menu() -> void:
 	_add_stat_display("Profit:", str(stat_money_in - stat_money_out))
 	_add_stat_display("Total Money:", str(money))
 
+#region BUTTON FUNCTION
+func _start_serving_customer() -> void:
+	if state == STATES.NONE and can_serve_customer():
+		state = STATES.MANUAL_SERVING
+
 func _on_quit_pressed() -> void:
 	WRAPPER.change_scene(WRAPPER.SCENES.DEBUG) #TODO gotta make a real pause menu
 
@@ -659,3 +674,4 @@ func _on_end_day_pressed() -> void:
 func _on_camera_toggled(toggled_on: bool) -> void:
 	day_ui.visible = not toggled_on
 	outside.switch_camera()
+#endregion
