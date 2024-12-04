@@ -177,4 +177,4 @@ transform = Transform3D(0.173648, -0.416198, 0.892539, 0, 0.906308, 0.422618, -0
 current = true
 
 [node name="OmniLight3D" type="DirectionalLight3D" parent="."]
-light_angular_distance = 25.0
+light_energy = 0.4
