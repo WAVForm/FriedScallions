@@ -200,6 +200,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var overview_ui = $DayOverUI
 @onready var stat_list = $DayOverUI/Overview/StatList
 
+@onready var outside = $day_parent
+
 static var server: bool:
 	get:
 		return purchaseables[4].count >= 1
@@ -260,6 +262,12 @@ static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	outside.can_spawn = false
+	$Camera.visible = false
+	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
+	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		time_scale = 100.0
+	
 	if new_game:
 		_generate_new_game()
 		new_game = false
@@ -340,7 +348,7 @@ func _generate_new_game() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if day_started:
+	if day_started and not day_ended:
 		_day_cycle_process(time_scale * delta)
 		_server_process(time_scale * delta)
 		_manual_state_process(time_scale * delta)
@@ -371,9 +379,9 @@ func _day_cycle_process(delta) -> void:
 		if len(customers) == 0:
 			print("Money: $" + str(money))
 			day_ui.visible = false
+			$Camera.visible = false
 			overview_ui.visible = true
 			_generate_overview_menu()
-			get_tree().paused = true
 
 func _server_process(delta) -> void:
 	if server:
@@ -491,6 +499,7 @@ func _create_customer() -> void:
 				new_order_product = _rand_product()
 			if not new_order_product == null_product:
 				order.append(new_order_product)
+		var c = Customer.new(order, INITIAL_PATIENCE)
 		customers.append(Customer.new(order, INITIAL_PATIENCE))
 
 func _rand_product() -> Product:
@@ -612,7 +621,9 @@ func _on_quit_pressed() -> void:
 	WRAPPER.change_scene(WRAPPER.SCENES.DEBUG) #TODO gotta make a real pause menu
 
 func _on_start_day_pressed() -> void:
+	outside.can_spawn = true
 	day_started = true
+	$Camera.visible = true
 	morning_ui.visible = false
 	day_ui.visible = true
 	update_current_products()
@@ -643,9 +654,8 @@ func _on_cake_pressed() -> void:
 		_attempt_enter_state(STATES.CAKE)
 
 func _on_end_day_pressed() -> void:
-	get_tree().paused = false
 	WRAPPER.change_scene(WRAPPER.SCENES.DUSK)
 
 func _on_camera_toggled(toggled_on: bool) -> void:
 	day_ui.visible = not toggled_on
-	$day_parent.switch_camera()
+	outside.switch_camera()

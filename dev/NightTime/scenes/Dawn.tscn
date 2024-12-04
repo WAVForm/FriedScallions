@@ -55,6 +55,7 @@ offset_left = -0.127991
 offset_top = -0.280014
 offset_right = 0.12793
 offset_bottom = -0.208008
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 48
 text = "Morning Approaches"
 horizontal_alignment = 1
@@ -73,6 +74,7 @@ offset_right = 128.0
 offset_bottom = 64.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
 text = "Day ?
 "
