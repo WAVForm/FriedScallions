@@ -163,13 +163,10 @@ func get_text_event():
 		1:
 			change_scene(SCENES.TEXT_EVENT)
 			current_child.set_text("Overnight you toiled at a new recipe for a pastry.", 2)
-			purchaseables[0].count = 1
 			purchaseables[0].unlocked = 1
 		2:
 			change_scene(SCENES.TEXT_EVENT)
 			current_child.set_text("Overnight you toiled at a new recipe for a cake.", 2)
-			purchaseables[3].count = 1
-			purchaseables[3].unlocked = 1
 			purchaseables[0].unlocked = 2
 			purchaseables[4].unlocked = 1
 		3:

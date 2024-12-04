@@ -69,6 +69,18 @@ TEA_3_TEXTURE = SubResource("GradientTexture2D_g2mk8")
 CAKE_1_TEXTURE = SubResource("GradientTexture2D_de6cf")
 CAKE_2_TEXTURE = SubResource("GradientTexture2D_de6cf")
 CAKE_3_TEXTURE = SubResource("GradientTexture2D_de6cf")
+FLOUR_START_AMOUNT = 6
+FLOUR_PRICE = 10
+FLOUR_BUY_AMOUNT = 6
+BUTTER_START_AMOUNT = 16
+BUTTER_PRICE = 6
+BUTTER_BUY_AMOUNT = 8
+MILK_START_AMOUNT = 48
+MILK_PRICE = 3
+MILK_BUY_AMOUNT = 16
+SUGAR_START_AMOUNT = 16
+SUGAR_PRICE = 6
+SUGAR_BUY_AMOUNT = 8
 
 [node name="day_parent" parent="." instance=ExtResource("2_eg5aa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.5)
@@ -134,6 +146,7 @@ Customers in line:
 "
 
 [node name="ServeButton" type="Button" parent="GameUI"]
+visible = false
 offset_left = 523.0
 offset_top = 479.0
 offset_right = 661.0

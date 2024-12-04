@@ -225,7 +225,7 @@ var tea: Product
 var cake: Product
 var counter: Array[Product] = []
 
-var time_scale: float = 10.0
+var time_scale: float = 1.0
 enum STATES {NONE, PASTRY, COFFEE, TEA, CAKE, MANUAL_SERVING}
 var state: STATES = STATES.NONE
 var day_started: bool = false
@@ -264,6 +264,9 @@ static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]
 func _ready() -> void:
 	outside.can_spawn = false
 	$Camera.visible = false
+	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
+	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		time_scale = 100.0
 	
 	if new_game:
 		_generate_new_game()
@@ -496,6 +499,7 @@ func _create_customer() -> void:
 				new_order_product = _rand_product()
 			if not new_order_product == null_product:
 				order.append(new_order_product)
+		var c = Customer.new(order, INITIAL_PATIENCE)
 		customers.append(Customer.new(order, INITIAL_PATIENCE))
 
 func _rand_product() -> Product:

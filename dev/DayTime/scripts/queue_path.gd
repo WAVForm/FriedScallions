@@ -4,6 +4,8 @@ const customer_display_scene = preload("res://dev/DayTime/scenes/customer_displa
 
 var customer_displays: Array[PathFollow3D] = []
 
+signal customer_clicked
+
 func update_customers(customers: Array[Customer]) -> void:
 	var difference = len(customers) - len(customer_displays)
 	if difference > 0:
