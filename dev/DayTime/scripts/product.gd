@@ -1,13 +1,15 @@
 class_name Product
 
 var name: String
+var texture: Texture2D
 var sell_value: int
 var popularity_value: int
 var ingredients_list: Array
 var ingredients_count: Array
 
-func _init(product_name: String, recipe: Array, price: int, popularity: int) -> void:
+func _init(product_name: String, icon: Texture2D, recipe: Array, price: int, popularity: int) -> void:
 	name = product_name
+	texture = icon
 	sell_value = price
 	popularity_value = popularity
 	set_ingredients(recipe)

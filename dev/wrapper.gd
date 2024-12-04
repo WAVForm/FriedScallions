@@ -38,12 +38,21 @@ var money: int:
 	set(new_money):
 		DayMain.money = new_money
 
-var popularity: float = 0.5
+var popularity: float:
+	get:
+		return popularity_split
+	set(value):
+		DayMain.popularity += int(10*value) #TODO uber jank bandaid fix
+var popularity_split: float:
+	get:
+		return DayMain.popularity_split
+
 signal friendly_shop_entered
 signal enemy_shop_entered
 
 #Night Time Data
 var slept: bool
+var night_events = [[], []] # [PRIORITY QUEUE, LIST OF USED ACTIONS]
 #TODO Store actions? Or, buffs/debuffs?
 
 func _ready():
@@ -51,6 +60,8 @@ func _ready():
 
 func change_scene(sceneid: SCENES) -> void:
 	exit_scene()
+	if state == SCENES.NIGHT: #if we're exiting the night scene, reset list of used actions to empty
+		night_events[1] = []
 	match sceneid:
 		SCENES.DAWN:
 			current_child = DAWN_SCENE.instantiate()

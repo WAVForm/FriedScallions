@@ -4,6 +4,8 @@ var people = 0
 
 @onready var friendly = $friendly as Node3D
 @onready var enemy = $enemy as Node3D
+@onready var inside_camera = $inside_camera as Camera3D
+@onready var outside_camera = $outside_camera as Camera3D
 
 var spawn_delay = [10.0, 10.0] #current time, delay until next person should try to spawn
 var spawn_chance = 0.25 #chance for person to spawn after delay
@@ -40,29 +42,38 @@ func spawn_person(side:int=2):
 			side = randi() % 2
 			spawn_person(side)
 
-func set_current_path(person:Person):
+func set_current_path(p:Person):
 	var path = null
-	match person.state:
+	match p.state:
 		Person.STATES.TO_ADVERT:
-			path = person.side.get_node("to_advert") as Path3D
+			path = p.side.get_node("to_advert") as Path3D
 		Person.STATES.CROSSING:
-			path = person.side.get_node("crossing") as Path3D
+			path = p.side.get_node("crossing") as Path3D
 		Person.STATES.TO_LINE:
-			path = person.side.get_node("to_line") as Path3D
+			path = p.side.get_node("to_line") as Path3D
 		Person.STATES.IN_LINE:
-			path = person.side.get_node("line") as Path3D
+			path = p.side.get_node("line") as Path3D
 		Person.STATES.TO_REGISTER:
-			path = person.side.get_node("to_register") as Path3D
+			WRAPPER.friendly_shop_entered.emit() #TODO bandaid visual fix, redo this later
+			p.visible = false
+			
+			path = p.side.get_node("to_register") as Path3D
 		Person.STATES.FROM_REGISTER:
-			path = person.side.get_node("from_register") as Path3D
+			path = p.side.get_node("from_register") as Path3D
 		Person.STATES.LEAVING:
-			path = person.side.get_node("leave") as Path3D
+			path = p.side.get_node("leave") as Path3D
 		_:
-			person.len = 0
-			person.current_path = path
+			p.path_len = 0
+			p.current_path = path
 			return
-	person.len = path.curve.get_baked_length()
-	person.current_path = path
+	p.path_len = path.curve.get_baked_length()
+	p.current_path = path
 	
-func switch_side(person:Person):
-	person.side = friendly if person.side == enemy else enemy
+func switch_side(p:Person):
+	p.side = friendly if p.side == enemy else enemy
+
+func switch_camera() -> void:
+	if inside_camera.current:
+		outside_camera.current = true
+	else:
+		inside_camera.current = true

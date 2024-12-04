@@ -1,7 +1,6 @@
 extends BoxContainer
 
 var actions_amt = 3 #how many actions?
-var actions:Array[Action] = Action.prefab_actions.duplicate()
 
 var action_temp = preload("res://dev/NightTime/scenes/templates/action_template.tscn")
 @onready var sleep_confirm = $"../sleep_confirm"
@@ -20,10 +19,7 @@ func create_action():
 	aspect_ratio.size_flags_horizontal = Control.SIZE_EXPAND_FILL #expand to fill the box container
 	self.add_child(aspect_ratio) #put action holder in box container
 	var template = action_temp.instantiate() as ActionTemplate
-	template.ready.connect(func(): 
-		template.populate(actions)
-		actions.erase(template.action)
-	)
+	template.ready.connect(func(): template.populate())
 	aspect_ratio.add_child(template) #place action into action holder
 
 func day_three():
@@ -33,9 +29,8 @@ func day_three():
 	self.add_child(aspect_ratio) #put action holder in box container
 	var template = action_temp.instantiate() as ActionTemplate
 	template.ready.connect(func():
-		template.populate(actions)
+		template.populate()
 		template.action = Action.STEAL_INGREDIENTS
-		actions.erase(Action.STEAL_INGREDIENTS)
 		template.set_nodes()
 	)
 	aspect_ratio.add_child(template) #place action into action holder
@@ -46,9 +41,8 @@ func day_three():
 	self.add_child(aspect_ratio2) #put action holder in box container
 	var template2 = action_temp.instantiate() as ActionTemplate
 	template2.ready.connect(func():
-		template2.populate(actions)
-		template2.action = Action.JAM_DOOR
-		actions.erase(Action.JAM_DOOR)
+		template2.populate()
+		template2.action = Action.BREAK_REGISTER
 		template2.set_nodes()
 	)
 	aspect_ratio2.add_child(template2) #place action into action holder

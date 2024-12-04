@@ -1,8 +1,46 @@
-[gd_scene load_steps=7 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=17 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
+[ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
 [ext_resource type="PackedScene" uid="uid://cd0sx1sbvq076" path="res://dev/models/Gamejam_Frame_Cut-3DView-{3D}.fbx" id="2_q83fi"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/queue_path.gd" id="3_xjqli"]
+[ext_resource type="Script" path="res://dev/DayTime/scripts/counter.gd" id="5_r6t8u"]
+
+[sub_resource type="Gradient" id="Gradient_oxcep"]
+colors = PackedColorArray(1, 1, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_bfh6n"]
+gradient = SubResource("Gradient_oxcep")
+width = 1024
+height = 1024
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_s40be"]
+colors = PackedColorArray(0, 0, 0, 1, 0.247059, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uyndc"]
+gradient = SubResource("Gradient_s40be")
+width = 1024
+height = 1024
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_ibqsu"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_g2mk8"]
+gradient = SubResource("Gradient_ibqsu")
+width = 1024
+height = 1024
+fill_to = Vector2(0, 1)
+
+[sub_resource type="Gradient" id="Gradient_xixke"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_de6cf"]
+gradient = SubResource("Gradient_xixke")
+fill_from = Vector2(1, 1)
 
 [sub_resource type="Curve3D" id="Curve3D_lg64r"]
 _data = {
@@ -18,25 +56,45 @@ font_size = 32
 
 [node name="DayMain" type="Node2D"]
 script = ExtResource("1_jp6l8")
+PASTRY_1_TEXTURE = SubResource("GradientTexture2D_bfh6n")
+PASTRY_2_TEXTURE = SubResource("GradientTexture2D_bfh6n")
+PASTRY_3_TEXTURE = SubResource("GradientTexture2D_bfh6n")
 PASTRY_PRICE_BASE = 1
+COFFEE_1_TEXTURE = SubResource("GradientTexture2D_uyndc")
+COFFEE_2_TEXTURE = SubResource("GradientTexture2D_uyndc")
+COFFEE_3_TEXTURE = SubResource("GradientTexture2D_uyndc")
+TEA_1_TEXTURE = SubResource("GradientTexture2D_g2mk8")
+TEA_2_TEXTURE = SubResource("GradientTexture2D_g2mk8")
+TEA_3_TEXTURE = SubResource("GradientTexture2D_g2mk8")
+CAKE_1_TEXTURE = SubResource("GradientTexture2D_de6cf")
+CAKE_2_TEXTURE = SubResource("GradientTexture2D_de6cf")
+CAKE_3_TEXTURE = SubResource("GradientTexture2D_de6cf")
 
-[node name="GameWorld" type="Node3D" parent="."]
+[node name="day_parent" parent="." instance=ExtResource("2_eg5aa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.5)
 
-[node name="Gamejam_Frame_Cut-3DView-{3D}" parent="GameWorld" instance=ExtResource("2_q83fi")]
+[node name="Inside" type="Node3D" parent="."]
 
-[node name="Camera3D" type="Camera3D" parent="GameWorld"]
+[node name="Gamejam_Frame_Cut-3DView-{3D}" parent="Inside" instance=ExtResource("2_q83fi")]
+visible = false
+
+[node name="Camera3D" type="Camera3D" parent="Inside"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 22.7816, 2.77422, -1.77414)
-current = true
 fov = 45.0
 
-[node name="OmniLight3D" type="OmniLight3D" parent="GameWorld"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.7079, 3.17801, 2.18535)
+[node name="OmniLight3D" type="OmniLight3D" parent="Inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9953, 3.17801, 2.18535)
+light_energy = 1.2
 omni_range = 24.38
 
-[node name="QueuePath" type="Path3D" parent="GameWorld"]
+[node name="QueuePath" type="Path3D" parent="Inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, 2.5)
 curve = SubResource("Curve3D_lg64r")
 script = ExtResource("3_xjqli")
+
+[node name="Counter" type="Node3D" parent="Inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12, 1, -4.3)
+script = ExtResource("5_r6t8u")
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
@@ -99,6 +157,7 @@ step = 0.0
 show_percentage = false
 
 [node name="AutoServeDisplay" type="Control" parent="GameUI"]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 210.0
@@ -180,6 +239,19 @@ offset_top = 541.0
 offset_right = 1114.0
 offset_bottom = 616.0
 text = "Cake"
+
+[node name="Camera" type="Button" parent="."]
+offset_left = 23.0
+offset_top = 221.0
+offset_right = 94.0
+offset_bottom = 438.0
+toggle_mode = true
+text = "C
+A
+M
+E
+R
+A"
 
 [node name="MorningUI" type="CanvasLayer" parent="."]
 
@@ -269,30 +341,16 @@ offset_right = 781.0
 offset_bottom = 570.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
 
-[node name="Column1" type="VBoxContainer" parent="DayOverUI/Overview"]
+[node name="StatList" type="VBoxContainer" parent="DayOverUI/Overview"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Title" type="Label" parent="DayOverUI/Overview/Column1"]
+[node name="Title" type="Label" parent="DayOverUI/Overview/StatList"]
 layout_mode = 2
 text = "Overview"
 label_settings = SubResource("LabelSettings_bv1vo")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DayOverUI/Overview/Column1"]
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = " Name of Stat"
-
-[node name="Label3" type="Label" parent="DayOverUI/Overview/Column1/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "### "
-horizontal_alignment = 2
 
 [node name="EndDay" type="Button" parent="DayOverUI"]
 offset_left = 664.0
@@ -312,5 +370,6 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameUI/Coffee" to="." method="_on_coffee_pressed"]
 [connection signal="pressed" from="GameUI/Tea" to="." method="_on_tea_pressed"]
 [connection signal="pressed" from="GameUI/Cake" to="." method="_on_cake_pressed"]
+[connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
 [connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
