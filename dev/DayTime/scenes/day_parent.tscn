@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=19 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/day_parent.gd" id="1_bsikx"]
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="3_q47cd"]
+[ext_resource type="Script" path="res://dev/DayTime/scripts/floor.gd" id="4_d4f3w"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -95,6 +96,9 @@ _data = {
 }
 point_count = 2
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_73wy8"]
+size = Vector3(8.3576, 0.001, 4.89504)
+
 [node name="day_parent" type="Node3D"]
 script = ExtResource("1_bsikx")
 
@@ -177,4 +181,18 @@ transform = Transform3D(0.173648, -0.416198, 0.892539, 0, 0.906308, 0.422618, -0
 current = true
 
 [node name="OmniLight3D" type="DirectionalLight3D" parent="."]
-light_energy = 0.4
+light_angular_distance = 25.0
+
+[node name="inside" type="Node3D" parent="."]
+
+[node name="floor" type="Area3D" parent="inside"]
+script = ExtResource("4_d4f3w")
+
+[node name="player" type="MeshInstance3D" parent="inside/floor"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 10.3591, 0.519835, -8.77609)
+mesh = ExtResource("3_q47cd")
+skeleton = NodePath("../../../friendly/advertiser")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.71331, 0.000499994, -10.635)
+shape = SubResource("BoxShape3D_73wy8")
