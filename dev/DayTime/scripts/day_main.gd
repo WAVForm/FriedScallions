@@ -235,7 +235,8 @@ var time_scale: float = 1.0
 enum STATES {NONE, PASTRY, COFFEE, TEA, CAKE, MANUAL_SERVING}
 var state: STATES = STATES.NONE
 var day_started: bool = false
-var day_ended: bool = false
+var day_cycle_ended: bool = false # If the time in the day has run out (customers can no longer walk in)
+var day_over: bool = false # If the day phase has finished (day overview should pop up, game should be 'paused')
 
 var stat_customers: int = 0
 var stat_products: int = 0
@@ -356,7 +357,7 @@ func _generate_new_game() -> void:
 #region FRAME UPDATE
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if day_started and not day_ended:
+	if day_started and not day_over:
 		_day_cycle_process(time_scale * delta)
 		_server_process(time_scale * delta)
 		_manual_state_process(time_scale * delta)
@@ -382,16 +383,16 @@ func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
 	day_cycle_progress_bar.value = day_cycle_progress
 	day_cycle_progress_bar.max_value = DAY_LENGTH
-	if (not day_ended) and day_cycle_progress > DAY_LENGTH:
-		day_ended = true
+	if (not day_cycle_ended) and day_cycle_progress > DAY_LENGTH:
+		day_cycle_ended = true
 		print("day ended")
-		customers.clear() # evaporate leftover customers
-	if day_ended:
+	if day_cycle_ended:
 		if len(customers) == 0:
 			print("Money: $" + str(money))
 			day_ui.visible = false
 			$Camera.visible = false
 			overview_ui.visible = true
+			day_over = true
 			_generate_overview_menu()
 #endregion
 
@@ -505,7 +506,7 @@ func update_current_products() -> void:
 		cake = null_product
 
 func _create_customer() -> void:
-	if not day_ended:
+	if not day_cycle_ended:
 		var order = []
 		for i in range(randi_range(1, 4)):
 			var new_order_product = _rand_product()
