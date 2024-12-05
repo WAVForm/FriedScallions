@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
 [ext_resource type="PackedScene" uid="uid://cd0sx1sbvq076" path="res://dev/models/Gamejam_Frame_Cut-3DView-{3D}.fbx" id="2_q83fi"]
-[ext_resource type="Texture2D" uid="uid://bcg7m5ogvic3y" path="res://dev/DayTime/textures/texture_croissant1.png" id="2_s00qd"]
+[ext_resource type="Texture2D" uid="uid://bcg7m5ogvic3y" path="res://dev/DayTime/textures/texture_sandwich2.png" id="2_s00qd"]
 [ext_resource type="Texture2D" uid="uid://d1q1tegfb7gua" path="res://dev/DayTime/textures/texture_coffee1.png" id="3_ee848"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/queue_path.gd" id="3_xjqli"]
 [ext_resource type="Texture2D" uid="uid://dph2sd257pdjo" path="res://dev/DayTime/textures/texture_coffee2.png" id="4_e02xt"]
