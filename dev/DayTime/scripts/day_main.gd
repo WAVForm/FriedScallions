@@ -348,8 +348,8 @@ func _process(delta: float) -> void:
 		_day_cycle_process(time_scale * delta)
 		_server_process(time_scale * delta)
 		_manual_state_process(time_scale * delta)
-		_customer_process(time_scale * delta)
 		counter_display.update_counter(counter)
+	_customer_process(time_scale * delta)
 	_update_labels()
 
 
