@@ -4,9 +4,10 @@ class_name DayMain
 const purchaseable_button_scene = preload("res://dev/DayTime/scenes/purchase_button.tscn")
 const number_popup_scene = preload("res://dev/DayTime/scenes/number_popup.tscn")
 const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.tscn")
-#region EDITOR VARIABLES
+
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
+@export var INTRO_DAY_LENGTH: float = 40.0
 @export var STARTING_MONEY: int = 100
 @export var STARTING_POPULARITY: int = 10
 @export var PRODUCTION_TIME: float = 1.0
@@ -15,7 +16,6 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export var ENEMY_STARTING_POPULARITY: int = 0
 @export var ENEMY_POPULARITY_GROWTH: int = 20
 @export_subgroup("Customer")
-@export var CUSTOMER_SPEED: int = 25
 @export var INITIAL_PATIENCE: float = 30.0
 ##Amount of patience restored upon being served (partial order)
 @export var PATIENCE_ON_SERVE: int = 5
@@ -152,9 +152,8 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export var SERVER_PRICE_SCALE: int = 5
 @export var SERVER_INITIAL_LEVEL: int = 0
 @export var SERVER_INITIAL_UNLOCK: int = 0
-#endregion
 
-#region STATIC VARIABLES
+
 static var new_game: bool = true
 static var money: int
 static var popularity: int
@@ -168,9 +167,7 @@ static var coffees: Array[Product]
 static var teas: Array[Product]
 static var cakes: Array[Product]
 static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0)
-#endregion
 
-#region SAMS TODO LIST
 # TODO more stuff i gotta fix later
 @onready var queue_path = $Inside/QueuePath
 @onready var counter_display = $Inside/Counter
@@ -193,21 +190,13 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var auto_serve_display = $GameUI/AutoServeDisplay
 @onready var auto_serve_progress_bar = $GameUI/AutoServeDisplay/AutoServe
 @onready var day_cycle_progress_bar = $GameUI/DayProgressBar
-@onready var make_pastry_button = $GameUI/Pastry
-@onready var make_coffee_button = $GameUI/Coffee
-@onready var make_tea_button = $GameUI/Tea
-@onready var make_cake_button = $GameUI/Cake
-@onready var serve_button = $GameUI/ServeButton
-@onready var trash_button = $GameUI/Trash
 
 # TODO fix this also
 @onready var overview_ui = $DayOverUI
 @onready var stat_list = $DayOverUI/Overview/StatList
 
 @onready var outside = $day_parent
-#endregion
 
-#not sure what the rest of this is
 static var server: bool:
 	get:
 		return purchaseables[4].count >= 1
@@ -235,8 +224,7 @@ var time_scale: float = 1.0
 enum STATES {NONE, PASTRY, COFFEE, TEA, CAKE, MANUAL_SERVING}
 var state: STATES = STATES.NONE
 var day_started: bool = false
-var day_cycle_ended: bool = false # If the time in the day has run out (customers can no longer walk in)
-var day_over: bool = false # If the day phase has finished (day overview should pop up, game should be 'paused')
+var day_ended: bool = false
 
 var stat_customers: int = 0
 var stat_products: int = 0
@@ -272,8 +260,9 @@ func _ready() -> void:
 	outside.can_spawn = false
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
+	$day_parent/inside.station_reached.connect(_on_station_reach)
 	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		DAY_LENGTH = 40
+		DAY_LENGTH = INTRO_DAY_LENGTH
 	
 	if new_game:
 		_generate_new_game()
@@ -353,48 +342,30 @@ func _generate_new_game() -> void:
 	create_product(CAKE_3_NAME, CAKE_3_TEXTURE, CAKE_3_RECIPE, CAKE_3_PRICE, CAKE_3_POPULARITY)
 	]
 
-
-#region FRAME UPDATE
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if day_started and not day_over:
+	if day_started and not day_ended:
 		_day_cycle_process(time_scale * delta)
 		_server_process(time_scale * delta)
 		_manual_state_process(time_scale * delta)
 		_customer_process(time_scale * delta)
 		counter_display.update_counter(counter)
 	_update_labels()
-	if state != STATES.NONE and not counter_full():
-		make_pastry_button.disabled = true
-		make_coffee_button.disabled = true
-		make_tea_button.disabled = true
-		make_cake_button.disabled = true
-	else:
-		make_pastry_button.disabled = counter_full() or not pastry.can_produce()
-		make_coffee_button.disabled = counter_full() or not coffee.can_produce()
-		make_tea_button.disabled = counter_full() or not tea.can_produce()
-		make_cake_button.disabled = counter_full() or not cake.can_produce()
-	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
-	trash_button.disabled = len(counter) == 0
-#endregion
 
-#region DAY_CYCLE
+
 func _day_cycle_process(delta) -> void:
 	day_cycle_progress += delta
 	day_cycle_progress_bar.value = day_cycle_progress
 	day_cycle_progress_bar.max_value = DAY_LENGTH
-	if (not day_cycle_ended) and day_cycle_progress > DAY_LENGTH:
-		day_cycle_ended = true
-		print("day ended")
-	if day_cycle_ended:
+	if (not day_ended) and day_cycle_progress > DAY_LENGTH:
+		day_ended = true
+	if day_ended:
 		if len(customers) == 0:
 			print("Money: $" + str(money))
 			day_ui.visible = false
 			$Camera.visible = false
 			overview_ui.visible = true
-			day_over = true
 			_generate_overview_menu()
-#endregion
 
 func _server_process(delta) -> void:
 	if server:
@@ -451,10 +422,9 @@ func _manual_state_process(delta) -> void:
 				_clear_state()
 			progress_bar.value = progress / duration
 
-#region CUSTOMER
 func _customer_process(delta) -> void:
 	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - CUSTOMER_SPEED * delta, 15.0 * i, 200.0)
+		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
 		var patience_decay_rate = PATIENCE_DECAY
 		if customers[i].position > 0:
 			patience_decay_rate *= IN_LINE_MULT
@@ -475,7 +445,6 @@ func _customer_process(delta) -> void:
 				current_order += item.name + " "
 			patience = str(floor(customers[0].patience))
 	customer_label.text = "Current Order: " + current_order + "\nPatience: " + patience
-#endregion
 
 func _update_labels() -> void:
 	var ingredient_label_text = "Ingredients:"
@@ -506,7 +475,7 @@ func update_current_products() -> void:
 		cake = null_product
 
 func _create_customer() -> void:
-	if not day_cycle_ended:
+	if not day_ended:
 		var order = []
 		for i in range(randi_range(1, 4)):
 			var new_order_product = _rand_product()
@@ -571,6 +540,10 @@ func _add_stat_display(stat_name: String, stat_value: String) -> void:
 	stat_list.add_child(new_stat_display)
 	new_stat_display.update_display(stat_name, stat_value)
 
+func _start_serving_customer() -> void:
+	if state == STATES.NONE and can_serve_customer():
+		state = STATES.MANUAL_SERVING
+
 func _serve_customer() -> bool:
 	var items_served: Array[Product] = []
 	var no_items: bool = false
@@ -628,11 +601,6 @@ func _generate_overview_menu() -> void:
 	_add_stat_display("Profit:", str(stat_money_in - stat_money_out))
 	_add_stat_display("Total Money:", str(money))
 
-#region BUTTON FUNCTION
-func _start_serving_customer() -> void:
-	if state == STATES.NONE and can_serve_customer():
-		state = STATES.MANUAL_SERVING
-
 func _on_quit_pressed() -> void:
 	WRAPPER.change_scene(WRAPPER.SCENES.DEBUG) #TODO gotta make a real pause menu
 
@@ -643,30 +611,40 @@ func _on_start_day_pressed() -> void:
 	morning_ui.visible = false
 	day_ui.visible = true
 	update_current_products()
-	make_pastry_button.visible = pastry != null_product
-	make_coffee_button.visible = coffee != null_product
-	make_tea_button.visible = tea != null_product
-	make_cake_button.visible = cake != null_product
 	auto_serve_display.visible = server
+
+func _on_station_reach(station: Inside.STATIONS):
+	match station:
+		Inside.STATIONS.NONE:
+			pass
+		Inside.STATIONS.TRASH:
+			_on_trash_pressed()
+		Inside.STATIONS.SANDWICH:
+			_on_pastry_pressed()
+		Inside.STATIONS.CAKE:
+			_on_cake_pressed()
+		Inside.STATIONS.TEA:
+			_on_tea_pressed()
+		Inside.STATIONS.COFFEE:
+			_on_coffee_pressed()
 
 func _on_trash_pressed() -> void:
 	counter.pop_front()
 
-
 func _on_pastry_pressed() -> void:
-	if pastry.can_produce() and not counter_full():
+	if pastry.can_produce() and not counter_full() and WRAPPER.purchaseables[0].unlocked:
 		_attempt_enter_state(STATES.PASTRY)
 
 func _on_coffee_pressed() -> void:
-	if coffee.can_produce() and not counter_full():
+	if coffee.can_produce() and not counter_full() and WRAPPER.purchaseables[1].unlocked:
 		_attempt_enter_state(STATES.COFFEE)
 
 func _on_tea_pressed() -> void:
-	if tea.can_produce() and not counter_full():
+	if tea.can_produce() and not counter_full() and WRAPPER.purchaseables[2].unlocked:
 		_attempt_enter_state(STATES.TEA)
 
 func _on_cake_pressed() -> void:
-	if cake.can_produce() and not counter_full():
+	if cake.can_produce() and not counter_full() and WRAPPER.purchaseables[3].unlocked:
 		_attempt_enter_state(STATES.CAKE)
 
 func _on_end_day_pressed() -> void:
@@ -675,4 +653,3 @@ func _on_end_day_pressed() -> void:
 func _on_camera_toggled(toggled_on: bool) -> void:
 	day_ui.visible = not toggled_on
 	outside.switch_camera()
-#endregion
