@@ -189,12 +189,6 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var auto_serve_display = $GameUI/AutoServeDisplay
 @onready var auto_serve_progress_bar = $GameUI/AutoServeDisplay/AutoServe
 @onready var day_cycle_progress_bar = $GameUI/DayProgressBar
-@onready var make_pastry_button = $GameUI/Pastry
-@onready var make_coffee_button = $GameUI/Coffee
-@onready var make_tea_button = $GameUI/Tea
-@onready var make_cake_button = $GameUI/Cake
-@onready var serve_button = $GameUI/ServeButton
-@onready var trash_button = $GameUI/Trash
 
 # TODO fix this also
 @onready var overview_ui = $DayOverUI
@@ -265,6 +259,7 @@ func _ready() -> void:
 	outside.can_spawn = false
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
+	$day_parent/inside.station_reached.connect(_on_station_reach)
 	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
 		DAY_LENGTH = 40
 	
@@ -355,18 +350,6 @@ func _process(delta: float) -> void:
 		_customer_process(time_scale * delta)
 		counter_display.update_counter(counter)
 	_update_labels()
-	if state != STATES.NONE and not counter_full():
-		make_pastry_button.disabled = true
-		make_coffee_button.disabled = true
-		make_tea_button.disabled = true
-		make_cake_button.disabled = true
-	else:
-		make_pastry_button.disabled = counter_full() or not pastry.can_produce()
-		make_coffee_button.disabled = counter_full() or not coffee.can_produce()
-		make_tea_button.disabled = counter_full() or not tea.can_produce()
-		make_cake_button.disabled = counter_full() or not cake.can_produce()
-	serve_button.disabled = not (state == STATES.NONE and can_serve_customer())
-	trash_button.disabled = len(counter) == 0
 
 
 func _day_cycle_process(delta) -> void:
@@ -627,30 +610,40 @@ func _on_start_day_pressed() -> void:
 	morning_ui.visible = false
 	day_ui.visible = true
 	update_current_products()
-	make_pastry_button.visible = pastry != null_product
-	make_coffee_button.visible = coffee != null_product
-	make_tea_button.visible = tea != null_product
-	make_cake_button.visible = cake != null_product
 	auto_serve_display.visible = server
+
+func _on_station_reach(station: Inside.STATIONS):
+	match station:
+		Inside.STATIONS.NONE:
+			pass
+		Inside.STATIONS.TRASH:
+			_on_trash_pressed()
+		Inside.STATIONS.SANDWICH:
+			_on_pastry_pressed()
+		Inside.STATIONS.CAKE:
+			_on_cake_pressed()
+		Inside.STATIONS.TEA:
+			_on_tea_pressed()
+		Inside.STATIONS.COFFEE:
+			_on_coffee_pressed()
 
 func _on_trash_pressed() -> void:
 	counter.pop_front()
 
-
 func _on_pastry_pressed() -> void:
-	if pastry.can_produce() and not counter_full():
+	if pastry.can_produce() and not counter_full() and WRAPPER.purchaseables[0].unlocked:
 		_attempt_enter_state(STATES.PASTRY)
 
 func _on_coffee_pressed() -> void:
-	if coffee.can_produce() and not counter_full():
+	if coffee.can_produce() and not counter_full() and WRAPPER.purchaseables[1].unlocked:
 		_attempt_enter_state(STATES.COFFEE)
 
 func _on_tea_pressed() -> void:
-	if tea.can_produce() and not counter_full():
+	if tea.can_produce() and not counter_full() and WRAPPER.purchaseables[2].unlocked:
 		_attempt_enter_state(STATES.TEA)
 
 func _on_cake_pressed() -> void:
-	if cake.can_produce() and not counter_full():
+	if cake.can_produce() and not counter_full() and WRAPPER.purchaseables[3].unlocked:
 		_attempt_enter_state(STATES.CAKE)
 
 func _on_end_day_pressed() -> void:
