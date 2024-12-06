@@ -2,7 +2,7 @@ extends Control
 
 class_name Roll
 
-var roll_delay = 50 #higher number to decrease flashing
+var roll_delay = 100 #higher number to decrease flashing
 var roll_i = 0
 var chance = 0.0
 var rolling = false

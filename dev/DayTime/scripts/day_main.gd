@@ -9,7 +9,6 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 @export var DAY_LENGTH: float = 60.0
 
 @export var STARTING_MONEY: int = 100
-@export var STARTING_POPULARITY: int = 10
 @export var PRODUCTION_TIME: float = 1.0
 @export var SERVING_TIME: float = 1.0
 @export_subgroup("Intro")
@@ -159,8 +158,6 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 
 static var new_game: bool = true
 static var money: int
-static var popularity: int
-static var enemy_popularity: int
 static var ingredient_dict: Dictionary
 static var ingredients: Array[Ingredient]
 static var restock_purchaseables: Array[RestockPurchaseable]
@@ -180,8 +177,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var restock_bar = $MorningUI/ShopMenu/Row/Column1
 @onready var upgrade_bar = $MorningUI/ShopMenu/Row/Column2
 @onready var employee_bar = $MorningUI/ShopMenu/Row/Column3
-@onready var money_display = $MorningUI/UIMoneyBox/Money
-@onready var morning_ingredient_label = $MorningUI/UIIngredientBox/IngredientLabel
+@onready var money_display = $MorningUI/moneybg/Money
+@onready var morning_ingredient_label = $MorningUI/ingredientbg/IngredientLabel
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX'
 @onready var day_ui = $GameUI
@@ -203,10 +200,6 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 static var server: bool:
 	get:
 		return purchaseables[4].count >= 1
-
-static var popularity_split: float:
-	get:
-		return float(popularity) / (float(popularity) + float(enemy_popularity))
 
 var progress: float = 0.0
 
@@ -280,6 +273,14 @@ func _ready() -> void:
 		_generate_new_game()
 		new_game = false
 	
+	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		DAY_LENGTH = INTRO_DAYS_LENGTH
+		if WRAPPER.day == 3:
+			WRAPPER.popularity = 100-INTRO_DAY3_ENEMY_POPULARITY
+		else:
+			WRAPPER.popularity = 100
+		
+	
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[0]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[1]))
 	restock_bar.add_child(_create_purchaseable_button(restock_purchaseables[2]))
@@ -295,31 +296,12 @@ func _ready() -> void:
 	if server:
 		spend_money(SERVER_WAGE_BASE + SERVER_WAGE_SCALE * purchaseables[4].count)
 	
-	_update_popularities()
-	
 	update_current_products()
 	update_money_display()
 
-func _update_popularities() -> void:
-	enemy_popularity += ENEMY_POPULARITY_GROWTH
-	enemy_popularity -= int(floor(0.1 * enemy_popularity))
-	popularity -= int(floor(0.1 * popularity))
-	print("Player Popularity: " + str(popularity))
-	print("Enemy Popularity: " + str(enemy_popularity))
-	print("Popularity Split: " + str(popularity_split))
-
 func _generate_new_game() -> void:
-	money = STARTING_MONEY
-	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		DAY_LENGTH = INTRO_DAYS_LENGTH
-	if WRAPPER.day >= 1 and WRAPPER.day < 3:
-		popularity = 100
-		enemy_popularity = 0
-	if WRAPPER.day == 3:
-		popularity = 100-INTRO_DAY3_ENEMY_POPULARITY
-		enemy_popularity = INTRO_DAY3_ENEMY_POPULARITY
-	popularity = STARTING_POPULARITY
-	enemy_popularity = ENEMY_STARTING_POPULARITY
+	money = STARTING_MONEY	
+	
 	ingredient_dict = {}
 	ingredients = [
 	create_ingredient("Flour", FLOUR_START_AMOUNT, "F"),
@@ -384,6 +366,7 @@ func _day_cycle_process(delta) -> void:
 			print("Money: $" + str(money))
 			day_ui.visible = false
 			$Camera.visible = false
+			WRAPPER.popularity = 0 if ((WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100)<0) else WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100
 			overview_ui.visible = true
 			_generate_overview_menu()
 			day_started = false
@@ -548,7 +531,7 @@ func spend_money(amount) -> void:
 	update_money_display()
 
 func earn_popularity(amount) -> void:
-	popularity += amount
+	WRAPPER.popularity += amount/100
 	stat_popularity += amount
 
 func attempt_purchase(purchaseable) -> void:
@@ -628,7 +611,7 @@ func _generate_overview_menu() -> void:
 	_add_stat_display("Total Money:", str(money))
 
 func _on_quit_pressed() -> void:
-	WRAPPER.change_scene(WRAPPER.SCENES.DEBUG) #TODO gotta make a real pause menu
+	WRAPPER.change_scene(WRAPPER.SCENES.TITLE_SCREEN) #TODO gotta make a real pause menu
 
 func _on_start_day_pressed() -> void:
 	outside.can_spawn = true
