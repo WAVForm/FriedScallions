@@ -1,11 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjwy36djyl2mc"]
+[gd_scene load_steps=5 format=3 uid="uid://bjwy36djyl2mc"]
 
-[ext_resource type="Script" path="res://dev/DayTime/scenes/person.gd" id="2_568pu"]
+[ext_resource type="Script" path="res://dev/DayTime/scripts/person.gd" id="2_568pu"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="2_k5jhh"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_luggb"]
 radius = 0.27316
 height = 1.60766
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_f4pte"]
 
 [node name="person" type="Area3D"]
 script = ExtResource("2_568pu")
@@ -26,3 +28,6 @@ transform = Transform3D(-4.37114e-08, -6.60023e-15, -1, -1.50996e-07, 1, 6.35275
 billboard = 2
 vertical_alignment = 0
 width = 270.0
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="."]
+sprite_frames = SubResource("SpriteFrames_f4pte")

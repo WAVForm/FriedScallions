@@ -1,5 +1,16 @@
 extends Node
 
+var audio_handler: AudioStreamPlayer
+var ceil = -12
+var fade_delta = 0.0
+var fade_started = false
+const title_song = preload("res://dev/Audio/seriousv2.mp3")
+const cafe_song = preload("res://dev/Audio/jazzyv1.mp3")
+const button_sound = preload("res://dev/Audio/button_sound.wav")
+const select_sound = preload("res://dev/Audio/select.wav")
+const morning = preload("res://dev/Audio/morning_sound.mp3")
+const night = preload("res://dev/Audio/night_sound.mp3")
+
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
 const DAY_PARENT = preload("res://dev/DayTime/scenes/day_parent.tscn")
 const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
@@ -37,14 +48,7 @@ var money: int:
 	set(new_money):
 		DayMain.money = new_money
 
-var popularity: float:
-	get:
-		return popularity_split
-	set(value):
-		DayMain.popularity += int(10*value) #TODO uber jank bandaid fix
-var popularity_split: float:
-	get:
-		return DayMain.popularity_split
+var popularity: float
 
 signal friendly_shop_entered
 signal enemy_shop_entered
@@ -55,6 +59,11 @@ var night_events = [[], []] # [PRIORITY QUEUE, LIST OF USED ACTIONS]
 #TODO Store actions? Or, buffs/debuffs?
 
 func _ready():
+	audio_handler = AudioStreamPlayer.new()
+	audio_handler.stream = AudioStreamPolyphonic.new()
+	self.add_child(audio_handler)
+	audio_handler.play()
+	
 	change_scene(SCENES.TITLE_SCREEN)
 
 func change_scene(sceneid: SCENES) -> void:
@@ -65,15 +74,21 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.DAWN:
 			current_child = DAWN_SCENE.instantiate()
 			state = SCENES.DAWN
+			play_audio()
+			fade_in(1)
 		SCENES.DAY:
 			current_child = DAY_MAIN_SCENE.instantiate()
 			state = SCENES.DAY
+			play_audio()
+			fade_in(0.01)
 		SCENES.DAY_PARENT:
 			current_child = DAY_PARENT.instantiate()
 			state = SCENES.DAY_PARENT
 		SCENES.DUSK:
 			current_child = DUSK_SCENE.instantiate()
 			state = SCENES.DUSK
+			play_audio()
+			fade_in(0.01)
 		SCENES.NIGHT:
 			current_child = NIGHT_SCENE.instantiate()
 			state = SCENES.NIGHT
@@ -91,6 +106,8 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.TITLE_SCREEN:
 			current_child = TITLE_SCREEN.instantiate()
 			state = SCENES.TITLE_SCREEN
+			play_audio()
+			fade_in(0.01)
 	self.add_child(current_child)
 
 func exit_scene() -> void:
@@ -145,7 +162,7 @@ func roll(pass_chance: float):
 	self.add_child(ROLL_TEMPLATE.instantiate())
 	var roll_node = $roll
 	roll_node.chance = pass_chance
-	await wait(4)
+	await wait(2)
 	var result = roll_node.stop()
 	if (day == 3):
 		roll_node.rtext.text = "100%"
@@ -179,3 +196,61 @@ func after_text_event():
 			change_scene(SCENES.NIGHT)
 		_:
 			change_scene(SCENES.SLEEP)
+			
+func play_audio():
+	audio_handler.stop()
+	audio_handler.play()
+	var poly = audio_handler.get_stream_playback()
+	if state == SCENES.TITLE_SCREEN:
+		poly.play_stream(title_song)
+		current_child.get_node("MarginContainer/VBoxContainer/Play").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("MarginContainer/VBoxContainer/Options").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("MarginContainer/VBoxContainer/Quit").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		
+		current_child.get_node("MarginContainer/VBoxContainer/Play").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("MarginContainer/VBoxContainer/Options").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("MarginContainer/VBoxContainer/Quit").pressed.connect(func(): poly.play_stream(select_sound))
+	elif state == SCENES.DAWN:
+		poly.play_stream(morning)
+	elif state == SCENES.DUSK:
+		poly.play_stream(night)
+	elif state == SCENES.DAY:
+		poly.play_stream(cafe_song)
+		current_child.get_node("GameUI/ServeButton").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("GameUI/Quit").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("Camera").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("DayOverUI/EndDay").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("MorningUI/StartDay").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("day_parent/inside/trash_can").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("day_parent/inside/cake_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("day_parent/inside/pastry_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("day_parent/inside/coffee_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("day_parent/inside/tea_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		
+		current_child.get_node("GameUI/ServeButton").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("GameUI/Quit").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("Camera").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("DayOverUI/EndDay").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("MorningUI/StartDay").pressed.connect(func(): poly.play_stream(select_sound))
+		
+		current_child.get_node("day_parent/inside/trash_can").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
+		current_child.get_node("day_parent/inside/cake_station").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
+		current_child.get_node("day_parent/inside/pastry_station").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
+		current_child.get_node("day_parent/inside/coffee_station").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
+		current_child.get_node("day_parent/inside/tea_station").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
+
+func fade_in(fade_increase):
+	if not fade_started:
+		fade_delta = fade_increase
+		audio_handler.volume_db = -60
+		fade_started = true
+	if audio_handler.volume_db < ceil:
+		audio_handler.volume_db += fade_increase
+	else:
+		audio_handler.volume_db = ceil
+		fade_started = false
+		return
+		
+func _process(delta):
+	if fade_started:
+		fade_in(fade_delta)

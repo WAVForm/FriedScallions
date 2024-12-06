@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://77mbwehwret5"]
+[gd_scene load_steps=6 format=3 uid="uid://77mbwehwret5"]
 
 [ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk.gd" id="1_875o7"]
 [ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_xsswy"]
@@ -10,6 +10,8 @@ shader = ExtResource("1_xsswy")
 shader_parameter/start_color = Color(0.0117647, 0.0509804, 0.145098, 1)
 shader_parameter/end_color = Color(1, 0.686275, 0.25098, 1)
 shader_parameter/progress = 0.0
+
+[sub_resource type="AudioStreamPolyphonic" id="AudioStreamPolyphonic_tkkqs"]
 
 [node name="dawn_menu" type="Control"]
 layout_mode = 3
@@ -80,3 +82,6 @@ text = "Day ?
 "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamPolyphonic_tkkqs")

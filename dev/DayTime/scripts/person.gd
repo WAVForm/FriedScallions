@@ -18,7 +18,9 @@ var moving = false
 var path_len = 0.0
 var progress = 0.0
 var max_progression = 0.25
-var wait_time = 1.0
+var advert_wait = 1.0
+var door_wait = 0.5
+var enemy_shop_wait = 4.0
 
 var order: Array
 var patience: float = 30.0
@@ -110,7 +112,7 @@ func move_on_path(delta):
 			day_parent.set_current_path(self)
 	else:
 		if state == STATES.AT_ADVERT:
-			if progress < wait_time:
+			if progress < advert_wait:
 				progress += delta
 			else:
 				var to_friendly = Roll.roll(WRAPPER.popularity)
@@ -121,7 +123,7 @@ func move_on_path(delta):
 				progress = 0
 				day_parent.set_current_path(self)
 		elif state == STATES.AT_DOOR:
-			if progress < wait_time:
+			if progress < door_wait:
 				progress += delta
 			else:
 				progress = 0
@@ -140,10 +142,12 @@ func move_on_path(delta):
 				state += 1
 				day_parent.set_current_path(self)
 			elif side.name == "enemy":
-				if progress < wait_time:
+				if progress < enemy_shop_wait:
 					progress += delta
 				else:
 					textbox.visible = false
+					for item in order:
+						WRAPPER.popularity -= item.popularity_value/100
 					progress = 0
 					state += 1
 					day_parent.set_current_path(self)
