@@ -598,6 +598,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.298861, 0)
 shape = SubResource("CapsuleShape3D_5olog")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="inside/player"]
+target_desired_distance = 2.0
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 

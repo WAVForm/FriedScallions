@@ -7,11 +7,14 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
-@export var INTRO_DAY_LENGTH: float = 40.0
+
 @export var STARTING_MONEY: int = 100
 @export var STARTING_POPULARITY: int = 10
 @export var PRODUCTION_TIME: float = 1.0
 @export var SERVING_TIME: float = 1.0
+@export_subgroup("Intro")
+@export var INTRO_DAYS_LENGTH: float = 40.0
+@export var INTRO_DAY3_ENEMY_POPULARITY: float = 100
 @export_subgroup("Enemy")
 @export var ENEMY_STARTING_POPULARITY: int = 0
 @export var ENEMY_POPULARITY_GROWTH: int = 20
@@ -169,7 +172,6 @@ static var cakes: Array[Product]
 static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0)
 
 # TODO more stuff i gotta fix later
-@onready var queue_path = $Inside/QueuePath
 @onready var counter_display = $Inside/Counter
 
 # TODO FIX THIS CLEAN IT UP
@@ -186,7 +188,6 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var progress_bar = $GameUI/ProgressBar
 @onready var day_ingredient_label = $GameUI/IngredientLabel
 @onready var product_label = $GameUI/ProductLabel
-@onready var customer_label = $GameUI/CustomerLabel
 @onready var auto_serve_display = $GameUI/AutoServeDisplay
 @onready var auto_serve_progress_bar = $GameUI/AutoServeDisplay/AutoServe
 @onready var day_cycle_progress_bar = $GameUI/DayProgressBar
@@ -208,7 +209,9 @@ static var popularity_split: float:
 		return float(popularity) / (float(popularity) + float(enemy_popularity))
 
 var progress: float = 0.0
-var customers: Array[Customer] = []
+
+var all_customers: Array[Person] = []
+var friendly_customers: Array[Person] = []
 
 var customer_timer: float = 0.0
 
@@ -233,6 +236,7 @@ var stat_products: int = 0
 var stat_popularity: int = 0
 var stat_money_in: int = 0
 var stat_money_out: int = 0
+
 
 static func create_ingredient(ingredient_name: String, start_count: int, initial: String) -> Ingredient:
 	var new_ingredient = Ingredient.new(ingredient_name, start_count)
@@ -261,10 +265,16 @@ static func generate_recipe(initials_recipe: Array[String]) -> Array[Ingredient]
 func _ready() -> void:
 	outside.can_spawn = false
 	$Camera.visible = false
-	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
+	outside.customer_clicked.connect(_start_serving_customer)
+	
 	$day_parent/inside.station_reached.connect(_on_station_reach)
-	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		DAY_LENGTH = INTRO_DAY_LENGTH
+	outside.customer_spawned.connect(_create_customer)
+	outside.customer_despawned.connect(
+		func(p: Person): 
+			all_customers.erase(p)
+			if p in friendly_customers:
+				friendly_customers.erase(p)
+	)
 	
 	if new_game:
 		_generate_new_game()
@@ -289,7 +299,6 @@ func _ready() -> void:
 	
 	update_current_products()
 	update_money_display()
-	WRAPPER.friendly_shop_entered.connect(_create_customer)
 
 func _update_popularities() -> void:
 	enemy_popularity += ENEMY_POPULARITY_GROWTH
@@ -301,6 +310,14 @@ func _update_popularities() -> void:
 
 func _generate_new_game() -> void:
 	money = STARTING_MONEY
+	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		DAY_LENGTH = INTRO_DAYS_LENGTH
+	if WRAPPER.day >= 1 and WRAPPER.day < 3:
+		popularity = 100
+		enemy_popularity = 0
+	if WRAPPER.day == 3:
+		popularity = 100-INTRO_DAY3_ENEMY_POPULARITY
+		enemy_popularity = INTRO_DAY3_ENEMY_POPULARITY
 	popularity = STARTING_POPULARITY
 	enemy_popularity = ENEMY_STARTING_POPULARITY
 	ingredient_dict = {}
@@ -346,12 +363,11 @@ func _generate_new_game() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if day_started and not day_ended:
-		if not day_ended:
-			_day_cycle_process(time_scale * delta)
-			_server_process(time_scale * delta)
-			_manual_state_process(time_scale * delta)
-			counter_display.update_counter(counter)
+	if day_started:
+		_day_cycle_process(time_scale * delta)
+		_server_process(time_scale * delta)
+		_manual_state_process(time_scale * delta)
+		counter_display.update_counter(counter)
 		_customer_process(time_scale * delta)
 	_update_labels()
 
@@ -362,13 +378,15 @@ func _day_cycle_process(delta) -> void:
 	day_cycle_progress_bar.max_value = DAY_LENGTH
 	if (not day_ended) and day_cycle_progress > DAY_LENGTH:
 		day_ended = true
+		$day_parent.can_spawn = false
 	if day_ended:
-		if len(customers) == 0:
+		if len(friendly_customers) == 0:
 			print("Money: $" + str(money))
 			day_ui.visible = false
 			$Camera.visible = false
 			overview_ui.visible = true
 			_generate_overview_menu()
+			day_started = false
 
 func _server_process(delta) -> void:
 	if server:
@@ -426,28 +444,33 @@ func _manual_state_process(delta) -> void:
 			progress_bar.value = progress / duration
 
 func _customer_process(delta) -> void:
-	for i in range(len(customers)):
-		customers[i].position = clamp(customers[i].position - 25.0 * delta, 15.0 * i, 200.0)
+	for c in all_customers:
+		if c.side.name == "enemy" and c in friendly_customers:
+			friendly_customers.erase(c)
+		if c.side.name == "friendly" and c not in friendly_customers and c.state >= Person.STATES.TO_LINE:
+			var found = -1
+			for i in range(len(friendly_customers)):
+				if c.gt(friendly_customers[i]):
+					found = i
+					break
+			if found != -1:
+				friendly_customers.insert(found, c) 
+			else: 
+				friendly_customers.append(c)
 		var patience_decay_rate = PATIENCE_DECAY
-		if customers[i].position > 0:
+		if c.state == Person.STATES.TO_REGISTER:
 			patience_decay_rate *= IN_LINE_MULT
-		customers[i].patience -= patience_decay_rate * delta
-	if len(customers) > 0:
-		if len(customers[0].order) == 0:
+		c.patience -= patience_decay_rate * delta if c.state == Person.STATES.TO_REGISTER or c.state == Person.STATES.AT_REGISTER else 0
+	if len(friendly_customers) > 0:
+		if len(friendly_customers[0].order) == 0:
 			stat_customers += 1
-			#customers.pop_front()
-		elif customers[0].patience < 0.0:
-			customers.pop_front()
-	
-	queue_path.update_customers(customers)
-	var current_order = ""
-	var patience = ""
-	if len(customers) > 0:
-		if customers[0].position == 0.0:
-			for item: Product in customers[0].order:
-				current_order += item.name + " "
-			patience = str(floor(customers[0].patience))
-	customer_label.text = "Current Order: " + current_order + "\nPatience: " + patience
+			friendly_customers[0].order_done = true
+			var c = friendly_customers.pop_front()
+			all_customers.erase(c)
+		elif friendly_customers[0].patience < 0.0:
+			friendly_customers[0].order_done = true
+			var c = friendly_customers.pop_front()
+			all_customers.erase(c)
 
 func _update_labels() -> void:
 	var ingredient_label_text = "Ingredients:"
@@ -477,7 +500,7 @@ func update_current_products() -> void:
 	else:
 		cake = null_product
 
-func _create_customer() -> void:
+func _create_customer(c: Person) -> void:
 	if not day_ended:
 		var order = []
 		for i in range(randi_range(1, 4)):
@@ -486,8 +509,8 @@ func _create_customer() -> void:
 				new_order_product = _rand_product()
 			if not new_order_product == null_product:
 				order.append(new_order_product)
-		var c = Customer.new(order, INITIAL_PATIENCE)
-		customers.append(Customer.new(order, INITIAL_PATIENCE))
+		c.init(order, INITIAL_PATIENCE)
+		all_customers.append(c)
 
 func _rand_product() -> Product:
 	match randi_range(1, 4):
@@ -543,8 +566,8 @@ func _add_stat_display(stat_name: String, stat_value: String) -> void:
 	stat_list.add_child(new_stat_display)
 	new_stat_display.update_display(stat_name, stat_value)
 
-func _start_serving_customer() -> void:
-	if state == STATES.NONE and can_serve_customer():
+func _start_serving_customer(p: Person) -> void:
+	if state == STATES.NONE and can_serve_customer() and p == friendly_customers[0]:
 		state = STATES.MANUAL_SERVING
 
 func _serve_customer() -> bool:
@@ -554,14 +577,14 @@ func _serve_customer() -> bool:
 	var popularity_gain: int = 0
 	while not no_items:
 		no_items = true
-		for i in range(len(customers[0].order)):
-			var current_order = customers[0].order[i]
+		for i in range(len(friendly_customers[0].order)):
+			var current_order = friendly_customers[0].order[i]
 			if current_order in counter:
-				money_gain += current_order.sell_value + int(floor(customers[0].patience / 10.0))
-				popularity_gain += current_order.popularity_value + int(floor(customers[0].patience / 10.0))
+				money_gain += current_order.sell_value + int(floor(friendly_customers[0].patience / 10.0))
+				popularity_gain += current_order.popularity_value + int(floor(friendly_customers[0].patience / 10.0))
 				items_served.append(current_order)
 				counter.erase(current_order)
-				customers[0].order.remove_at(i)
+				friendly_customers[0].order.remove_at(i)
 				no_items = false
 				break
 	if len(items_served) > 0:
@@ -580,14 +603,14 @@ func _serve_customer() -> bool:
 		day_ui.add_child(popularity_popup)
 		counter_display.serve_items(items_served, customer_serve_pos)
 	
-	customers[0].patience += PATIENCE_ON_SERVE
+	friendly_customers[0].patience += PATIENCE_ON_SERVE
 	stat_products += len(items_served)
 	return len(items_served) > 0
 
 func can_serve_customer() -> bool:
-	if len(customers) > 0:
-		if customers[0].position == 0.0:
-			for item: Product in customers[0].order:
+	if len(friendly_customers) > 0:
+		if friendly_customers[0].state == Person.STATES.AT_REGISTER:
+			for item: Product in friendly_customers[0].order:
 				if item in counter:
 						return true
 	return false

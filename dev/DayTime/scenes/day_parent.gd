@@ -11,40 +11,46 @@ var spawn_delay = [1.5, 3.5] #current time, delay until next person should try t
 var spawn_chance = 0.25 #chance for person to spawn after delay
 var can_spawn = true
 
+signal customer_clicked(p: Person)
+signal customer_spawned(p: Person)
+signal customer_despawned(p: Person)
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if can_spawn:
-		if spawn_delay[0] < spawn_delay[1]:
-			spawn_delay[0] += delta
-		else:
-			spawn_delay[0] = 0.0
-			spawn_person()
+	if spawn_delay[0] < spawn_delay[1]:
+		spawn_delay[0] += delta
+	else:
+		spawn_delay[0] = 0.0
+		spawn_person()
 
 func _input(event):
 	if event.is_action_pressed("ui_page_up"):
 		spawn_person()
 
 func spawn_person(side:int=2):
-	match side:
-		0:
-			var new_person = person.instantiate()
-			new_person.name = "person" + str(people)
-			$enemy.add_child(new_person)
-			new_person.start(people)
-			people += 1
-		1:
-			var new_person = person.instantiate()
-			new_person.name = "person" + str(people)
-			$friendly.add_child(new_person)
-			new_person.start(people)
-			people += 1
-		_:
-			side = randi() % 2
-			spawn_person(side)
+	if can_spawn:
+		match side:
+			0:
+				var new_person = person.instantiate() as Person
+				new_person.name = "person" + str(people)
+				$enemy.add_child(new_person)
+				customer_spawned.emit(new_person)
+				new_person.start(people)
+				people += 1
+			1:
+				var new_person = person.instantiate() as Person
+				new_person.name = "person" + str(people)
+				$friendly.add_child(new_person)
+				customer_spawned.emit(new_person)
+				new_person.start(people)
+				people += 1
+			_:
+				side = randi() % 2
+				spawn_person(side)
 
 func set_current_path(p:Person):
 	var path = null
@@ -59,10 +65,9 @@ func set_current_path(p:Person):
 			path = p.side.get_node("line") as Path3D
 		Person.STATES.TO_REGISTER:
 			if p.side == friendly:
-				WRAPPER.friendly_shop_entered.emit() #TODO bandaid visual fix, redo this later
+				WRAPPER.friendly_shop_entered.emit(p) #TODO bandaid visual fix, redo this later
 			elif p.side == enemy:
-				WRAPPER.enemy_shop_entered.emit() #TODO bandaid visual fix, redo this later
-			p.visible = false
+				WRAPPER.enemy_shop_entered.emit(p) #TODO bandaid visual fix, redo this later
 			
 			path = p.side.get_node("to_register") as Path3D
 		Person.STATES.FROM_REGISTER:
