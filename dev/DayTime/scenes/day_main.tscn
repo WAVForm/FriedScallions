@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=15 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -11,10 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
-[ext_resource type="Texture2D" uid="uid://c4duif2eq14ub" path="res://dev/DayTime/images/Overview.png" id="14_7mv5o"]
-[ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
-[ext_resource type="AudioStream" uid="uid://tvqrle8vxoy7" path="res://dev/Audio/Restaurant Ambience  Sound Effect (Copyright Free).mp3" id="15_kcqja"]
-[ext_resource type="Texture2D" uid="uid://cgsqklw1dynaj" path="res://dev/DayTime/textures/enddaybutton.png" id="15_oooba"]
 [ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="15_yuqmv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
@@ -23,8 +19,6 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkr5v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bv1vo"]
 font_size = 32
@@ -403,5 +397,4 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
-[connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
