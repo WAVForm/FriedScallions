@@ -397,4 +397,5 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
+[connection signal="pressed" from="MorningUI/StartDayButtonTex/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
