@@ -435,7 +435,7 @@ func _customer_process(delta) -> void:
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			stat_customers += 1
-			customers.pop_front()
+			#customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
 	
