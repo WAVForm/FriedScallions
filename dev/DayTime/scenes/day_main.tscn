@@ -1,24 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=14 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
 [ext_resource type="PackedScene" uid="uid://cd0sx1sbvq076" path="res://dev/models/Gamejam_Frame_Cut-3DView-{3D}.fbx" id="2_q83fi"]
 [ext_resource type="Texture2D" uid="uid://bcg7m5ogvic3y" path="res://dev/DayTime/textures/texture_croissant1.png" id="2_s00qd"]
 [ext_resource type="Texture2D" uid="uid://d1q1tegfb7gua" path="res://dev/DayTime/textures/texture_coffee1.png" id="3_ee848"]
-[ext_resource type="Script" path="res://dev/DayTime/scripts/queue_path.gd" id="3_xjqli"]
 [ext_resource type="Texture2D" uid="uid://dph2sd257pdjo" path="res://dev/DayTime/textures/texture_coffee2.png" id="4_e02xt"]
 [ext_resource type="Texture2D" uid="uid://cot7x86s3ymx" path="res://dev/DayTime/textures/texture_coffee3.png" id="5_jift6"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/counter.gd" id="5_r6t8u"]
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
-
-[sub_resource type="Curve3D" id="Curve3D_lg64r"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.495, 0, 0, 0, 0, 0, 0, 0, 0, 1.15697, 0, 0, 0, 0, 0, 0, 0, 0, 1.14351, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -3.5),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
-}
-point_count = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 
@@ -97,11 +89,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9953, 3.17801, 2.18535)
 light_energy = 1.2
 omni_range = 24.38
 
-[node name="QueuePath" type="Path3D" parent="Inside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.5)
-curve = SubResource("Curve3D_lg64r")
-script = ExtResource("3_xjqli")
-
 [node name="Counter" type="Node3D" parent="Inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.834, -4.281)
 script = ExtResource("5_r6t8u")
@@ -138,16 +125,6 @@ offset_top = 505.0
 offset_right = 801.0
 offset_bottom = 528.0
 text = "Items:"
-
-[node name="CustomerLabel" type="Label" parent="GameUI"]
-offset_left = 230.0
-offset_top = 373.0
-offset_right = 476.0
-offset_bottom = 452.0
-text = "Current Order: 
-Patience:
-Customers in line:
-"
 
 [node name="ServeButton" type="Button" parent="GameUI"]
 visible = false
@@ -223,6 +200,7 @@ offset_bottom = 639.0
 text = "quit"
 
 [node name="Camera" type="Button" parent="."]
+visible = false
 offset_left = 23.0
 offset_top = 221.0
 offset_right = 94.0

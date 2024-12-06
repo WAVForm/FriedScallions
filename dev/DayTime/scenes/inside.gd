@@ -37,6 +37,7 @@ func _ready():
 	tea.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.TEA))
 	tea.mouse_entered.connect(func(): highlight(tea))
 	tea.mouse_exited.connect(func(): unhighlight(tea))
+	get_parent().customer_clicked.connect(func(p: Person): if p.state == Person.STATES.TO_REGISTER or p.state == Person.STATES.AT_REGISTER: navigate_to(p.global_position,STATIONS.NONE))
 
 func _physics_process(delta):
 	if navigating[0]:
