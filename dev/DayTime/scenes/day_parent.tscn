@@ -4,13 +4,13 @@
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="3_q47cd"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/inside.gd" id="4_tqm5m"]
-[ext_resource type="ArrayMesh" uid="uid://cbqwnyhkngx1c" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
-[ext_resource type="ArrayMesh" uid="uid://dm7c06qblqxcj" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
+[ext_resource type="ArrayMesh" uid="uid://bkbkgkdvi2ok3" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
+[ext_resource type="ArrayMesh" uid="uid://ds0judp6himp8" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="7_4esds"]
-[ext_resource type="ArrayMesh" uid="uid://c5p3o7nrmph0f" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
+[ext_resource type="ArrayMesh" uid="uid://b7yk0yskhl3wr" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="8_4qjuk"]
-[ext_resource type="ArrayMesh" uid="uid://cuktpv7smho34" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
-[ext_resource type="ArrayMesh" uid="uid://dettdm1d3x33b" path="res://dev/models/teastation.tres" id="9_463ym"]
+[ext_resource type="ArrayMesh" uid="uid://b5riijxshyfbu" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
+[ext_resource type="ArrayMesh" uid="uid://b87votiic8elc" path="res://dev/models/teastation.tres" id="9_463ym"]
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="9_oghh5"]
 [ext_resource type="ArrayMesh" uid="uid://c8ytpfu3y7upx" path="res://dev/models/servingtray.tres" id="10_77ef6"]
 [ext_resource type="PackedScene" uid="uid://c31o4wi77l76q" path="res://dev/DayTime/scenes/product_display.tscn" id="10_v5qsa"]
@@ -604,6 +604,10 @@ shape = SubResource("CapsuleShape3D_5olog")
 target_desired_distance = 2.0
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
+
+[node name="ProgressBarSprite" type="Sprite3D" parent="inside/player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+billboard = 1
 
 [node name="floor_nav" type="NavigationRegion3D" parent="inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.09258, 0, -10.7068)

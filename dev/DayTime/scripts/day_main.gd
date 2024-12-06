@@ -182,7 +182,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX'
 @onready var day_ui = $GameUI
-@onready var progress_bar = $GameUI/ProgressBar
+@onready var progress_texture = $GameUI/ProgressTexture
+@onready var progress_bar = $GameUI/ProgressTexture/ProgressBar
 @onready var day_ingredient_label = $GameUI/IngredientLabel
 @onready var product_label = $GameUI/ProductLabel
 @onready var auto_serve_display = $GameUI/AutoServeDisplay
