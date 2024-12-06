@@ -337,17 +337,17 @@ visible = false
 size = Vector3(0.891266, 2.21387, 3.47705)
 
 [node name="servingtray1" type="MeshInstance3D" parent="inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 10, 0.834, -10.75)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 9.49914, 0.834, -10.75)
 mesh = ExtResource("10_77ef6")
 
 [node name="servingtray2" type="MeshInstance3D" parent="inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 10.75, 0.834, -10.75)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 10.2491, 0.834, -10.75)
 mesh = ExtResource("10_77ef6")
 
 [node name="servingtray3" type="MeshInstance3D" parent="inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 11.5, 0.834, -10.8)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 10.9991, 0.834, -10.8)
 mesh = ExtResource("10_77ef6")
 
 [node name="servingtray4" type="MeshInstance3D" parent="inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12.25, 0.834, -10.8)
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 11.7491, 0.834, -10.8)
 mesh = ExtResource("10_77ef6")

@@ -260,8 +260,8 @@ func _ready() -> void:
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
 	$day_parent/inside.station_reached.connect(_on_station_reach)
-	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		DAY_LENGTH = 40
+	#if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		#DAY_LENGTH = 40
 	
 	if new_game:
 		_generate_new_game()
