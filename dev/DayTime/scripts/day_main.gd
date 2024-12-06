@@ -180,8 +180,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var restock_bar = $MorningUI/ShopMenu/Row/Column1
 @onready var upgrade_bar = $MorningUI/ShopMenu/Row/Column2
 @onready var employee_bar = $MorningUI/ShopMenu/Row/Column3
-@onready var money_display = $MorningUI/UIMoneyBox/Money
-@onready var morning_ingredient_label = $MorningUI/UIIngredientBox/IngredientLabel
+@onready var money_display = $MorningUI/moneybg/Money
+@onready var morning_ingredient_label = $MorningUI/ingredientbg/IngredientLabel
 
 # TODO UBER JANK DEV UI REALLY REALLY FIX'
 @onready var day_ui = $GameUI
