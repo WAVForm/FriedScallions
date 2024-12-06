@@ -18,7 +18,7 @@
 
 [sub_resource type="Curve3D" id="Curve3D_lg64r"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.15697, 0, 0, 0, 0, 0, 0, 0, 0, 1.14351, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -3.5),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.495, 0, 0, 0, 0, 0, 0, 0, 0, 1.15697, 0, 0, 0, 0, 0, 0, 0, 0, 1.14351, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -2.5, 0, 0, 0, 0, 0, 0, 9, 0, -3.5),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0)
 }
 point_count = 5
@@ -119,7 +119,7 @@ light_energy = 1.2
 omni_range = 24.38
 
 [node name="QueuePath" type="Path3D" parent="Inside"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.00399, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 2.5)
 curve = SubResource("Curve3D_lg64r")
 script = ExtResource("3_xjqli")
 
