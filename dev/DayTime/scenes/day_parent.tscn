@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=58 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/day_parent.gd" id="1_bsikx"]
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
@@ -662,6 +662,7 @@ environment = SubResource("Environment_jdvt5")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.195587, 0.980686, 0, -0.980686, 0.195587, 0, 1.93383, 0)
 light_color = Color(0.788977, 0.799075, 0.920908, 1)
+
 [node name="background" type="Sprite3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.40494, 5.07272, -14.9927)
 texture = ExtResource("35_cb2t1")

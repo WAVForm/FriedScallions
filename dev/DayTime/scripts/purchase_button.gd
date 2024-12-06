@@ -9,7 +9,8 @@ signal purchaseable_pressed(purchaseable_to_buy)
 
 func _ready() -> void:
 	update_display()
-
+	self.mouse_entered.connect(func(): WRAPPER.audio_handler.get_stream_playback().play_stream(WRAPPER.button_sound))
+	self.get_node("AspectRatioContainer/VBoxContainer/Button").pressed.connect(func(): WRAPPER.audio_handler.get_stream_playback().play_stream(WRAPPER.money_sound))
 func set_purchaseable(purchaseable_to_set) -> void:
 	purchaseable = purchaseable_to_set
 

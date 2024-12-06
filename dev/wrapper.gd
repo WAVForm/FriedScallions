@@ -10,6 +10,7 @@ const button_sound = preload("res://dev/Audio/button_sound.wav")
 const select_sound = preload("res://dev/Audio/select.wav")
 const morning = preload("res://dev/Audio/morning_sound.mp3")
 const night = preload("res://dev/Audio/night_sound.mp3")
+const money_sound = preload("res://dev/Audio/money sound.mp3")
 
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
 const DAY_PARENT = preload("res://dev/DayTime/scenes/day_parent.tscn")
