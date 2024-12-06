@@ -200,7 +200,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var stat_list = $DayOverUI/Overview/StatList
 
 @onready var outside = $day_parent
-#endregion
+@onready var customer_serve_pos = $Inside/customer_serve.global_position
+@onready var trash_serve_pos = $Inside/trash_serve.global_position
 
 #not sure what the rest of this is
 static var server: bool:
@@ -353,12 +354,13 @@ func _generate_new_game() -> void:
 #region FRAME UPDATE
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if day_started and not day_over:
-		_day_cycle_process(time_scale * delta)
-		_server_process(time_scale * delta)
-		_manual_state_process(time_scale * delta)
+	if day_started and not day_ended:
+		if not day_ended:
+			_day_cycle_process(time_scale * delta)
+			_server_process(time_scale * delta)
+			_manual_state_process(time_scale * delta)
+			counter_display.update_counter(counter)
 		_customer_process(time_scale * delta)
-		counter_display.update_counter(counter)
 	_update_labels()
 
 #region DAY_CYCLE
@@ -445,7 +447,7 @@ func _customer_process(delta) -> void:
 	if len(customers) > 0:
 		if len(customers[0].order) == 0:
 			stat_customers += 1
-			customers.pop_front()
+			#customers.pop_front()
 		elif customers[0].patience < 0.0:
 			customers.pop_front()
 	
@@ -585,7 +587,7 @@ func _serve_customer() -> bool:
 		popularity_popup.position.y += 500
 		popularity_popup.delay = 0.375
 		day_ui.add_child(popularity_popup)
-		counter_display.serve_items(items_served)
+		counter_display.serve_items(items_served, customer_serve_pos)
 	
 	customers[0].patience += PATIENCE_ON_SERVE
 	stat_products += len(items_served)
@@ -644,7 +646,9 @@ func _on_station_reach(station: Inside.STATIONS):
 			_on_coffee_pressed()
 
 func _on_trash_pressed() -> void:
-	counter.pop_front()
+	if not counter.is_empty():
+		print()
+		counter_display.serve_items([counter.pop_front()] as Array[Product], trash_serve_pos)
 
 func _on_pastry_pressed() -> void:
 	if pastry.can_produce() and not counter_full() and WRAPPER.purchaseables[0].unlocked:

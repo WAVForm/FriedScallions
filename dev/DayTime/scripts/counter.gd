@@ -19,9 +19,9 @@ func update_counter(products: Array[Product]) -> void:
 		product_displays[i].position.x = i * 0.75
 		product_displays[i].texture = products[i].texture
 
-func serve_items(products: Array[Product]) -> void:
+func serve_items(products: Array[Product], pos: Vector3) -> void:
 	for i in len(products):
 		var new_product_display = product_display_scene.instantiate()
 		new_product_display.texture = products[i].texture
 		add_child(new_product_display)
-		new_product_display.serve(0.25 * i)
+		new_product_display.serve(0.25 * i, pos)
