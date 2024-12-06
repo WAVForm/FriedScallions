@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=57 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/day_parent.gd" id="1_bsikx"]
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
@@ -156,6 +156,11 @@ filter_low_hanging_obstacles = true
 filter_ledge_spans = true
 filter_walkable_low_height_spans = true
 
+[sub_resource type="Environment" id="Environment_jdvt5"]
+ambient_light_source = 3
+ambient_light_color = Color(0.526103, 0.542182, 0.530011, 1)
+ambient_light_energy = 1.19
+
 [node name="day_parent" type="Node3D"]
 script = ExtResource("1_bsikx")
 
@@ -237,9 +242,6 @@ transform = Transform3D(0.984808, -0.0733869, 0.157379, 0, 0.906308, 0.422618, -
 transform = Transform3D(0.333807, -0.345479, 0.87705, 0, 0.930418, 0.366501, -0.942642, -0.122341, 0.31058, 13.84, 2.735, -5.86)
 current = true
 fov = 60.0
-
-[node name="OmniLight3D" type="DirectionalLight3D" parent="."]
-light_angular_distance = 25.0
 
 [node name="inside" type="Node3D" parent="."]
 script = ExtResource("4_tqm5m")
@@ -652,3 +654,10 @@ mesh = ExtResource("10_77ef6")
 [node name="servingtray4" type="MeshInstance3D" parent="inside"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 11.7491, 0.834, -10.8)
 mesh = ExtResource("10_77ef6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_jdvt5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.195587, 0.980686, 0, -0.980686, 0.195587, 0, 1.93383, 0)
+light_color = Color(0.788977, 0.799075, 0.920908, 1)
