@@ -7,6 +7,7 @@ const stat_display_scene = preload("res://dev/DayTime/scenes/statistic_display.t
 
 @export_category("General")
 @export var DAY_LENGTH: float = 60.0
+@export var INTRO_DAY_LENGTH: float = 40.0
 @export var STARTING_MONEY: int = 100
 @export var STARTING_POPULARITY: int = 10
 @export var PRODUCTION_TIME: float = 1.0
@@ -260,8 +261,8 @@ func _ready() -> void:
 	$Camera.visible = false
 	$Inside/QueuePath.customer_clicked.connect(func(): _start_serving_customer())
 	$day_parent/inside.station_reached.connect(_on_station_reach)
-	#if WRAPPER.day >= 1 and WRAPPER.day <= 3:
-		#DAY_LENGTH = 40
+	if WRAPPER.day >= 1 and WRAPPER.day <= 3:
+		DAY_LENGTH = INTRO_DAY_LENGTH
 	
 	if new_game:
 		_generate_new_game()

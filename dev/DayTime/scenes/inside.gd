@@ -3,14 +3,13 @@ extends Node3D
 class_name Inside
 
 var highlight_mat = preload("res://dev/materials/highlight.tres")
-var highlighted = []
 
-@onready var floor = $floor
-@onready var trash = $trash_can
-@onready var cake = $cake_station
-@onready var sandwich = $sandwich_station
-@onready var coffee = $coffee_station
-@onready var tea = $tea_station
+@onready var floor = $floor as Area3D
+@onready var trash = $trash_can as Area3D
+@onready var cake = $cake_station as Area3D
+@onready var sandwich = $sandwich_station as Area3D
+@onready var coffee = $coffee_station as Area3D
+@onready var tea = $tea_station as Area3D
 @onready var player = $player
 @onready var player_agent = $player/NavigationAgent3D as NavigationAgent3D
 
@@ -22,12 +21,22 @@ signal station_reached(station_name:STATIONS)
 var navigating = [false, STATIONS.NONE]
 
 func _ready():
-	floor.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.NONE) elif event is InputEventMouse: unhighlight_all())
-	trash.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.TRASH) elif event is InputEventMouse: highlight(trash))
-	sandwich.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.SANDWICH) elif event is InputEventMouse: highlight(sandwich))
-	cake.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.CAKE) elif event is InputEventMouse: highlight(cake))
-	coffee.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.COFFEE) elif event is InputEventMouse: highlight(coffee))
-	tea.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.TEA) elif event is InputEventMouse: highlight(tea))
+	floor.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.NONE))
+	trash.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.TRASH))
+	trash.mouse_entered.connect(func(): highlight(trash))
+	trash.mouse_exited.connect(func(): unhighlight(trash))
+	sandwich.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.SANDWICH) )
+	sandwich.mouse_entered.connect(func(): highlight(sandwich))
+	sandwich.mouse_exited.connect(func(): unhighlight(sandwich))
+	cake.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.CAKE))
+	cake.mouse_entered.connect(func(): highlight(cake))
+	cake.mouse_exited.connect(func(): unhighlight(cake))
+	coffee.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.COFFEE))
+	coffee.mouse_entered.connect(func(): highlight(coffee))
+	coffee.mouse_exited.connect(func(): unhighlight(coffee))
+	tea.input_event.connect(func(_camera: Node, event: InputEvent, event_position: Vector3, _normal: Vector3, _shape_idx: int): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: navigate_to(event_position, STATIONS.TEA))
+	tea.mouse_entered.connect(func(): highlight(tea))
+	tea.mouse_exited.connect(func(): unhighlight(tea))
 
 func _physics_process(delta):
 	if navigating[0]:
@@ -43,10 +52,7 @@ func navigate_to(pos: Vector3, station:STATIONS):
 		navigating = [true, station]
 
 func highlight(object: Area3D):
-	unhighlight_all()
 	object.get_node("model").material_override = highlight_mat
-	highlighted.append(object)
 
-func unhighlight_all():
-	for object in highlighted:
-		object.get_node("model").material_override = null
+func unhighlight(object: Area3D):
+	object.get_node("model").material_override = null
