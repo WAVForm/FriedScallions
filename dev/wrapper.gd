@@ -1,7 +1,5 @@
 extends Node
 
-const DEBUG_SCENE = preload("res://dev/debug_menu.tscn")
-
 const DAY_MAIN_SCENE = preload("res://dev/DayTime/scenes/day_main.tscn")
 const DAY_PARENT = preload("res://dev/DayTime/scenes/day_parent.tscn")
 const DAWN_SCENE = preload("res://dev/NightTime/scenes/dawn.tscn")
@@ -90,9 +88,6 @@ func change_scene(sceneid: SCENES) -> void:
 		SCENES.TEXT_EVENT:
 			current_child = TEXT_EVENT_SCENE.instantiate()
 			state = SCENES.TEXT_EVENT
-		SCENES.DEBUG:
-			current_child = DEBUG_SCENE.instantiate()
-			state = SCENES.DEBUG
 		SCENES.TITLE_SCREEN:
 			current_child = TITLE_SCREEN.instantiate()
 			state = SCENES.TITLE_SCREEN

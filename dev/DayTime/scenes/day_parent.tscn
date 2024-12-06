@@ -1,9 +1,14 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=32 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/day_parent.gd" id="1_bsikx"]
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="3_q47cd"]
-[ext_resource type="Script" path="res://dev/DayTime/scripts/floor.gd" id="4_d4f3w"]
+[ext_resource type="Script" path="res://dev/DayTime/scenes/inside.gd" id="4_tqm5m"]
+[ext_resource type="ArrayMesh" uid="uid://b66js5k4vnbi6" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
+[ext_resource type="ArrayMesh" uid="uid://br1xpfmh5ss5k" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
+[ext_resource type="ArrayMesh" uid="uid://b8c3rj3kodux2" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
+[ext_resource type="ArrayMesh" uid="uid://consg81w6fwuf" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
+[ext_resource type="ArrayMesh" uid="uid://bd4ywsd8vwujh" path="res://dev/models/teastation.tres" id="9_463ym"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -99,6 +104,31 @@ point_count = 2
 [sub_resource type="BoxShape3D" id="BoxShape3D_73wy8"]
 size = Vector3(8.3576, 0.001, 4.89504)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_u25pf"]
+size = Vector3(0.639915, 0.948044, 0.64502)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6w1sd"]
+size = Vector3(1.07471, 1, 1.50562)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bl7f1"]
+size = Vector3(1.00928, 1, 1.51099)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lqibb"]
+size = Vector3(1, 1.8374, 1.49963)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xyl00"]
+size = Vector3(1, 1.00769, 1.50488)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5olog"]
+radius = 0.273399
+height = 1.62728
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fuurq"]
+size = Vector3(4.72684, 0.639587, 0.716309)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7xceb"]
+size = Vector3(6.4118, 1.04994, 0.501038)
+
 [node name="day_parent" type="Node3D"]
 script = ExtResource("1_bsikx")
 
@@ -184,15 +214,93 @@ current = true
 light_angular_distance = 25.0
 
 [node name="inside" type="Node3D" parent="."]
+script = ExtResource("4_tqm5m")
 
 [node name="floor" type="Area3D" parent="inside"]
-script = ExtResource("4_d4f3w")
-
-[node name="player" type="MeshInstance3D" parent="inside/floor"]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 10.3591, 0.519835, -8.77609)
-mesh = ExtResource("3_q47cd")
-skeleton = NodePath("../../../friendly/advertiser")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="inside/floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.71331, 0.000499994, -10.635)
 shape = SubResource("BoxShape3D_73wy8")
+
+[node name="trash_can" type="Area3D" parent="inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.251, 0.37782, -8.18972)
+
+[node name="model" type="MeshInstance3D" parent="inside/trash_can"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, -0.00491989, 0.175879)
+mesh = ExtResource("5_1a5x4")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/trash_can"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.14441e-05, 0.100609, 0.176392)
+shape = SubResource("BoxShape3D_u25pf")
+
+[node name="cake_station" type="Area3D" parent="inside"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.46787, 0.516026, -13.386)
+
+[node name="model" type="MeshInstance3D" parent="inside/cake_station"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
+mesh = ExtResource("6_f6gmn")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/cake_station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0317078, -0.00369263, 0.17627)
+shape = SubResource("BoxShape3D_6w1sd")
+
+[node name="sandwich_station" type="Area3D" parent="inside"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.29677, 0.516026, -13.386)
+
+[node name="model" type="MeshInstance3D" parent="inside/sandwich_station"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
+mesh = ExtResource("7_vq10d")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/sandwich_station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, -0.00369263, 0.17578)
+shape = SubResource("BoxShape3D_bl7f1")
+
+[node name="coffee_station" type="Area3D" parent="inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0176, 0.516026, -11.3584)
+
+[node name="model" type="MeshInstance3D" parent="inside/coffee_station"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
+mesh = ExtResource("8_u0bj6")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/coffee_station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, 0.415009, 0.174132)
+shape = SubResource("BoxShape3D_lqibb")
+
+[node name="tea_station" type="Area3D" parent="inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0176, 0.516026, -9.60959)
+
+[node name="model" type="MeshInstance3D" parent="inside/tea_station"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
+mesh = ExtResource("9_463ym")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/tea_station"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, -0.00692749, 0.17755)
+shape = SubResource("BoxShape3D_xyl00")
+
+[node name="player" type="CharacterBody3D" parent="inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3591, 0.519835, -8.77609)
+
+[node name="model" type="MeshInstance3D" parent="inside/player"]
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 0, 0, 0)
+mesh = ExtResource("3_q47cd")
+skeleton = NodePath("../../../friendly/advertiser")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.298861, 0)
+shape = SubResource("CapsuleShape3D_5olog")
+
+[node name="inside_collision" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.90964, 0, -10.9132)
+
+[node name="inner_counter" type="CollisionShape3D" parent="inside_collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.62053, 0.319733, 0.141846)
+shape = SubResource("BoxShape3D_fuurq")
+
+[node name="outer_counter" type="CollisionShape3D" parent="inside_collision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.196762, 0.528435, 2.97585)
+shape = SubResource("BoxShape3D_7xceb")
