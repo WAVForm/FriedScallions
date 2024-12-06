@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=21 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -36,7 +36,6 @@ script = ExtResource("1_jp6l8")
 DAY_LENGTH = 4.0
 PRODUCTION_TIME = 0.75
 SERVING_TIME = 0.34
-CUSTOMER_SPEED = 50
 PASTRY_1_NAME = "Croissant"
 PASTRY_1_TEXTURE = ExtResource("2_s00qd")
 PASTRY_2_NAME = "(croi)Ssant-sando"
@@ -423,6 +422,7 @@ scale = Vector2(0.123061, 0.208454)
 texture = ExtResource("15_yuqmv")
 
 [node name="EndDay" type="Button" parent="DayOverUI/ButtonTexture"]
+layout_mode = 0
 offset_left = -195.026
 offset_top = -86.3499
 offset_right = -88.0257

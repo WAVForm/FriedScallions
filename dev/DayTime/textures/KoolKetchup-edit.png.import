@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by8cgkb8md5j1"
-path.s3tc="res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"
+uid="uid://cat8h5jd4jwcl"
+path.s3tc="res://.godot/imported/KoolKetchup-edit.png-40eb0368aebd3b01e745f62e61a315fa.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://dev/DayTime/textures/texture_cakedisplay.png"
-dest_files=["res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"]
+source_file="res://dev/DayTime/textures/KoolKetchup-edit.png"
+dest_files=["res://.godot/imported/KoolKetchup-edit.png-40eb0368aebd3b01e745f62e61a315fa.s3tc.ctex"]
 
 [params]
 

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by8cgkb8md5j1"
-path.s3tc="res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"
+uid="uid://b6dfrqb7e1dvj"
+path.s3tc="res://.godot/imported/Bigboyloaf.png-d527bec503a4835c689d4fe7f4234ec6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://dev/DayTime/textures/texture_cakedisplay.png"
-dest_files=["res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"]
+source_file="res://dev/DayTime/textures/Bigboyloaf.png"
+dest_files=["res://.godot/imported/Bigboyloaf.png-d527bec503a4835c689d4fe7f4234ec6.s3tc.ctex"]
 
 [params]
 

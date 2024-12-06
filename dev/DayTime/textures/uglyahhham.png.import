@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by8cgkb8md5j1"
-path.s3tc="res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"
+uid="uid://43ms777a2rb4"
+path.s3tc="res://.godot/imported/uglyahhham.png-e93faa6e6e0dfee40635f6c083672101.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://dev/DayTime/textures/texture_cakedisplay.png"
-dest_files=["res://.godot/imported/texture_cakedisplay.png-9c67c1efd3e1e1ce0d257ba6a24c20e0.s3tc.ctex"]
+source_file="res://dev/DayTime/textures/uglyahhham.png"
+dest_files=["res://.godot/imported/uglyahhham.png-e93faa6e6e0dfee40635f6c083672101.s3tc.ctex"]
 
 [params]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=56 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/day_parent.gd" id="1_bsikx"]
 [ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
@@ -6,10 +6,34 @@
 [ext_resource type="Script" path="res://dev/DayTime/scenes/inside.gd" id="4_tqm5m"]
 [ext_resource type="ArrayMesh" uid="uid://cbqwnyhkngx1c" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
 [ext_resource type="ArrayMesh" uid="uid://dm7c06qblqxcj" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
+[ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="7_4esds"]
 [ext_resource type="ArrayMesh" uid="uid://c5p3o7nrmph0f" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
+[ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="8_4qjuk"]
 [ext_resource type="ArrayMesh" uid="uid://cuktpv7smho34" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
 [ext_resource type="ArrayMesh" uid="uid://dettdm1d3x33b" path="res://dev/models/teastation.tres" id="9_463ym"]
-[ext_resource type="ArrayMesh" uid="uid://c8ytpfu3y7upx" path="res://dev/models/servingtray.tres" id="10_77ef6"]
+[ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="9_oghh5"]
+[ext_resource type="ArrayMesh" uid="uid://bs5y3p5iruoyu" path="res://dev/models/servingtray.tres" id="10_77ef6"]
+[ext_resource type="PackedScene" uid="uid://c31o4wi77l76q" path="res://dev/DayTime/scenes/product_display.tscn" id="10_v5qsa"]
+[ext_resource type="Texture2D" uid="uid://bmagtdp6wxjtv" path="res://dev/DayTime/textures/texture_teapot.png" id="11_l3qcj"]
+[ext_resource type="Texture2D" uid="uid://bclnq6xbkyh4u" path="res://dev/DayTime/textures/texture_croissant2.png" id="12_hyyp5"]
+[ext_resource type="Texture2D" uid="uid://b4w084t8e37xa" path="res://dev/DayTime/textures/texture_croissant1.png" id="13_kya1q"]
+[ext_resource type="Texture2D" uid="uid://cat8h5jd4jwcl" path="res://dev/DayTime/textures/KoolKetchup-edit.png" id="14_jffuo"]
+[ext_resource type="Texture2D" uid="uid://bvaotd8rt876c" path="res://dev/DayTime/textures/Leafy.png" id="15_x4cs1"]
+[ext_resource type="Texture2D" uid="uid://dv6sivsv8chge" path="res://dev/DayTime/textures/mustymustard_edit.png" id="16_sarw4"]
+[ext_resource type="Texture2D" uid="uid://bcg7m5ogvic3y" path="res://dev/DayTime/textures/texture_sandwich2.png" id="17_c7c1c"]
+[ext_resource type="Texture2D" uid="uid://cbin5bb8qc5rr" path="res://dev/DayTime/textures/milky.png" id="19_xj1ht"]
+[ext_resource type="Texture2D" uid="uid://cfrl4ci71fgb1" path="res://dev/DayTime/textures/Beanbag.png" id="20_m2u6x"]
+[ext_resource type="Texture2D" uid="uid://0kear80elriq" path="res://dev/DayTime/textures/texture_coffeemug.png" id="21_js1lt"]
+[ext_resource type="Texture2D" uid="uid://cyg3cfycvur10" path="res://dev/DayTime/textures/texture_coffeestation1.png" id="22_ceayf"]
+[ext_resource type="Texture2D" uid="uid://co25487qoaehg" path="res://dev/DayTime/textures/texture_coffeefilter.png" id="23_36vjp"]
+[ext_resource type="Texture2D" uid="uid://d1q1tegfb7gua" path="res://dev/DayTime/textures/texture_coffee1.png" id="24_f8pk1"]
+[ext_resource type="Texture2D" uid="uid://dptr11jey2ueg" path="res://dev/DayTime/textures/texture_tea2.png" id="25_f1otd"]
+[ext_resource type="Texture2D" uid="uid://dph2sd257pdjo" path="res://dev/DayTime/textures/texture_coffee2.png" id="26_t7dwp"]
+[ext_resource type="Texture2D" uid="uid://cot7x86s3ymx" path="res://dev/DayTime/textures/texture_coffee3.png" id="27_gc2qv"]
+[ext_resource type="Texture2D" uid="uid://by8cgkb8md5j1" path="res://dev/DayTime/textures/texture_cakedisplay.png" id="28_sb7od"]
+[ext_resource type="Texture2D" uid="uid://doktd1djs5omo" path="res://dev/DayTime/textures/browncupz.png" id="29_56vpk"]
+[ext_resource type="Texture2D" uid="uid://cdhq1mgnsmm0q" path="res://dev/DayTime/textures/texture_coffeestation2.png" id="31_uuk65"]
+[ext_resource type="Texture2D" uid="uid://cq5me6sapquhc" path="res://dev/DayTime/textures/texture_tea1.png" id="33_jwqgf"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -210,8 +234,9 @@ curve = SubResource("Curve3D_0a43h")
 transform = Transform3D(0.984808, -0.0733869, 0.157379, 0, 0.906308, 0.422618, -0.173648, -0.416198, 0.892539, 4.795, 7, 12)
 
 [node name="inside_camera" type="Camera3D" parent="."]
-transform = Transform3D(0.173648, -0.416198, 0.892539, 0, 0.906308, 0.422618, -0.984808, -0.0733869, 0.157379, 13.9, 2.735, -7.5)
+transform = Transform3D(0.300706, -0.372647, 0.877901, 0, 0.920505, 0.390731, -0.953717, -0.117495, 0.276801, 13.765, 2.73, -5.82)
 current = true
+fov = 58.3
 
 [node name="OmniLight3D" type="DirectionalLight3D" parent="."]
 light_angular_distance = 25.0
@@ -240,6 +265,22 @@ shape = SubResource("BoxShape3D_u25pf")
 [node name="cake_station" type="Area3D" parent="inside"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 7.46787, 0.516026, -13.386)
 
+[node name="display_fullcake" parent="inside/cake_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.00920391, 0.616211, 0.551567)
+texture = ExtResource("7_4esds")
+
+[node name="display_cakelayer" parent="inside/cake_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.16635, 0.616211, 0.183907)
+texture = ExtResource("8_4qjuk")
+
+[node name="display_cakelayer2" parent="inside/cake_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.122868, 0.616211, 0.00865793)
+texture = ExtResource("8_4qjuk")
+
+[node name="display_cakeslice" parent="inside/cake_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.256646, 0.616211, -0.46847)
+texture = ExtResource("9_oghh5")
+
 [node name="model" type="MeshInstance3D" parent="inside/cake_station"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
 mesh = ExtResource("6_f6gmn")
@@ -249,17 +290,73 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0317078, -0.00369263, 0.17627)
 shape = SubResource("BoxShape3D_6w1sd")
 
-[node name="sandwich_station" type="Area3D" parent="inside"]
+[node name="pastry_station" type="Area3D" parent="inside"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.29677, 0.516026, -13.386)
 
-[node name="model" type="MeshInstance3D" parent="inside/sandwich_station"]
+[node name="model" type="MeshInstance3D" parent="inside/pastry_station"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.00491989, 0.175879)
 mesh = ExtResource("7_vq10d")
 skeleton = NodePath("../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/sandwich_station"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="inside/pastry_station"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, -0.00369263, 0.17578)
 shape = SubResource("BoxShape3D_bl7f1")
+
+[node name="display_sandwich" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.208921, 0.616211, -0.290585)
+texture = ExtResource("12_hyyp5")
+
+[node name="display_croissant" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.30223, 0.616211, 0.241662)
+texture = ExtResource("13_kya1q")
+
+[node name="display_ketchup" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0849943, 0.616211, 0.497945)
+texture = ExtResource("14_jffuo")
+
+[node name="display_lettuce" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.392293, -0.361652, -0.414446)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce2" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.180891, -0.361652, -0.371706)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce3" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.105551, -0.361652, -0.265589)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce4" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.3421, -0.361652, -0.186967)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce5" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.442269, -0.361652, -0.268455)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce6" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.233872, -0.361652, -0.0381927)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce7" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.0178442, -0.361652, -0.0381927)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce8" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.0178442, -0.361652, 0.111455)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_lettuce9" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-1.9263e-08, 0, 0.440685, 0, 0.440685, 0, -0.440685, 0, -1.9263e-08, 0.205632, -0.361652, 0.111455)
+texture = ExtResource("15_x4cs1")
+
+[node name="display_mustard" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-2.86352e-08, 0, 0.655097, 0, 0.655097, 0, -0.655097, 0, -2.86352e-08, -0.0148926, 0.706597, 0.360011)
+texture = ExtResource("16_sarw4")
+
+[node name="display_sandwich2" parent="inside/pastry_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.354601, 0.616211, 0.614101)
+texture = ExtResource("17_c7c1c")
 
 [node name="coffee_station" type="Area3D" parent="inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0176, 0.516026, -11.3584)
@@ -273,6 +370,166 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, 0.415009, 0.174132)
 shape = SubResource("BoxShape3D_lqibb")
 
+[node name="display_milk" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.365385, 0.518239, -0.449588)
+texture = ExtResource("19_xj1ht")
+
+[node name="display_beans" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.365385, 0.728547, 0.611219)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans2" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.365385, 0.728547, 0.388997)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans3" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.0729094, 0.77893, 0.388997)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans4" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.0729094, 0.77893, 0.630921)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans5" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.0729094, 1.20571, 0.630921)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans6" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.294247, 1.14393, 0.630921)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans7" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.294247, 1.14393, 0.400785)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_beans8" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.419572, 0, 0, 0, 0.451736, 0, 0, 0, 0.222028, 0.0206304, 1.18683, 0.400785)
+texture = ExtResource("20_m2u6x")
+
+[node name="display_mug2" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.214101, 0.616211, 0.171474)
+texture = ExtResource("21_js1lt")
+
+[node name="display_mug4" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.391112, 0.616211, 0.156391)
+texture = ExtResource("21_js1lt")
+
+[node name="display_coffeestation1" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.255432, 0.616211, -0.132871)
+texture = ExtResource("22_ceayf")
+
+[node name="display_mug" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0464392, 0.15629, 0.696176)
+texture = ExtResource("21_js1lt")
+
+[node name="display_mug3" parent="inside/coffee_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24243, 0.124837, 0.459654)
+texture = ExtResource("23_36vjp")
+
+[node name="display_chloeprefab" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2646, 1.13224, -6.55352)
+texture = ExtResource("21_js1lt")
+
+[node name="display_chloeprefab17" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.74871, 1.0542, -2.48769)
+texture = ExtResource("9_oghh5")
+
+[node name="display_chloeprefab18" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.73619, 1.0542, -2.183)
+texture = ExtResource("24_f8pk1")
+
+[node name="display_chloeprefab19" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.915, 1.0542, -2.32963)
+texture = ExtResource("24_f8pk1")
+
+[node name="display_chloeprefab20" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.98311, 1.0542, -2.5073)
+texture = ExtResource("21_js1lt")
+
+[node name="display_chloeprefab21" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72615, 1.0542, -2.48337)
+texture = ExtResource("25_f1otd")
+
+[node name="display_chloeprefab22" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3716, 1.0542, -2.67412)
+texture = ExtResource("25_f1otd")
+
+[node name="display_chloeprefab23" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04676, 0.89993, -5.00737)
+texture = ExtResource("25_f1otd")
+
+[node name="display_chloeprefab2" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.32883, 0.886028, -5.18965)
+texture = ExtResource("21_js1lt")
+
+[node name="display_chloeprefab3" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.10119, 0.886028, -4.89278)
+texture = ExtResource("21_js1lt")
+
+[node name="display_chloeprefab4" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.7517, 0.886028, -5.24994)
+texture = ExtResource("26_t7dwp")
+
+[node name="display_chloeprefab5" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.82361, 0.983382, -8.4166)
+texture = ExtResource("27_gc2qv")
+
+[node name="display_chloeprefab6" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.01172, 0.707408, -7.99133)
+texture = ExtResource("9_oghh5")
+
+[node name="display_chloeprefab7" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.65595, 0.707408, -7.99133)
+texture = ExtResource("9_oghh5")
+
+[node name="display_chloeprefab8" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.30111, 0.707408, -7.99133)
+texture = ExtResource("9_oghh5")
+
+[node name="display_chloeprefab9" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 7.58823, 0.654458, -7.99133)
+texture = ExtResource("13_kya1q")
+
+[node name="display_chloeprefab11" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 8.04364, 0.654458, -7.99133)
+texture = ExtResource("13_kya1q")
+
+[node name="display_chloeprefab12" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 7.55706, 0.388298, -8.03912)
+texture = ExtResource("17_c7c1c")
+
+[node name="display_chloeprefab13" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 7.82093, 0.388298, -7.93559)
+texture = ExtResource("17_c7c1c")
+
+[node name="display_chloeprefab14" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 8.0848, 0.388298, -8.06563)
+texture = ExtResource("17_c7c1c")
+
+[node name="display_chloeprefab15" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 8.38261, 0.388298, -7.98517)
+texture = ExtResource("17_c7c1c")
+
+[node name="display_chloeprefab16" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.700366, 0, 0, 0, 0.700366, 0, 0, 0, 0.700366, 8.70321, 0.388298, -8.06198)
+texture = ExtResource("17_c7c1c")
+
+[node name="display_chloeprefab10" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.652819, 0, 0, 0, 0.652819, 0, 0, 0, 0.652819, 8.51979, 0.64263, -7.99133)
+texture = ExtResource("13_kya1q")
+
+[node name="display_mug" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9861, 1.12798, -7.89418)
+texture = ExtResource("21_js1lt")
+
+[node name="display_cakedisplay" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.31039, 1.13224, -7.99702)
+texture = ExtResource("28_sb7od")
+
+[node name="display_cups8" parent="inside" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, 9.52731, 1.11702, -7.98046)
+texture = ExtResource("29_56vpk")
+
 [node name="tea_station" type="Area3D" parent="inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0176, 0.516026, -9.60959)
 
@@ -284,6 +541,49 @@ skeleton = NodePath("../..")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="inside/tea_station"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000946045, -0.00692749, 0.17755)
 shape = SubResource("BoxShape3D_xyl00")
+
+[node name="display_coffeemaker2" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.206238, 0.616211, 0.315082)
+texture = ExtResource("31_uuk65")
+
+[node name="display_teapot" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239127, 0.621835, 0.654045)
+texture = ExtResource("11_l3qcj")
+
+[node name="display_teacup" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.239127, 0.625639, 0.170132)
+texture = ExtResource("33_jwqgf")
+
+[node name="display_cups" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, 0.31624, -0.277, -0.354135)
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups2" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, 0.0782557, -0.277, -0.279144)
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups7" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, 3.32158, 0.600997, 1.77234)
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups3" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, -0.140119, -0.277, -0.349033)
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups4" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, -0.185282, 0.436439, -0.360225)
+flip_v = true
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups5" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, -0.144063, 0.454069, -0.119036)
+flip_v = true
+texture = ExtResource("29_56vpk")
+
+[node name="display_cups6" parent="inside/tea_station" instance=ExtResource("10_v5qsa")]
+transform = Transform3D(0.222028, 0, 0, 0, 0.222028, 0, 0, 0, 0.222028, -0.00797987, 0.452247, -0.256966)
+flip_v = true
+texture = ExtResource("29_56vpk")
 
 [node name="player" type="CharacterBody3D" parent="inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3591, 0.519835, -8.77609)
