@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=16 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://cot7x86s3ymx" path="res://dev/DayTime/textures/texture_coffee3.png" id="5_jift6"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/counter.gd" id="5_r6t8u"]
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
-[ext_resource type="ArrayMesh" uid="uid://bs5y3p5iruoyu" path="res://dev/models/servingtray.tres" id="6_tatth"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
 [ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
@@ -127,22 +126,6 @@ script = ExtResource("3_xjqli")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.834, -4.281)
 script = ExtResource("5_r6t8u")
 
-[node name="servingtray1" type="MeshInstance3D" parent="Inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 11.5, 0.834, -4.281)
-mesh = ExtResource("6_tatth")
-
-[node name="servingtray2" type="MeshInstance3D" parent="Inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 12.25, 0.834, -4.281)
-mesh = ExtResource("6_tatth")
-
-[node name="servingtray3" type="MeshInstance3D" parent="Inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 13, 0.834, -4.281)
-mesh = ExtResource("6_tatth")
-
-[node name="servingtray4" type="MeshInstance3D" parent="Inside"]
-transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 13.75, 0.834, -4.281)
-mesh = ExtResource("6_tatth")
-
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 visible = false
@@ -252,41 +235,6 @@ offset_top = 601.0
 offset_right = 113.0
 offset_bottom = 639.0
 text = "quit"
-
-[node name="Trash" type="Button" parent="GameUI"]
-offset_left = 516.0
-offset_top = 565.0
-offset_right = 665.0
-offset_bottom = 631.0
-text = "Trash"
-
-[node name="Pastry" type="Button" parent="GameUI"]
-offset_left = 681.0
-offset_top = 375.0
-offset_right = 783.0
-offset_bottom = 450.0
-text = "Pastry"
-
-[node name="Coffee" type="Button" parent="GameUI"]
-offset_left = 822.0
-offset_top = 375.0
-offset_right = 924.0
-offset_bottom = 450.0
-text = "Coffee"
-
-[node name="Tea" type="Button" parent="GameUI"]
-offset_left = 938.0
-offset_top = 433.0
-offset_right = 1040.0
-offset_bottom = 508.0
-text = "Tea"
-
-[node name="Cake" type="Button" parent="GameUI"]
-offset_left = 1012.0
-offset_top = 541.0
-offset_right = 1114.0
-offset_bottom = 616.0
-text = "Cake"
 
 [node name="Camera" type="Button" parent="."]
 offset_left = 23.0
@@ -476,11 +424,6 @@ parameters/looping = false
 
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
-[connection signal="pressed" from="GameUI/Trash" to="." method="_on_trash_pressed"]
-[connection signal="pressed" from="GameUI/Pastry" to="." method="_on_pastry_pressed"]
-[connection signal="pressed" from="GameUI/Coffee" to="." method="_on_coffee_pressed"]
-[connection signal="pressed" from="GameUI/Tea" to="." method="_on_tea_pressed"]
-[connection signal="pressed" from="GameUI/Cake" to="." method="_on_cake_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
 [connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
