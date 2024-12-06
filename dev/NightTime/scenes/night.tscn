@@ -29,6 +29,7 @@ anchor_bottom = 0.296
 offset_top = -0.152008
 offset_bottom = 0.192001
 grow_horizontal = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 50
 text = "Nighttime Shenanigans"
 horizontal_alignment = 1

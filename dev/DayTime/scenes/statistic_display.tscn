@@ -2,16 +2,31 @@
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/statistic_display.gd" id="1_yaq4j"]
 
-[node name="StatisticDisplay" type="HBoxContainer"]
+[node name="StatisticDisplay" type="ColorRect"]
+custom_minimum_size = Vector2(200, 30)
+offset_right = 200.0
+offset_bottom = 23.0
+color = Color(0.400698, 0.400698, 0.400698, 1)
 script = ExtResource("1_yaq4j")
 
-[node name="Name" type="Label" parent="."]
+[node name="container" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Name" type="Label" parent="container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Name of Stat"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Value" type="Label" parent="."]
+[node name="Value" type="Label" parent="container"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "### "
-horizontal_alignment = 2
+horizontal_alignment = 1
+vertical_alignment = 1

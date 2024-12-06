@@ -24,6 +24,10 @@ func _process(delta):
 			spawn_delay[0] = 0.0
 			spawn_person()
 
+func _input(event):
+	if event.is_action_pressed("ui_page_up"):
+		spawn_person()
+
 func spawn_person(side:int=2):
 	match side:
 		0:
@@ -54,7 +58,10 @@ func set_current_path(p:Person):
 		Person.STATES.IN_LINE:
 			path = p.side.get_node("line") as Path3D
 		Person.STATES.TO_REGISTER:
-			WRAPPER.friendly_shop_entered.emit() #TODO bandaid visual fix, redo this later
+			if p.side == friendly:
+				WRAPPER.friendly_shop_entered.emit() #TODO bandaid visual fix, redo this later
+			elif p.side == enemy:
+				WRAPPER.enemy_shop_entered.emit() #TODO bandaid visual fix, redo this later
 			p.visible = false
 			
 			path = p.side.get_node("to_register") as Path3D

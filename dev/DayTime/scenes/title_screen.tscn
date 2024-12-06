@@ -1,0 +1,70 @@
+[gd_scene load_steps=5 format=3 uid="uid://co11vh44gl0ox"]
+
+[ext_resource type="Script" path="res://dev/DayTime/scenes/title_screen.gd" id="1_6o682"]
+[ext_resource type="Texture2D" uid="uid://pa5ewytxyma6" path="res://dev/TitleScreen/images/Sora.png" id="2_if8v3"]
+[ext_resource type="AudioStream" uid="uid://blam2li3imfim" path="res://dev/Audio/seriousv2.mp3" id="2_wiy5r"]
+[ext_resource type="Texture2D" uid="uid://b7tptajwy2l2f" path="res://dev/TitleScreen/images/title.png" id="3_63luh"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6o682")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_wiy5r")
+volume_db = -15.0
+autoplay = true
+parameters/looping = false
+
+[node name="Background Image" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0.407843)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 1027.0
+offset_bottom = 1026.0
+scale = Vector2(1.12487, 0.629961)
+texture = ExtResource("2_if8v3")
+
+[node name="Title Splash" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = 3.0
+offset_top = 359.0
+offset_right = 403.0
+offset_bottom = 559.0
+scale = Vector2(1.45638, 1.45638)
+texture = ExtResource("3_63luh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_left = 992.0
+offset_top = 440.0
+offset_right = 1118.0
+offset_bottom = 621.8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Play"
+
+[node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Options"
+
+[node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

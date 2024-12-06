@@ -1,17 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://ch8iqbsyjotwr"]
+[gd_scene load_steps=5 format=3 uid="uid://77mbwehwret5"]
 
-[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_85ygk"]
-[ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk.gd" id="1_p8gxq"]
+[ext_resource type="Script" path="res://dev/NightTime/scripts/dawn_dusk.gd" id="1_875o7"]
+[ext_resource type="Shader" uid="uid://bjc5x5s6b0qxo" path="res://dev/NightTime/shaders/blend_tween_two.tres" id="1_xsswy"]
 
 [sub_resource type="Theme" id="Theme_h6huq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4qc4r"]
-shader = ExtResource("1_85ygk")
-shader_parameter/start_color = Color(1, 0.6875, 0.25, 1)
-shader_parameter/end_color = Color(0.0117647, 0.0509804, 0.145098, 1)
+shader = ExtResource("1_xsswy")
+shader_parameter/start_color = Color(0.0117647, 0.0509804, 0.145098, 1)
+shader_parameter/end_color = Color(1, 0.686275, 0.25098, 1)
 shader_parameter/progress = 0.0
 
-[node name="dusk_menu" type="Control"]
+[node name="dawn_menu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,7 +19,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_h6huq")
-script = ExtResource("1_p8gxq")
+script = ExtResource("1_875o7")
 
 [node name="bg" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4qc4r")
@@ -55,8 +55,9 @@ offset_left = -0.127991
 offset_top = -0.280014
 offset_right = 0.12793
 offset_bottom = -0.208008
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 48
-text = "Nightfall Approaches"
+text = "Morning Approaches"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -68,12 +69,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -128.0
-offset_top = -64.0
+offset_top = -64.5
 offset_right = 128.0
-offset_bottom = 64.0
+offset_bottom = 64.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 10
 theme_override_font_sizes/font_size = 60
-text = "Day ?"
+text = "Day ?
+"
 horizontal_alignment = 1
 vertical_alignment = 1
