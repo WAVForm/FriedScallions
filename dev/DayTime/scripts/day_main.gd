@@ -366,7 +366,7 @@ func _day_cycle_process(delta) -> void:
 			print("Money: $" + str(money))
 			day_ui.visible = false
 			$Camera.visible = false
-			WRAPPER.popularity = 0 if ((WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100)<0) else WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100
+			WRAPPER.popularity = 0.0 if ((WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100)<0) else WRAPPER.popularity - ENEMY_POPULARITY_GROWTH/100
 			overview_ui.visible = true
 			_generate_overview_menu()
 			day_started = false

@@ -39,7 +39,7 @@ func _ready():
 	tea.mouse_exited.connect(func(): unhighlight(tea))
 	get_parent().customer_clicked.connect(func(p: Person): if p.state == Person.STATES.TO_REGISTER or p.state == Person.STATES.AT_REGISTER: navigate_to(p.global_position,STATIONS.NONE))
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if navigating[0]:
 		var dir = (player_agent.get_next_path_position()-player.global_position).normalized()
 		player.velocity = player_speed * dir
