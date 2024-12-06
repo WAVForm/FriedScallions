@@ -11,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
+[ext_resource type="Texture2D" uid="uid://c4duif2eq14ub" path="res://dev/DayTime/images/Overview.png" id="14_7mv5o"]
+[ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
+[ext_resource type="AudioStream" uid="uid://tvqrle8vxoy7" path="res://dev/Audio/Restaurant Ambience  Sound Effect (Copyright Free).mp3" id="15_kcqja"]
+[ext_resource type="Texture2D" uid="uid://cgsqklw1dynaj" path="res://dev/DayTime/textures/enddaybutton.png" id="15_oooba"]
+[ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="15_yuqmv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 bg_color = Color(0.643137, 0.454902, 0.235294, 1)
