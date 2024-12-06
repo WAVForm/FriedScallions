@@ -22,7 +22,7 @@ func _input(event):
 		bg.modulate = Color.WHITE
 		buttons.position = Vector2(42, 290)
 		
-func _process(delta):
+func _process(_delta):
 	if not skipped:
 		if (fade_timer.is_stopped()):
 			if not bg_faded:

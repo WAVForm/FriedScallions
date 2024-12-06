@@ -1,7 +1,7 @@
 extends Node
 
 var audio_handler: AudioStreamPlayer
-var ceil = -12
+var ceiling = -12
 var fade_delta = 0.0
 var fade_started = false
 const title_song = preload("res://dev/Audio/seriousv2.mp3")
@@ -245,13 +245,13 @@ func fade_in(fade_increase):
 		fade_delta = fade_increase
 		audio_handler.volume_db = -60
 		fade_started = true
-	if audio_handler.volume_db < ceil:
+	if audio_handler.volume_db < ceiling:
 		audio_handler.volume_db += fade_increase
 	else:
-		audio_handler.volume_db = ceil
+		audio_handler.volume_db = ceiling
 		fade_started = false
 		return
 		
-func _process(delta):
+func _process(_delta):
 	if fade_started:
 		fade_in(fade_delta)
