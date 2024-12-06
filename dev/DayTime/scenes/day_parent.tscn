@@ -427,7 +427,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.24243, 0.124837, 0.459654)
 texture = ExtResource("23_36vjp")
 
 [node name="display_chloeprefab" parent="inside" instance=ExtResource("10_v5qsa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.2646, 1.13224, -6.55352)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.3638, 1.13224, -6.55352)
 texture = ExtResource("21_js1lt")
 
 [node name="display_chloeprefab17" parent="inside" instance=ExtResource("10_v5qsa")]
