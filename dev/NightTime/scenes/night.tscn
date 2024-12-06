@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cs5xabpbt532u"]
+[gd_scene load_steps=4 format=3 uid="uid://cs5xabpbt532u"]
 
+[ext_resource type="Texture2D" uid="uid://bj1no6yfesx2t" path="res://dev/NightTime/images/Nighttimebackground.png" id="1_8swpr"]
 [ext_resource type="Script" path="res://dev/NightTime/scripts/action_container.gd" id="1_d875b"]
 [ext_resource type="PackedScene" uid="uid://hxr6lxb18kr3" path="res://dev/NightTime/scenes/templates/confirm_button.tscn" id="1_r25sx"]
 
@@ -19,6 +20,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0117895, 0.0508553, 0.143355, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 576.0
+texture = ExtResource("1_8swpr")
+expand_mode = 1
 
 [node name="title" type="Label" parent="."]
 layout_mode = 1

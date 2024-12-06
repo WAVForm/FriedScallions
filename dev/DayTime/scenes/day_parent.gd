@@ -7,7 +7,7 @@ var people = 0
 @onready var inside_camera = $inside_camera as Camera3D
 @onready var outside_camera = $outside_camera as Camera3D
 
-var spawn_delay = [10.0, 10.0] #current time, delay until next person should try to spawn
+var spawn_delay = [1.5, 3.5] #current time, delay until next person should try to spawn
 var spawn_chance = 0.25 #chance for person to spawn after delay
 var can_spawn = true
 

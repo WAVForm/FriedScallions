@@ -6,7 +6,7 @@
 custom_minimum_size = Vector2(200, 30)
 offset_right = 200.0
 offset_bottom = 23.0
-color = Color(0.400698, 0.400698, 0.400698, 1)
+color = Color(0.4, 0.4, 0.4, 0)
 script = ExtResource("1_yaq4j")
 
 [node name="container" type="HBoxContainer" parent="."]

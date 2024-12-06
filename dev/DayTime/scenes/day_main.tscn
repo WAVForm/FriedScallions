@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=22 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -13,8 +13,10 @@
 [ext_resource type="ArrayMesh" uid="uid://bs5y3p5iruoyu" path="res://dev/models/servingtray.tres" id="6_tatth"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
+[ext_resource type="Texture2D" uid="uid://c4duif2eq14ub" path="res://dev/DayTime/images/Overview.png" id="14_7mv5o"]
 [ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
 [ext_resource type="AudioStream" uid="uid://tvqrle8vxoy7" path="res://dev/Audio/Restaurant Ambience  Sound Effect (Copyright Free).mp3" id="15_kcqja"]
+[ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="15_yuqmv"]
 
 [sub_resource type="Curve3D" id="Curve3D_lg64r"]
 _data = {
@@ -24,6 +26,8 @@ _data = {
 point_count = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkr5v"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_bv1vo"]
 font_size = 32
@@ -422,23 +426,34 @@ text = "Start Day"
 process_mode = 3
 visible = false
 
+[node name="TextureRect" type="TextureRect" parent="DayOverUI"]
+offset_left = 366.0
+offset_top = 17.0
+offset_right = 2414.0
+offset_bottom = 2749.0
+scale = Vector2(0.202521, 0.202521)
+texture = ExtResource("14_7mv5o")
+
 [node name="Overview" type="PanelContainer" parent="DayOverUI"]
-offset_left = 374.0
-offset_top = 56.0
-offset_right = 781.0
-offset_bottom = 570.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_cjfnl")
+offset_left = 393.0
+offset_top = 151.0
+offset_right = 800.0
+offset_bottom = 665.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_qkr5v")
 
 [node name="StatList" type="VBoxContainer" parent="DayOverUI/Overview"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_constants/separation = 17
 
 [node name="ColorRect" type="ColorRect" parent="DayOverUI/Overview/StatList"]
+visible = false
 custom_minimum_size = Vector2(400, 35)
 layout_mode = 2
 color = Color(0.392475, 0.403857, 0.306919, 1)
 
 [node name="Title" type="Label" parent="DayOverUI/Overview/StatList/ColorRect"]
+visible = false
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -451,12 +466,22 @@ label_settings = SubResource("LabelSettings_bv1vo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="EndDay" type="Button" parent="DayOverUI"]
-offset_left = 664.0
-offset_top = 510.0
-offset_right = 771.0
-offset_bottom = 559.0
+[node name="ButtonTexture" type="TextureRect" parent="DayOverUI"]
+offset_left = 619.0
+offset_top = 502.0
+offset_right = 1674.0
+offset_bottom = 725.0
+scale = Vector2(0.123061, 0.208454)
+texture = ExtResource("15_yuqmv")
+
+[node name="EndDay" type="Button" parent="DayOverUI/ButtonTexture"]
+offset_left = -195.026
+offset_top = -86.3499
+offset_right = -88.0257
+offset_bottom = -37.3499
+scale = Vector2(13.3348, 7.74961)
 text = "End Day"
+flat = true
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
 layer = 15
@@ -483,4 +508,4 @@ parameters/looping = false
 [connection signal="pressed" from="GameUI/Cake" to="." method="_on_cake_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
 [connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
-[connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
+[connection signal="pressed" from="DayOverUI/ButtonTexture/EndDay" to="." method="_on_end_day_pressed"]
