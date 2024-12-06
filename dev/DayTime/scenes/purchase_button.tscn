@@ -1,6 +1,28 @@
-[gd_scene load_steps=2 format=3 uid="uid://bohubbb30a3tn"]
+[gd_scene load_steps=6 format=3 uid="uid://bohubbb30a3tn"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/purchase_button.gd" id="1_hpyuu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d0hh"]
+bg_color = Color(0.428214, 0.294589, 0.137053, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_heesd"]
+bg_color = Color(0.435888, 0.255026, 0.0149329, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lv4qn"]
+bg_color = Color(0.415716, 0.242296, 0.0135455, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_584qk"]
+bg_color = Color(0.317338, 0.17861, 0.00832441, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 
 [node name="PurchaseButton" type="AspectRatioContainer"]
 custom_minimum_size = Vector2(150, 120)
@@ -14,6 +36,7 @@ script = ExtResource("1_hpyuu")
 
 [node name="AspectRatioContainer" type="PanelContainer" parent="."]
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1d0hh")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="AspectRatioContainer"]
 layout_mode = 2
@@ -21,13 +44,16 @@ layout_mode = 2
 [node name="Label" type="Label" parent="AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
 text = "Thingymabob - Lvl 1"
+vertical_alignment = 1
 
 [node name="Button" type="Button" parent="AspectRatioContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-size_flags_stretch_ratio = 2.0
+theme_override_styles/hover = SubResource("StyleBoxFlat_heesd")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_lv4qn")
+theme_override_styles/normal = SubResource("StyleBoxFlat_584qk")
 text = "Buy"
 
 [connection signal="pressed" from="AspectRatioContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]

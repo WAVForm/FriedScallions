@@ -1,9 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://co11vh44gl0ox"]
+[gd_scene load_steps=9 format=3 uid="uid://co11vh44gl0ox"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scenes/title_screen.gd" id="1_6o682"]
 [ext_resource type="AudioStream" uid="uid://blam2li3imfim" path="res://dev/Audio/seriousv2.mp3" id="2_wiy5r"]
 [ext_resource type="Texture2D" uid="uid://b7tptajwy2l2f" path="res://dev/TitleScreen/images/title.png" id="3_63luh"]
 [ext_resource type="Texture2D" uid="uid://gydkw07wgyxi" path="res://dev/TitleScreen/images/Title Screen.png" id="3_pr4ft"]
+[ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="5_x3qwm"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nb8c7"]
+texture = ExtResource("5_x3qwm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_13fce"]
+texture = ExtResource("5_x3qwm")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ui8qe"]
+texture = ExtResource("5_x3qwm")
 
 [node name="TitleScreen" type="Control"]
 layout_mode = 3
@@ -43,10 +53,10 @@ texture = ExtResource("3_63luh")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
-offset_left = 992.0
-offset_top = 440.0
-offset_right = 1118.0
-offset_bottom = 621.8
+offset_left = 42.0
+offset_top = 332.0
+offset_right = 243.0
+offset_bottom = 622.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -54,16 +64,22 @@ layout_mode = 2
 [node name="Play" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_nb8c7")
 text = "Play"
 
 [node name="Options" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_13fce")
 text = "Options"
 
 [node name="Quit" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxTexture_ui8qe")
 text = "Quit"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Play" to="." method="_on_play_pressed"]

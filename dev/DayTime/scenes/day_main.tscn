@@ -14,9 +14,11 @@
 [ext_resource type="Texture2D" uid="uid://c4duif2eq14ub" path="res://dev/DayTime/images/Overview.png" id="14_7mv5o"]
 [ext_resource type="AudioStream" uid="uid://dr57qsofytr30" path="res://dev/Audio/jazzyv1.mp3" id="14_dbsdv"]
 [ext_resource type="AudioStream" uid="uid://tvqrle8vxoy7" path="res://dev/Audio/Restaurant Ambience  Sound Effect (Copyright Free).mp3" id="15_kcqja"]
+[ext_resource type="Texture2D" uid="uid://cgsqklw1dynaj" path="res://dev/DayTime/textures/enddaybutton.png" id="15_oooba"]
 [ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="15_yuqmv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
+bg_color = Color(0.643137, 0.454902, 0.235294, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qkr5v"]
 
@@ -236,6 +238,15 @@ E
 R
 A"
 
+[node name="ButtonTextureprefab" type="TextureRect" parent="."]
+visible = false
+offset_left = 619.0
+offset_top = 502.0
+offset_right = 1674.0
+offset_bottom = 725.0
+scale = Vector2(0.123061, 0.208454)
+texture = ExtResource("15_yuqmv")
+
 [node name="MorningUI" type="CanvasLayer" parent="."]
 
 [node name="ShopMenu" type="PanelContainer" parent="MorningUI"]
@@ -292,42 +303,52 @@ text = "Current Resources"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="moneybg" type="ColorRect" parent="MorningUI"]
+[node name="UIMoneyBox" type="TextureRect" parent="MorningUI"]
 offset_left = 816.0
-offset_top = 88.0
+offset_top = 89.0
 offset_right = 966.0
 offset_bottom = 138.0
-color = Color(0.336608, 0.336608, 0.336608, 1)
+texture = ExtResource("15_yuqmv")
+expand_mode = 1
 
-[node name="Money" type="Label" parent="MorningUI/moneybg"]
+[node name="Money" type="Label" parent="MorningUI/UIMoneyBox"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 26
 text = "Money: $100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ingredientbg" type="ColorRect" parent="MorningUI"]
-offset_left = 816.0
+[node name="UIIngredientBox" type="TextureRect" parent="MorningUI"]
+offset_left = 815.0
 offset_top = 144.0
-offset_right = 966.0
-offset_bottom = 294.0
-color = Color(0.336608, 0.336608, 0.336608, 1)
+offset_right = 965.0
+offset_bottom = 297.0
+texture = ExtResource("15_yuqmv")
+expand_mode = 1
 
-[node name="IngredientLabel" type="Label" parent="MorningUI/ingredientbg"]
+[node name="IngredientLabel" type="Label" parent="MorningUI/UIIngredientBox"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -3.00006
+offset_top = 3.99997
+offset_right = 4.99994
+offset_bottom = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
+theme_override_font_sizes/font_size = 22
 text = "Ingredients:
 ingredient_1: 50
 ingredient_2: 50
@@ -336,22 +357,32 @@ ingredient_4: 50"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartDay" type="Button" parent="MorningUI"]
-custom_minimum_size = Vector2(150, 50)
+[node name="StartDayButtonTex" type="TextureRect" parent="MorningUI"]
+offset_left = 831.0
+offset_top = 501.0
+offset_right = 1886.0
+offset_bottom = 724.0
+scale = Vector2(0.123061, 0.208454)
+texture = ExtResource("15_yuqmv")
+
+[node name="StartDay" type="Button" parent="MorningUI/StartDayButtonTex"]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 240.0
-offset_top = 180.0
-offset_right = 390.0
-offset_bottom = 230.0
+offset_left = -373.105
+offset_top = -106.703
+offset_right = 409.895
+offset_bottom = 89.2971
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_font_sizes/font_size = 200
 text = "Start Day"
+flat = true
 
 [node name="DayOverUI" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -397,22 +428,21 @@ label_settings = SubResource("LabelSettings_bv1vo")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ButtonTexture" type="TextureRect" parent="DayOverUI"]
-offset_left = 619.0
-offset_top = 502.0
-offset_right = 1674.0
-offset_bottom = 725.0
-scale = Vector2(0.123061, 0.208454)
-texture = ExtResource("15_yuqmv")
+[node name="EndButtonTexture" type="TextureRect" parent="DayOverUI"]
+offset_left = 579.0
+offset_top = 491.0
+offset_right = 1634.0
+offset_bottom = 714.0
+scale = Vector2(0.16226, 0.226985)
+texture = ExtResource("15_oooba")
 
-[node name="EndDay" type="Button" parent="DayOverUI/ButtonTexture"]
+[node name="EndDay" type="Button" parent="DayOverUI/EndButtonTexture"]
 layout_mode = 0
-offset_left = -195.026
-offset_top = -86.3499
-offset_right = -88.0257
-offset_bottom = -37.3499
-scale = Vector2(13.3348, 7.74961)
-text = "End Day"
+offset_left = -6.16245
+offset_top = -4.40558
+offset_right = 100.838
+offset_bottom = 44.5944
+scale = Vector2(9.94859, 4.62198)
 flat = true
 
 [node name="PauseMenu" type="CanvasLayer" parent="."]
@@ -434,5 +464,5 @@ parameters/looping = false
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
-[connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
-[connection signal="pressed" from="DayOverUI/ButtonTexture/EndDay" to="." method="_on_end_day_pressed"]
+[connection signal="pressed" from="MorningUI/StartDayButtonTex/StartDay" to="." method="_on_start_day_pressed"]
+[connection signal="pressed" from="DayOverUI/EndButtonTexture/EndDay" to="." method="_on_end_day_pressed"]
