@@ -196,6 +196,8 @@ static var null_product: Product = Product.new("null", Texture2D.new(), [], 0, 0
 @onready var stat_list = $DayOverUI/Overview/StatList
 
 @onready var outside = $day_parent
+@onready var customer_serve_pos = $Inside/customer_serve.global_position
+@onready var trash_serve_pos = $Inside/trash_serve.global_position
 
 static var server: bool:
 	get:
@@ -345,11 +347,12 @@ func _generate_new_game() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if day_started and not day_ended:
-		_day_cycle_process(time_scale * delta)
-		_server_process(time_scale * delta)
-		_manual_state_process(time_scale * delta)
-		counter_display.update_counter(counter)
-	_customer_process(time_scale * delta)
+		if not day_ended:
+			_day_cycle_process(time_scale * delta)
+			_server_process(time_scale * delta)
+			_manual_state_process(time_scale * delta)
+			counter_display.update_counter(counter)
+		_customer_process(time_scale * delta)
 	_update_labels()
 
 
@@ -575,7 +578,7 @@ func _serve_customer() -> bool:
 		popularity_popup.position.y += 500
 		popularity_popup.delay = 0.375
 		day_ui.add_child(popularity_popup)
-		counter_display.serve_items(items_served)
+		counter_display.serve_items(items_served, customer_serve_pos)
 	
 	customers[0].patience += PATIENCE_ON_SERVE
 	stat_products += len(items_served)
@@ -629,7 +632,9 @@ func _on_station_reach(station: Inside.STATIONS):
 			_on_coffee_pressed()
 
 func _on_trash_pressed() -> void:
-	counter.pop_front()
+	if not counter.is_empty():
+		print()
+		counter_display.serve_items([counter.pop_front()] as Array[Product], trash_serve_pos)
 
 func _on_pastry_pressed() -> void:
 	if pastry.can_produce() and not counter_full() and WRAPPER.purchaseables[0].unlocked:

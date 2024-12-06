@@ -106,6 +106,12 @@ script = ExtResource("3_xjqli")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.5, 0.834, -4.281)
 script = ExtResource("5_r6t8u")
 
+[node name="trash_serve" type="Node3D" parent="Inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.2601, 0.688343, -1.50992)
+
+[node name="customer_serve" type="Node3D" parent="Inside"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.28082, -1.00061)
+
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
 visible = false
