@@ -6,7 +6,8 @@
 size = Vector2(1024, 1024)
 
 [node name="ProductDisplay" type="Sprite3D"]
-pixel_size = 0.001
+offset = Vector2(0, 210)
+pixel_size = 0.003
 billboard = 1
 shaded = true
 texture = SubResource("PlaceholderTexture2D_mjip5")
