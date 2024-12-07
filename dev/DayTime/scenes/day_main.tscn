@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=18 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -19,6 +19,19 @@ corner_radius_top_left = 30
 corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cpftr"]
+bg_color = Color(0.435888, 0.255026, 0.0149329, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kkx6o"]
+bg_color = Color(0.415716, 0.242296, 0.0135455, 1)
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nbrhc"]
+texture = ExtResource("15_yuqmv")
 
 [sub_resource type="LabelSettings" id="LabelSettings_bv1vo"]
 font_size = 32
@@ -324,30 +337,24 @@ ingredient_4: 50"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StartDayButtonTex" type="TextureRect" parent="MorningUI"]
-offset_left = 820.0
-offset_top = 494.0
-offset_right = 969.0
-offset_bottom = 544.0
-texture = ExtResource("15_yuqmv")
-expand_mode = 1
-
-[node name="StartDay" type="Button" parent="MorningUI/StartDayButtonTex"]
-layout_mode = 1
+[node name="StartDay" type="Button" parent="MorningUI"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -61.5
-offset_top = -21.0
-offset_right = 62.5
-offset_bottom = 16.0
+offset_left = 240.0
+offset_top = 164.0
+offset_right = 392.0
+offset_bottom = 220.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_cpftr")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_kkx6o")
+theme_override_styles/normal = SubResource("StyleBoxTexture_nbrhc")
 text = "Start Day"
 
 [node name="DayOverUI" type="CanvasLayer" parent="."]
@@ -397,5 +404,5 @@ follow_viewport_enabled = true
 [connection signal="pressed" from="GameUI/ServeButton" to="." method="_start_serving_customer"]
 [connection signal="pressed" from="GameUI/Quit" to="." method="_on_quit_pressed"]
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
-[connection signal="pressed" from="MorningUI/StartDayButtonTex/StartDay" to="." method="_on_start_day_pressed"]
+[connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]

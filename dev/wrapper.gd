@@ -220,7 +220,7 @@ func play_audio():
 		current_child.get_node("GameUI/Quit").mouse_entered.connect(func(): poly.play_stream(button_sound))
 		current_child.get_node("Camera").mouse_entered.connect(func(): poly.play_stream(button_sound))
 		current_child.get_node("DayOverUI/EndDay").mouse_entered.connect(func(): poly.play_stream(button_sound))
-		current_child.get_node("MorningUI/StartDayButtonTex/StartDay").mouse_entered.connect(func(): poly.play_stream(button_sound))
+		current_child.get_node("MorningUI/StartDay").mouse_entered.connect(func(): poly.play_stream(button_sound))
 		current_child.get_node("day_parent/inside/trash_can").mouse_entered.connect(func(): poly.play_stream(button_sound))
 		current_child.get_node("day_parent/inside/cake_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
 		current_child.get_node("day_parent/inside/pastry_station").mouse_entered.connect(func(): poly.play_stream(button_sound))
@@ -231,7 +231,7 @@ func play_audio():
 		current_child.get_node("GameUI/Quit").pressed.connect(func(): poly.play_stream(select_sound))
 		current_child.get_node("Camera").pressed.connect(func(): poly.play_stream(select_sound))
 		current_child.get_node("DayOverUI/EndDay").pressed.connect(func(): poly.play_stream(select_sound))
-		current_child.get_node("MorningUI/StartDayButtonTex/StartDay").pressed.connect(func(): poly.play_stream(select_sound))
+		current_child.get_node("MorningUI/StartDay").pressed.connect(func(): poly.play_stream(select_sound))
 		
 		current_child.get_node("day_parent/inside/trash_can").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
 		current_child.get_node("day_parent/inside/cake_station").input_event.connect(func(_c,event,_ep,_n,_s): if event is InputEventMouseButton and event.is_pressed() and event.button_index == 1: poly.play_stream(select_sound))
