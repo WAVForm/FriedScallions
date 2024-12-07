@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0mniyqf1at8e"]
+[gd_scene load_steps=22 format=3 uid="uid://d0mniyqf1at8e"]
 
 [ext_resource type="Script" path="res://dev/DayTime/scripts/day_main.gd" id="1_jp6l8"]
 [ext_resource type="PackedScene" uid="uid://dcw4xtglhssda" path="res://dev/DayTime/scenes/day_parent.tscn" id="2_eg5aa"]
@@ -11,7 +11,25 @@
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="6_5breu"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="7_61g81"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="8_jrcjw"]
+[ext_resource type="Script" path="res://dev/DayTime/scripts/progress_bar.gd" id="12_c13ib"]
 [ext_resource type="Texture2D" uid="uid://bc7le3npcow1l" path="res://dev/DayTime/images/button.png" id="15_yuqmv"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_147ej"]
+viewport_path = NodePath("GameUI/ProgressTexture")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4iif6"]
+bg_color = Color(0.144063, 0.144063, 0.144062, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qc63c"]
+bg_color = Color(0.692237, 0.692237, 0, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cjfnl"]
 bg_color = Color(0.643137, 0.454902, 0.235294, 1)
@@ -99,20 +117,26 @@ CAKE_3_PRICE = 9
 CAKE_3_POPULARITY = 9
 CAKE_PRICE_BASE = 100
 CAKE_PRICE_SCALE = 300
-FLOUR_START_AMOUNT = 6
+FLOUR_START_AMOUNT = 32
 FLOUR_PRICE = 3
 FLOUR_BUY_AMOUNT = 10
-BUTTER_START_AMOUNT = 16
+BUTTER_START_AMOUNT = 32
 BUTTER_PRICE = 6
 BUTTER_BUY_AMOUNT = 10
-MILK_START_AMOUNT = 48
+MILK_START_AMOUNT = 32
 MILK_PRICE = 4
 MILK_BUY_AMOUNT = 10
-SUGAR_START_AMOUNT = 24
+SUGAR_START_AMOUNT = 32
 SUGAR_BUY_AMOUNT = 10
 
 [node name="day_parent" parent="." instance=ExtResource("2_eg5aa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 6.5)
+
+[node name="Sprite3D" type="Sprite3D" parent="day_parent/inside/player" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+pixel_size = 0.005
+billboard = 1
+texture = SubResource("ViewportTexture_147ej")
 
 [node name="Inside" type="Node3D" parent="."]
 
@@ -131,7 +155,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 1.28082, -1.00061)
 
 [node name="GameUI" type="CanvasLayer" parent="."]
 layer = 5
-visible = false
 
 [node name="Panel" type="Panel" parent="GameUI"]
 visible = false
@@ -164,21 +187,27 @@ offset_right = 661.0
 offset_bottom = 551.0
 text = "Serve"
 
+[node name="ProgressTexture" type="SubViewport" parent="GameUI"]
+transparent_bg = true
+size = Vector2i(256, 32)
+
+[node name="ProgressBar" type="ProgressBar" parent="GameUI/ProgressTexture"]
+offset_right = 256.0
+offset_bottom = 32.0
+theme_override_styles/background = SubResource("StyleBoxFlat_4iif6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_qc63c")
+max_value = 1.0
+step = 0.0
+show_percentage = false
+script = ExtResource("12_c13ib")
+
 [node name="ProgressLabel" type="Label" parent="GameUI"]
+visible = false
 offset_left = 694.0
 offset_top = 246.0
 offset_right = 766.0
 offset_bottom = 269.0
 text = "Progress:"
-
-[node name="ProgressBar" type="ProgressBar" parent="GameUI"]
-offset_left = 703.0
-offset_top = 284.0
-offset_right = 956.0
-offset_bottom = 316.0
-max_value = 1.0
-step = 0.0
-show_percentage = false
 
 [node name="AutoServeDisplay" type="Control" parent="GameUI"]
 visible = false
@@ -412,3 +441,5 @@ follow_viewport_enabled = true
 [connection signal="toggled" from="Camera" to="." method="_on_camera_toggled"]
 [connection signal="pressed" from="MorningUI/StartDay" to="." method="_on_start_day_pressed"]
 [connection signal="pressed" from="DayOverUI/EndDay" to="." method="_on_end_day_pressed"]
+
+[editable path="day_parent"]
