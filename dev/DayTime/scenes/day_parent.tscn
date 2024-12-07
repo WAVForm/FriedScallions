@@ -1,16 +1,16 @@
-[gd_scene load_steps=58 format=3 uid="uid://dcw4xtglhssda"]
+[gd_scene load_steps=57 format=3 uid="uid://dcw4xtglhssda"]
 
 [ext_resource type="Script" path="res://dev/DayTime/day_parent.gd" id="1_bsikx"]
-[ext_resource type="PackedScene" uid="uid://cxpi0tkbmew6x" path="res://dev/models/intersection.blend" id="2_5quki"]
+[ext_resource type="PackedScene" uid="uid://bcbayujhxyhl0" path="res://dev/DayTime/scenes/outside_model.tscn" id="2_basmm"]
 [ext_resource type="ArrayMesh" uid="uid://djbhi7rsugf7s" path="res://dev/models/person_Sphere.res" id="3_q47cd"]
 [ext_resource type="Script" path="res://dev/DayTime/scripts/inside.gd" id="4_tqm5m"]
-[ext_resource type="ArrayMesh" uid="uid://bkbkgkdvi2ok3" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
-[ext_resource type="ArrayMesh" uid="uid://ds0judp6himp8" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
+[ext_resource type="ArrayMesh" uid="uid://cbqwnyhkngx1c" path="res://dev/models/trashcan.tres" id="5_1a5x4"]
+[ext_resource type="ArrayMesh" uid="uid://dm7c06qblqxcj" path="res://dev/models/cakestation.tres" id="6_f6gmn"]
 [ext_resource type="Texture2D" uid="uid://blt5uwht1v8k4" path="res://dev/DayTime/textures/texture_cake3.png" id="7_4esds"]
-[ext_resource type="ArrayMesh" uid="uid://b7yk0yskhl3wr" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
+[ext_resource type="ArrayMesh" uid="uid://c5p3o7nrmph0f" path="res://dev/models/sandwichstation.tres" id="7_vq10d"]
 [ext_resource type="Texture2D" uid="uid://ds0ydlyblj6jh" path="res://dev/DayTime/textures/texture_cake2.png" id="8_4qjuk"]
-[ext_resource type="ArrayMesh" uid="uid://b5riijxshyfbu" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
-[ext_resource type="ArrayMesh" uid="uid://b87votiic8elc" path="res://dev/models/teastation.tres" id="9_463ym"]
+[ext_resource type="ArrayMesh" uid="uid://cuktpv7smho34" path="res://dev/models/coffeestation.tres" id="8_u0bj6"]
+[ext_resource type="ArrayMesh" uid="uid://dettdm1d3x33b" path="res://dev/models/teastation.tres" id="9_463ym"]
 [ext_resource type="Texture2D" uid="uid://bm1abjthynyn4" path="res://dev/DayTime/textures/texture_cake1.png" id="9_oghh5"]
 [ext_resource type="ArrayMesh" uid="uid://c8ytpfu3y7upx" path="res://dev/models/servingtray.tres" id="10_77ef6"]
 [ext_resource type="PackedScene" uid="uid://c31o4wi77l76q" path="res://dev/DayTime/scenes/product_display.tscn" id="10_v5qsa"]
@@ -34,7 +34,6 @@
 [ext_resource type="Texture2D" uid="uid://doktd1djs5omo" path="res://dev/DayTime/textures/browncupz.png" id="29_56vpk"]
 [ext_resource type="Texture2D" uid="uid://cdhq1mgnsmm0q" path="res://dev/DayTime/textures/texture_coffeestation2.png" id="31_uuk65"]
 [ext_resource type="Texture2D" uid="uid://cq5me6sapquhc" path="res://dev/DayTime/textures/texture_tea1.png" id="33_jwqgf"]
-[ext_resource type="Texture2D" uid="uid://c8t7rldpvhl18" path="res://dev/DayTime/textures/DaytimeBackground.png" id="35_cb2t1"]
 
 [sub_resource type="Curve3D" id="Curve3D_gfkr7"]
 _data = {
@@ -165,12 +164,12 @@ ambient_light_energy = 1.19
 [node name="day_parent" type="Node3D"]
 script = ExtResource("1_bsikx")
 
-[node name="outside_model" parent="." instance=ExtResource("2_5quki")]
+[node name="outside_model" parent="." instance=ExtResource("2_basmm")]
 
 [node name="friendly" type="Node3D" parent="."]
 
 [node name="advertiser" type="MeshInstance3D" parent="friendly"]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 2, 0.5, 2)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, 2, 0.5, 1.06772)
 mesh = ExtResource("3_q47cd")
 
 [node name="to_advert" type="Path3D" parent="friendly"]
@@ -204,7 +203,7 @@ curve = SubResource("Curve3D_25nln")
 [node name="enemy" type="Node3D" parent="."]
 
 [node name="advertiser" type="MeshInstance3D" parent="enemy"]
-transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -2, 0.5, 2)
+transform = Transform3D(0.15, 0, 0, 0, 0.15, 0, 0, 0, 0.15, -2, 0.5, 1.06772)
 mesh = ExtResource("3_q47cd")
 skeleton = NodePath("../../friendly")
 
@@ -237,7 +236,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.75, 0.2, -3.4)
 curve = SubResource("Curve3D_0a43h")
 
 [node name="outside_camera" type="Camera3D" parent="."]
-transform = Transform3D(0.984808, -0.0733869, 0.157379, 0, 0.906308, 0.422618, -0.173648, -0.416198, 0.892539, 4.795, 7, 12)
+transform = Transform3D(0.950516, -0.131298, 0.281568, 0, 0.906308, 0.422618, -0.310676, -0.401705, 0.86146, 6.24, 4.085, 12)
 
 [node name="inside_camera" type="Camera3D" parent="."]
 transform = Transform3D(0.333807, -0.345479, 0.87705, 0, 0.930418, 0.366501, -0.942642, -0.122341, 0.31058, 13.84, 2.735, -5.86)
@@ -605,10 +604,6 @@ target_desired_distance = 2.0
 debug_enabled = true
 debug_path_custom_color = Color(1, 0, 0, 1)
 
-[node name="ProgressBarSprite" type="Sprite3D" parent="inside/player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-billboard = 1
-
 [node name="floor_nav" type="NavigationRegion3D" parent="inside"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.09258, 0, -10.7068)
 navigation_mesh = SubResource("NavigationMesh_dnp34")
@@ -666,11 +661,3 @@ environment = SubResource("Environment_jdvt5")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.195587, 0.980686, 0, -0.980686, 0.195587, 0, 1.93383, 0)
 light_color = Color(0.788977, 0.799075, 0.920908, 1)
-
-[node name="background" type="Sprite3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.40494, 5.07272, -14.9927)
-texture = ExtResource("35_cb2t1")
-
-[node name="background2" type="Sprite3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14.9731, 5.09561, 2.34076)
-texture = ExtResource("35_cb2t1")
