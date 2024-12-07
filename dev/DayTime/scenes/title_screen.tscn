@@ -25,11 +25,9 @@ script = ExtResource("1_6o682")
 
 [node name="Background Image" type="TextureRect" parent="."]
 modulate = Color(0.986752, 0.986752, 0.986752, 1)
-layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 1027.0
-offset_bottom = 1026.0
+layout_mode = 1
+offset_right = 1024.0
+offset_bottom = 1029.0
 scale = Vector2(1.12487, 0.629961)
 texture = ExtResource("3_pr4ft")
 expand_mode = 1
